@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+            list-style: none;
+            padding-left: 20px; /* Adjust this value to increase or decrease the right shift */
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>RECURSION</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='2Darray.html'"><b>2D Array</b></div>
+            <div class="tab" onclick="location.href='graphs.html'"><b>Graphs</b></div>
+            <div class="tab" onclick="location.href='linkedlist.html'"><b>Linked List</b></div>
+            <div class="tab" onclick="location.href='queues.html'"><b>Queues</b></div>
+            <div class="tab" onclick="location.href='recursion.html'"><b>Recursion</b></div>
+            <div class="tab" onclick="location.href='searching.html'"><b>Searching Algorithms</b></div>
+            <div class="tab" onclick="location.href='singlearray.html'"><b>Single Dimension Array</b></div>
+            <div class="tab" onclick="location.href='sorting.html'"><b>Sorting</b></div>
+            <div class="tab" onclick="location.href='stack.html'"><b>Stack</b></div>
+            <div class="tab" onclick="location.href='string.html'"><b>Strings</b></div>
+            <div class="tab" onclick="location.href='trees.html'"><b>Trees</b></div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol>
+                <li onclick="toggleCode(0)">1. Calculate factorial of a number using recursion.</li>
+                <li onclick="toggleCode(1)">2. Calculate Fibonacci of a number using recursion.</li>
+                <li onclick="toggleCode(2)">3. Calculate the sum of natural numbers till 10 using recursion.</li>
+                <li onclick="toggleCode(3)">4. Convert a number into binary using recursion.</li>
+                <li onclick="toggleCode(4)">5. Find the largest element in the integer array using recursion.</li>
+                <li onclick="toggleCode(5)">6. Find the smallest element in the integer array using recursion.</li>
+                <li onclick="toggleCode(6)">7. Enter the number from the user and add all digits of the number using recursion.</li>
+                <li onclick="toggleCode(7)">8. Find the arithmetic mean of an integer array using recursion.</li>
+                
+            </ol>
+        </div>
+
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+                <textarea readonly>
+//1.CALCULATE FACTORIAL OF A NUMBER USING RECURSION
+#include <stdio.h>
+
+int factorial(int num) {
+    if (num < 0) {
+        printf("Factorial is not defined for negative numbers.\n");
+        return -1; 
+    }
+    if (num == 0) {
+        return 1;
+    } else {
+        return num * factorial(num - 1);
+    }
+}
+
+int main() {
+    int num, result;
+    printf("ENTER THE NUMBER: ");
+    scanf("%d", &num);
+    
+    result = factorial(num);
+    if (result != -1) {
+        printf("\nFACTORIAL OF %d IS %d\n", num, result);
+    }
+    
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER THE NUMBER: 10
+
+FACTORIAL OF 10 IS 3628800
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-1">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+                <textarea readonly>
+//2.CALCULATE FIBONACCI  OF A NUMBER USING RECURSION
+#include <stdio.h>
+
+int fibbo(int num) {
+    if (num < 0) {
+        printf("Fibonacci is not defined for negative numbers.\n");
+        return -1; 
+    }
+    if (num == 0) {
+        return 0;
+    } else if (num == 1) {
+        return 1;
+    } else {
+        return fibbo(num - 1) + fibbo(num - 2);
+    }
+}
+
+int main() {
+    int num, result;
+    printf("ENTER THE NUMBER: ");
+    scanf("%d", &num);
+    
+    result = fibbo(num); 
+    if (result != -1) {
+        printf("\nFIBONACCI OF %d IS %d\n", num, result);
+    }
+
+  
+}
+
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER THE NUMBER: 21
+
+FIBONACCI OF A 21 IS 10946 
+
+ENTER THE NUMBER: -2
+Fibonacci is not defined for negative numbers.
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-2">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+                <textarea readonly>
+//3.CALCULATE THE SUM OF NATURAL NUMBERS TILL 10 USING RECURSION
+#include<stdio.h>
+int sum(int n)
+{ 
+     int a;
+     
+  if(n!=0)
+  {
+    return  n+sum(n-1);
+    
+  }
+  else 
+  {
+    //a=sum(n+1);
+    return n;
+  }
+}
+int main()
+{
+  int n,result;
+    printf("ENTER THE NUMBER: ");
+  scanf("%d",&n);
+  result=sum(n);
+  printf("%d",result);
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER THE NUMBER: 10
+55
+
+ENTER THE NUMBER: 2
+3
+      
+  </textarea>
+            </div>
+        </div>
+<div class="code-output" id="code-output-3">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+                <textarea readonly>
+//4.CONVERT A NUMBER INTO BINARY USING RECURSION
+#include <stdio.h>
+
+void binary(int num) 
+{
+    if (num>0)
+   {
+       int rem;
+        binary(num/2);
+        rem=num%2;
+        printf("%d",rem);
+    }
+}
+
+int main() 
+{
+    int num;
+    printf("ENTER THE NUMBER: ");
+    scanf("%d", &num);
+
+    if (num!=0) 
+   {
+        printf("RESULT: ");
+        binary(num);
+    }
+    
+
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER THE NUMBER: 12
+RESULT: 1100
+
+ENTER THE NUMBER: 35
+RESULT: 100011
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-4">
+            <div class="code-frame">
+                <h2>5. Code</h2>
+                <textarea readonly>
+//5.FIND THE LARGEST ELEMENT IN THE INTEGER ARRAY USING RECURSION.
+#include <stdio.h>
+#include <stdlib.h>
+
+int largest(int* arr, int size, int max) {
+    if (size == 0) {
+        return max;
+    }
+    if (arr[size - 1] > max) {
+        max = arr[size - 1];
+    }
+    return largest(arr, size - 1, max);
+}
+
+int main() {
+    int size, *arr, result;
+
+    printf("ENTER SIZE OF ARRAY: ");
+    scanf("%d", &size);
+
+
+    if (size <= 0) {
+        printf("Array size must be greater than 0.\n");
+        return 1; 
+    }
+
+    arr = (int*)malloc(size * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    printf("ENTER ARRAY INPUT:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    result = largest(arr, size, arr[0]);
+    printf("\nLARGEST ELEMENT: %d\n", result);
+
+
+    free(arr);
+
+}
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY: 5
+ENTER ARRAY INPUT:
+21
+-2
+90
+92
+34
+
+LARGEST ELEMENT: 92
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-5">
+            <div class="code-frame">
+                <h2>6. Code</h2>
+                <textarea readonly>
+//6. FIND THE SMALLEST ELEMENT IN THE INTEGER ARRAY USING RECURSION.
+#include <stdio.h>
+#include <stdlib.h>
+
+int smallest(int* arr, int size, int min) {
+    if (size == 0) {
+        return min;
+    }
+    if (arr[size - 1] < min) {
+        min = arr[size - 1];
+    }
+    return smallest(arr, size - 1, min);
+}
+
+int main() {
+    int size, *arr, result;
+
+    printf("ENTER SIZE OF ARRAY: ");
+    scanf("%d", &size);
+
+    if (size <= 0) {
+        printf("Array size must be greater than 0.\n");
+        return 1; 
+    }
+
+    arr = (int*)malloc(size * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1; 
+    }
+
+    printf("ENTER ARRAY INPUT:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    result = smallest(arr, size, arr[0]);
+    printf("\nSMALLEST ELEMENT: %d\n", result);
+
+
+    free(arr);
+
+}
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY: 6
+ENTER ARRAY INPUT:
+10
+-2
+34
+-100
+23
+34
+
+SMALLEST ELEMENT: -100
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-6">
+            <div class="code-frame">
+                <h2>7. Code</h2>
+                <textarea readonly>
+//7.ENTER THE NUMBER FROM USER AND ADD ALL THE DIGITS OF THE NUMBER USING RECURSION
+#include <stdio.h>
+
+int sum(int num) {
+    if (num == 0) {
+        return 0; 
+    } else {
+        return (num % 10 + sum(num / 10)); 
+    }
+}
+
+int main() {
+    int num, result;
+    printf("ENTER THE NUMBER: ");
+    scanf("%d", &num);
+
+    if (num < 0) {
+        num = -num; 
+    }
+
+    result = sum(num); 
+    printf("\nADDITION OF DIGITS: %d\n", result);
+
+    return 0;
+}
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER THE NUMBER: -178
+
+ADDITION OF DIGITS: 16
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-7">
+            <div class="code-frame">
+                <h2>8. Code</h2>
+                <textarea readonly>
+//8. FIND THE ARITHMETIC MEAN OF AN INTEGER ARRAY USING RECURSION.
+#include <stdio.h>
+#include <stdlib.h>
+
+int sum(int arr[], int size, int i) {
+    if (i == size) {
+        return 0; 
+    } else {
+        return arr[i] + sum(arr, size, i + 1);
+    }
+}
+
+float arithmetic(int arr[], int size) {
+    if (size <= 0) {
+        return 0; 
+    }
+    int add = sum(arr, size, 0); 
+    return (float)add / size; 
+}
+int main() {
+    int size, *arr, i;
+    float result;
+
+    printf("ENTER SIZE OF ARRAY: ");
+    scanf("%d", &size);
+
+    if (size <= 0) {
+        printf("Array size must be greater than 0.\n");
+        return 1; }
+
+
+    arr = (int*)malloc(size * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1; 
+    }
+
+    printf("ENTER ARRAY INPUT:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    result = arithmetic(arr, size);
+    printf("The arithmetic mean of the array is: %f\n", result);
+
+    free(arr);
+}
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY: 5
+ENTER ARRAY INPUT:
+23
+45
+12
+78
+-90
+The arithmetic mean of the array is: 13.600000
+</textarea>
+</div>
+</div>
+
+
+    </DIV>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+    <script>
+        function toggleCode(index) {
+            const codeOutput = document.getElementById(`code-output-${index}`);
+            const isVisible = codeOutput.style.display === "flex";
+            
+            // Hide all code outputs first
+            const allOutputs = document.querySelectorAll('.code-output');
+            allOutputs.forEach(output => output.style.display = "none");
+            
+            // Toggle visibility of the selected output only if it was not already visible
+            if (!isVisible) {
+                codeOutput.style.display = "flex";
+            }
+        }
+
+        // Initially hide all code outputs
+        document.querySelectorAll('.code-output').forEach(output => {
+            output.style.display = "none";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+            list-style: none;
+            padding-left: 20px; /* Adjust this value to increase or decrease the right shift */
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GRAPHS</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='2Darray.html'"><b>2D Array</b></div>
+            <div class="tab" onclick="location.href='graphs.html'"><b>Graphs</b></div>
+            <div class="tab" onclick="location.href='linkedlist.html'"><b>Linked List</b></div>
+            <div class="tab" onclick="location.href='queues.html'"><b>Queues</b></div>
+            <div class="tab" onclick="location.href='recursion.html'"><b>Recursion</b></div>
+            <div class="tab" onclick="location.href='searching.html'"><b>Searching Algorithms</b></div>
+            <div class="tab" onclick="location.href='singlearray.html'"><b>Single Dimension Array</b></div>
+            <div class="tab" onclick="location.href='sorting.html'"><b>Sorting</b></div>
+            <div class="tab" onclick="location.href='stack.html'"><b>Stack</b></div>
+            <div class="tab" onclick="location.href='string.html'"><b>Strings</b></div>
+            <div class="tab" onclick="location.href='trees.html'"><b>Trees</b></div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol>
+                <li onclick="toggleCode(0)">1. Enter the vertices and edges and represent in adjacency matrix and print it</li>
+                <li onclick="toggleCode(1)">2. Create the graph as a adjacency list with operations such as insertion, deletion</li>
+                <li onclick="toggleCode(2)">3. Traverse the adjacent matrix with depth first search</li>
+                <li onclick="toggleCode(3)">4. Traverse the adjacent list with depth first search</li>
+                <li onclick="toggleCode(4)">5. Traverse the adjacent matrix with breadth first search</li>
+                <li onclick="toggleCode(5)">6. Traverse the adjacent list with breadth first search</li>
+
+            </ol>
+        </div>
+
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+                <textarea readonly>
+//1. ENTER THE VERTICES AND EDGES AND REPRESENT IN ADJACENCY MATRIX 
+AND PRINT IT.
+#include<stdio.h>
+
+int main() 
+{
+    int vertices,edges,i,j;
+    int u,v;
+    printf("Enter the number of vertices:");
+    scanf("%d", &vertices);
+
+    int adjMatrix[vertices][vertices];
+    for (i = 0; i < vertices; i++) {
+        for (j = 0; j < vertices; j++) {
+            adjMatrix[i][j] = 0;
+        }
+    }
+
+
+    printf("Enter the number of edges: ");
+    scanf("%d", &edges);
+
+    for (i = 0; i < edges; i++) {
+        printf("Enter edge %d (u v): ", i + 1);
+        scanf("%d %d", &u, &v);
+        adjMatrix[u][v] = 1;
+        adjMatrix[v][u] = 1; 
+    }
+
+
+    printf("The adjacency matrix is:\n");
+    for (i = 0; i < vertices; i++) {
+        for (j = 0; j < vertices; j++) {
+            printf("%d ", adjMatrix[i][j]);
+        }
+        printf("\n");
+    }
+
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of vertices:4
+Enter the number of edges: 4
+Enter edge 1 (u v): 0
+1
+Enter edge 2 (u v): 1
+2
+Enter edge 3 (u v): 2
+3
+Enter edge 4 (u v): 3
+0
+The adjacency matrix is:
+0 1 0 1 
+1 0 1 0 
+0 1 0 1 
+1 0 1 0 
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-1">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+                <textarea readonly>
+//2. CREATE THE GRAPH AS A ADJACENCY LIST WITH OPERATIONS SUCH AS 
+INSERTION, DELETION
+#include<stdio.h>
+#define MAX_VERTICES 10 
+
+struct Node
+{
+    int dest;
+};
+
+struct AdjList
+{
+    struct Node nodes[MAX_VERTICES];
+    int count; 
+};
+
+struct Graph 
+{
+    int vertices;
+    struct AdjList array[MAX_VERTICES];
+};
+
+struct Graph createGraph(int vertices) 
+{
+    struct Graph graph;
+    graph.vertices=vertices;
+    int i;
+    for(i=0;i<vertices;i++)
+    {
+        graph.array[i].count=0;
+    }
+    return graph;
+}
+
+void addEdge(struct Graph* graph,int src,int dest) 
+{
+    if(graph->array[src].count<MAX_VERTICES && graph->array[dest].count<MAX_VERTICES) 
+    {
+        graph->array[src].nodes[graph->array[src].count].dest=dest;
+        graph->array[src].count++;
+        graph->array[dest].nodes[graph->array[dest].count].dest= src;
+        graph->array[dest].count++;
+    } 
+    else
+    {
+        printf("Node limit is reached\n");
+    }
+}
+
+void deleteEdge(struct Graph* graph,int src,int dest) 
+{
+    int i,j;
+    for(i=0;i<graph->array[src].count;i++)
+    {
+        if(graph->array[src].nodes[i].dest==dest)
+        {
+            for(j=i;j<graph->array[src].count-1;j++)
+            {
+                graph->array[src].nodes[j]=graph->array[src].nodes[j+1];
+            }
+            graph->array[src].count--;
+            break;
+        }
+    }
+    for(i=0;i<graph->array[dest].count;i++)
+    {
+        if(graph->array[dest].nodes[i].dest==src)
+        {
+            for(j=i;j<graph->array[dest].count-1;j++)
+            {
+                graph->array[dest].nodes[j]=graph->array[dest].nodes[j+1];
+            }
+            graph->array[dest].count--;
+            break;
+        }
+    }
+}
+
+void printGraph(struct Graph* graph) 
+{
+    int v,i;
+    for(v=0;v<graph->vertices;++v)
+    {
+        printf("\nAdjacency list of vertex %d\n head ",v);
+        for(i=0;i<graph->array[v].count;i++)
+        {
+            printf("-> %d",graph->array[v].nodes[i].dest);
+        }
+        printf("\n");
+    }
+}
+
+int main() 
+{
+    int vertices,edges,src,dest,i;
+    printf("Enter the number of vertices (max %d): ",MAX_VERTICES);
+    scanf("%d",&vertices);
+    if(vertices>MAX_VERTICES)
+    {
+        printf("Error: Maximum number of vertices is %d\n", MAX_VERTICES);
+        return 1;
+    }
+    struct Graph graph=createGraph(vertices);
+    printf("Enter the number of edges:");
+    scanf("%d",&edges);
+    for(i=0;i<edges;i++)
+    {
+        printf("Enter edge %d (source destination): ",i+1);
+        scanf("%d %d",&src,&dest);
+        if(src>=0 && src<vertices && dest>=0 && dest<vertices) 
+        {
+            addEdge(&graph,src,dest);
+        } 
+        else
+        {
+            printf("Error: Invalid vertices! Please enter values between 0 and %d.\n",vertices-1);
+            i--; 
+        }
+    }
+    printGraph(&graph);
+    char choice;
+    printf("Do you want to delete an edge? (y/n): ");
+    scanf(" %c",&choice);
+    if(choice=='y' || choice=='Y')
+    {
+        printf("Enter the edge to delete (source destination): ");
+        scanf("%d %d",&src,&dest);
+        deleteEdge(&graph,src,dest);
+        printGraph(&graph);
+    }
+    
+    return 0;
+}
+
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of vertices (max 10): 4
+Enter the number of edges:4
+Enter edge 1 (source destination): 0
+1
+Enter edge 2 (source destination): 0
+2
+Enter edge 3 (source destination): 1
+2
+Enter edge 4 (source destination): 1
+3
+
+Adjacency list of vertex 0
+ head -> 1-> 2
+
+Adjacency list of vertex 1
+ head -> 0-> 2-> 3
+
+Adjacency list of vertex 2
+ head -> 0-> 1
+
+Adjacency list of vertex 3
+ head -> 1
+Do you want to delete an edge? (y/n): n
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-2">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+                <textarea readonly>
+//3. TRAVERSE THE ADJACENT MATRIX WITH DEPTH FIRST SEARCH
+#include<stdio.h>
+#define MAX_VERTICES 10 
+
+void DFS(int graph[MAX_VERTICES][MAX_VERTICES],int visited[],int vertices,int vertex) 
+{
+    int i;
+    visited[vertex]=1; 
+    printf("%d ",vertex); 
+    for(i=0;i<vertices;i++)
+    {
+        if(graph[vertex][i]==1 && visited[i]==0)
+        {
+            DFS(graph,visited,vertices,i);
+        }
+    }
+}
+
+void createGraph(int graph[MAX_VERTICES][MAX_VERTICES],int vertices, int edges)
+{
+    int i,j;
+    for(i=0;i<vertices;i++)
+    {
+        for(j=0;j<vertices;j++)
+        {
+            graph[i][j]=0; 
+        }
+    }
+    for(i=0;i<edges;i++) 
+    {
+        int src,dest;
+        printf("Enter edge %d (source destination): ",i+1);
+        scanf("%d %d",&src,&dest);
+        if(src>=0 && src<vertices && dest>=0 && dest<vertices) 
+        {
+            graph[src][dest]=1; 
+            graph[dest][src]=1; 
+        }
+        else 
+        {
+            printf("Error: Invalid vertices! Please enter values between 0 and %d.\n",vertices-1);
+            i--; 
+        }
+    }
+}
+
+int main() 
+{
+    int graph[MAX_VERTICES][MAX_VERTICES];
+    int vertices,edges;
+    printf("Enter the number of vertices (max %d): ",MAX_VERTICES);
+    scanf("%d",&vertices);
+    if(vertices>MAX_VERTICES) 
+    {
+        printf("Error: Maximum number of vertices is %d\n", MAX_VERTICES);
+        return 1;
+    }
+    printf("Enter the number of edges: ");
+    scanf("%d",&edges);
+    createGraph(graph,vertices,edges);
+    
+    int visited[MAX_VERTICES]={0};
+    printf("Depth First Search starting from vertex 0:\n");
+    DFS(graph,visited,vertices,0);
+    printf("\n");
+
+    return 0;
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of vertices (max 10): 4
+Enter the number of edges: 4
+Enter edge 1 (source destination): 0
+1
+Enter edge 2 (source destination): 0
+2
+Enter edge 3 (source destination): 1
+2
+Enter edge 4 (source destination): 1
+3
+Depth First Search starting from vertex 0:
+0 1 2 3 
+                </textarea>
+            </div>
+        </div>
+<div class="code-output" id="code-output-3">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+                <textarea readonly>
+//4. TRAVERSE THE ADJACENT LIST WITH DEPTH FIRST SEARCH
+
+#include<stdio.h>
+#define MAX_VERTICES 10 
+#define MAX_EDGES 5     
+
+struct Graph 
+{
+    int vertices;
+    int adj[MAX_VERTICES][MAX_EDGES]; 
+    int degree[MAX_VERTICES];          
+};
+
+struct Graph createGraph(int vertices) 
+{
+    int i,j;
+    struct Graph graph;
+    graph.vertices=vertices;
+    for(i=0;i<vertices;i++)
+    {
+        graph.degree[i]=0; 
+        for(j=0;j<MAX_EDGES;j++)
+        {
+            graph.adj[i][j]=-1;
+        }
+    }
+    return graph;
+}
+
+void addEdge(struct Graph* graph,int src,int dest) 
+{
+    if(graph->degree[src]<MAX_EDGES && graph->degree[dest]< MAX_EDGES) 
+    {
+        graph->adj[src][graph->degree[src]++]=dest;
+        graph->adj[dest][graph->degree[dest]++]=src; 
+    } 
+    else
+    {
+        printf("Error: Maximum edges exceeded for vertex %d\n",src);
+    }
+}
+
+void DFS(struct Graph* graph,int visited[],int vertex) 
+{
+    int i;
+    visited[vertex]=1; 
+    printf("%d ",vertex); 
+    for(i=0;i<graph->degree[vertex];i++) 
+    {
+        int adjVertex=graph->adj[vertex][i];
+        if(visited[adjVertex]==0)
+        {
+            DFS(graph,visited,adjVertex);
+        }
+    }
+}
+
+int main() 
+{
+    int vertices,i;
+    printf("Enter the number of vertices (max %d): ",MAX_VERTICES);
+    scanf("%d",&vertices);
+    if(vertices>MAX_VERTICES) 
+    {
+        printf("Error: Maximum number of vertices is %d\n", MAX_VERTICES);
+        return 1;
+    }
+    struct Graph graph=createGraph(vertices);
+    int edges;
+    printf("Enter the number of edges: ");
+    scanf("%d",&edges);
+    for(i=0;i<edges;i++)
+    {
+        int src,dest;
+        printf("Enter edge %d (source destination): ",i+1);
+        scanf("%d %d",&src,&dest);
+        if(src>=0 && src<vertices && dest>=0 && dest<vertices) 
+        {
+            addEdge(&graph,src,dest);
+        } 
+        else
+        {
+            printf("Error: Invalid vertices! Please enter values between 0 and %d.\n",vertices-1);
+            i--; 
+        }
+    }
+    int visited[MAX_VERTICES]={0};
+    printf("Depth First Search starting from vertex 0:\n");
+    DFS(&graph,visited,0);
+    printf("\n");
+
+    return 0;
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of vertices (max 10): 5
+Enter the number of edges: 5
+Enter edge 1 (source destination): 0
+1
+Enter edge 2 (source destination): 0
+2
+Enter edge 3 (source destination): 1
+3
+Enter edge 4 (source destination): 1
+4
+Enter edge 5 (source destination): 2
+4
+Depth First Search starting from vertex 0:
+0 1 3 4 2 
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-4">
+            <div class="code-frame">
+                <h2>5. Code</h2>
+                <textarea readonly>
+//5. TRAVERSE THE ADJACENT MATRIX WITH BREADTH FIRST 
+
+#include<stdio.h>
+#define MAX_VERTICES 10 
+
+struct Queue 
+{
+    int items[MAX_VERTICES];
+    int front,rear;
+};
+
+void initQueue(struct Queue* q) 
+{
+    q->front=-1;
+    q->rear=-1;
+}
+
+int isEmpty(struct Queue* q) 
+{
+    return q->front==-1;
+}
+
+void enqueue(struct Queue* q,int value) 
+{
+    if(q->rear==MAX_VERTICES-1) 
+    {
+        printf("Queue is full\n");
+        return;
+    }
+    if(isEmpty(q)) 
+    {
+        q->front=0;
+    }
+    q->rear++;
+    q->items[q->rear]=value;
+}
+
+int dequeue(struct Queue* q) 
+{
+    if(isEmpty(q)) 
+    {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    int item=q->items[q->front];
+    if(q->front>=q->rear)
+    {
+        q->front=-1; 
+        q->rear=-1;
+    }
+    else
+    {
+        q->front++;
+    }
+    return item;
+}
+
+void BFS(int graph[MAX_VERTICES][MAX_VERTICES],int visited[],int vertices,int startVertex) 
+{
+    struct Queue q;
+    initQueue(&q);
+    visited[startVertex]=1;
+    enqueue(&q,startVertex);
+    while(!isEmpty(&q)) 
+    {
+        int currentVertex=dequeue(&q),i;
+        printf("%d ",currentVertex); 
+        for(i=0;i<vertices;i++)
+        {
+            if(graph[currentVertex][i]==1 && visited[i]==0)
+            {
+                visited[i]=1;
+                enqueue(&q,i); 
+            }
+        }
+    }
+}
+
+void createGraph(int graph[MAX_VERTICES][MAX_VERTICES],int vertices) 
+{
+    int i,j;
+    for(i=0;i<vertices;i++)
+    {
+        for(j=0;j<vertices;j++)
+        {
+            graph[i][j]=0; 
+        }
+    }
+    int edges;
+    printf("Enter the number of edges: ");
+    scanf("%d",&edges);
+    for(i=0;i<edges;i++)
+    {
+        int src,dest;
+        printf("Enter edge %d (source destination): ",i+1);
+        scanf("%d %d",&src,&dest);
+        if(src>=0 && src<vertices && dest>=0 && dest<vertices) 
+        {
+            graph[src][dest]=1;
+            graph[dest][src]=1; 
+        } 
+        else
+        {
+            printf("Error: Invalid vertices! Please enter values between 0 and %d.\n",vertices-1);
+            i--; 
+        }
+    }
+}
+
+int main() 
+{
+    int graph[MAX_VERTICES][MAX_VERTICES];
+    int vertices;
+    printf("Enter the number of vertices (max %d): ",MAX_VERTICES);
+    scanf("%d",&vertices);
+    if(vertices>MAX_VERTICES)
+    {
+        printf("Error: Maximum number of vertices is %d\n", MAX_VERTICES);
+        return 1;
+    }
+    createGraph(graph,vertices);
+    int visited[MAX_VERTICES]={0};
+    printf("Breadth First Search starting from vertex 0:\n");
+    BFS(graph,visited,vertices,0);
+    printf("\n");
+
+    return 0;
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of vertices (max 10): 5
+Enter the number of edges: 6
+Enter edge 1 (source destination): 0
+1
+Enter edge 2 (source destination): 0
+2
+Enter edge 3 (source destination): 1
+3
+Enter edge 4 (source destination): 1
+4
+Enter edge 5 (source destination): 2
+4
+Enter edge 6 (source destination): 3
+4
+Breadth First Search starting from vertex 0:
+0 1 2 3 4 
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-5">
+            <div class="code-frame">
+                <h2>6. Code</h2>
+                <textarea readonly>
+//6. TRAVERSE THE ADJACENT LIST WITH BREADTH FIRST SEARCH
+
+#include<stdio.h>
+#define MAX_VERTICES 10 
+#define MAX_EDGES 5     
+
+struct Graph 
+{
+    int vertices;
+    int adj[MAX_VERTICES][MAX_EDGES]; 
+    int degree[MAX_VERTICES];          
+};
+
+struct Graph createGraph(int vertices) 
+{
+    struct Graph graph;
+    graph.vertices=vertices;
+    int i,j;
+    for(i=0;i<vertices;i++)
+    {
+        graph.degree[i]=0;
+        for(j=0;j<MAX_EDGES;j++)
+        {
+            graph.adj[i][j]=-1; 
+        }
+    }
+    return graph;
+}
+
+void addEdge(struct Graph* graph,int src,int dest) 
+{
+    if(graph->degree[src]<MAX_EDGES && graph->degree[dest]< MAX_EDGES) 
+    {
+        graph->adj[src][graph->degree[src]++]=dest;
+        graph->adj[dest][graph->degree[dest]++]=src; 
+    } 
+    else
+    {
+        printf("Error: Maximum edges exceeded for vertex %d\n",src);
+    }
+}
+
+struct Queue 
+{
+    int items[MAX_VERTICES];
+    int front,rear;
+};
+
+void initQueue(struct Queue* q) 
+{
+    q->front=-1;
+    q->rear=-1;
+}
+
+int isEmpty(struct Queue* q)
+{
+    return q->front==-1;
+}
+
+void enqueue(struct Queue* q,int value) 
+{
+    if(q->rear==MAX_VERTICES-1)
+    {
+        printf("Queue is full\n");
+        return;
+    }
+    if(isEmpty(q)) 
+    {
+        q->front=0;
+    }
+    q->rear++;
+    q->items[q->rear]=value;
+}
+
+int dequeue(struct Queue* q) 
+{
+    if(isEmpty(q)) 
+    {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    int item=q->items[q->front];
+    if(q->front>=q->rear) 
+    {
+        q->front=-1; 
+        q->rear=-1;
+    } 
+    else
+    {
+        q->front++;
+    }
+    return item;
+}
+
+void BFS(struct Graph* graph,int visited[],int startVertex) 
+{
+    struct Queue q;
+    initQueue(&q);
+    visited[startVertex]=1; 
+    enqueue(&q,startVertex);  
+    while(!isEmpty(&q)) 
+    {
+        int currentVertex=dequeue(&q),i;
+        printf("%d ",currentVertex);
+        for(i=0;i<graph->degree[currentVertex];i++) 
+        {
+            int adjVertex=graph->adj[currentVertex][i];
+            if(visited[adjVertex]==0)
+            {
+                visited[adjVertex]=1; 
+                enqueue(&q,adjVertex); 
+            }
+        }
+    }
+}
+
+void createGraphFromInput(struct Graph* graph) 
+{
+    int edges,i;
+    printf("Enter the number of edges: ");
+    scanf("%d",&edges);
+    for(i=0;i<edges;i++)
+    {
+        int src,dest;
+        printf("Enter edge %d (source destination): ",i+1);
+        scanf("%d %d",&src,&dest);
+        if(src>=0 && src<graph->vertices && dest>=0 && dest<graph->vertices)
+        {
+            addEdge(graph,src,dest);
+        } 
+        else
+        {
+            printf("Error: Invalid vertices! Please enter values between 0 and %d.\n", graph->vertices-1);
+            i--; 
+        }
+    }
+}
+
+int main() 
+{
+    int vertices;
+    printf("Enter the number of vertices (max %d): ",MAX_VERTICES);
+    scanf("%d",&vertices);
+    if(vertices>MAX_VERTICES)
+    {
+        printf("Error: Maximum number of vertices is %d\n", MAX_VERTICES);
+        return 1;
+    }
+    struct Graph graph=createGraph(vertices);
+    createGraphFromInput(&graph);
+    int visited[MAX_VERTICES]={0};
+    printf("Breadth First Search starting from vertex 0:\n");
+    BFS(&graph,visited,0);
+    printf("\n");
+
+    return 0;
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of vertices (max 10): 6
+Enter the number of edges: 7
+Enter edge 1 (source destination): 0
+1
+Enter edge 2 (source destination): 0
+2
+Enter edge 3 (source destination): 1
+3
+Enter edge 4 (source destination): 1
+4
+Enter edge 5 (source destination): 2
+4
+Enter edge 6 (source destination): 3
+5
+Enter edge 7 (source destination): 4
+5
+Breadth First Search starting from vertex 0:
+0 1 2 3 4 5 
+</textarea>
+</div>
+</div>
+
+
+    </DIV>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+    <script>
+        function toggleCode(index) {
+            const codeOutput = document.getElementById(`code-output-${index}`);
+            const isVisible = codeOutput.style.display === "flex";
+            
+            // Hide all code outputs first
+            const allOutputs = document.querySelectorAll('.code-output');
+            allOutputs.forEach(output => output.style.display = "none");
+            
+            // Toggle visibility of the selected output only if it was not already visible
+            if (!isVisible) {
+                codeOutput.style.display = "flex";
+            }
+        }
+
+        // Initially hide all code outputs
+        document.querySelectorAll('.code-output').forEach(output => {
+            output.style.display = "none";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINGLE DIMENSION ARRAY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+            list-style: none;
+            padding-left: 20px; /* Adjust this value to increase or decrease the right shift */
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SINGLE DIMENSION ARRAY</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='2Darray.html'"><b>2D Array</b></div>
+            <div class="tab" onclick="location.href='graphs.html'"><b>Graphs</b></div>
+            <div class="tab" onclick="location.href='linkedlist.html'"><b>Linked List</b></div>
+            <div class="tab" onclick="location.href='queues.html'"><b>Queues</b></div>
+            <div class="tab" onclick="location.href='recursion.html'"><b>Recursion</b></div>
+            <div class="tab" onclick="location.href='searching.html'"><b>Searching Algorithms</b></div>
+            <div class="tab" onclick="location.href='singlearray.html'"><b>Single Dimension Array</b></div>
+            <div class="tab" onclick="location.href='sorting.html'"><b>Sorting</b></div>
+            <div class="tab" onclick="location.href='stack.html'"><b>Stack</b></div>
+            <div class="tab" onclick="location.href='string.html'"><b>Strings</b></div>
+            <div class="tab" onclick="location.href='trees.html'"><b>Trees</b></div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol>
+<li onclick="toggleCode(0)">1. Enter an array from user and display all the value</li>
+<li onclick="toggleCode(1)">2. Enter an array from user and print the array in reverse order ?</li>
+<li onclick="toggleCode(2)">3. Enter an array from user and copy the array into second array?</li>
+<li onclick="toggleCode(3)">4. Enter an array from user and copy it into another array in reverse order?</li>
+<li onclick="toggleCode(4)">5. Enter an array from user and print the number which is even ?</li>
+<li onclick="toggleCode(5)">6. Enter an array from user and print the number which is positive ?</li>
+<li onclick="toggleCode(6)">7. Enter an array from user and square all the values of array ?</li>
+<li onclick="toggleCode(7)">8. Enter an array from user and find maximum and minimum value?</li>
+<li onclick="toggleCode(8)">9. Enter an array from user and find the k-th smallest value?</li>
+<li onclick="toggleCode(9)">10. Enter an array from user and add all values ?</li>
+<li onclick="toggleCode(10)">11. Enter an array from user and find the duplicate values?</li>
+<li onclick="toggleCode(11)">12. Enter an array from user and remove the duplicate values and fill with zero?</li>
+<li onclick="toggleCode(12)">13. Enter an array from user and count the duplicate values?</li>
+<li onclick="toggleCode(13)">14. Enter an array from user and print all possible combinations of the elements?</li>
+<li onclick="toggleCode(14)">15. Enter an array from user and print all the palindrome numbers?</li>
+<li onclick="toggleCode(15)">16. Enter two arrays from the user and check they are same or not?</li>
+<li onclick="toggleCode(16)">17. Merge the two sorted arrays into one array but in sorted order?</li>
+<li onclick="toggleCode(17)">18. Find the local minima in the array? (An element in an array is a local minima if it less than the element after it, 
+and the element before it)</li>
+<li onclick="toggleCode(18)">19. Find the local maxima in the array? (An element in an array is a local maxima if
+ it greater than the element after it, and the element before it)</li>
+<li onclick="toggleCode(19)">20. Trapping Rain Water Problem: Given n non-negative integers representing an elevation map where the 
+width of each bar is 1, compute how much water it can trap after raining.</li>
+
+            </ol>
+        </div>
+
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+                <textarea readonly>
+//1. Enter an array from user and display all the values
+#include<stdio.h>
+#include<conio.h>
+void display(int *arr,int size,int *i)
+{
+	for(*i=0;*i<size;(*i)++)
+	{
+		printf("arr[%d]=%d",*i,(arr[*i]));
+		printf("\n");
+	}
+}
+
+int main()
+{
+	int size,i;
+	int arr[100];
+	printf("\nEnter size of array \n");
+	scanf("%d",&size);
+	printf("\nEnter an array : \n");
+	for(i=0;i<size;i++)
+	scanf("%d",&arr[i]);
+
+	display(arr,size,&i);
+
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array 
+5
+
+Enter an array : 
+20 40 60 80 100
+arr[0]=20
+arr[1]=40
+arr[2]=60
+arr[3]=80
+arr[4]=100
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-1">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+                <textarea readonly>
+//2. Enter an array from user and print in reverse order
+#include<stdio.h>
+#include<conio.h>
+int display(int *arr,int size,int i)
+{
+	printf("\nOutput in Reverse Order\n\n");
+	for(i=size-1;i>=0;i--) //size=3 i=2
+	{
+		printf("arr[%d]=%d",i,arr[i]);
+		printf("\n");
+	}
+	return i;
+}
+
+int main()
+{
+	int size,i;
+	int arr[100];
+	printf("\nEnter size of array \n");
+	scanf("%d",&size);
+	printf("\nEnter an array : \n");
+	for(i=0;i<size;i++)
+	scanf("%d",&arr[i]);
+
+	i=display(arr,size,i);
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array
+5
+
+Enter an array : 
+10 20 30 40 50
+
+Output in Reverse Order
+
+arr[4]=50
+arr[3]=40
+arr[2]=30
+arr[1]=20
+arr[0]=10
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-2">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+
+                <textarea readonly>
+//3. Enter an array from user and copy it into another array
+#include<stdio.h>
+#include<conio.h>
+void copy(int *arr,int size,int *i)
+{
+	int brr[100];
+	printf("\nCopied Output\n");
+	for(*i=0;*i<size;(*i)++)
+	{
+		brr[*i]=arr[*i];  //copying one array to another
+		printf("%d",brr[*i]);
+		printf("\n");
+	}
+}
+
+int main()
+{
+	int size,i;
+	int arr[100],brr[100];
+	printf("\nEnter size of array \n");
+	scanf("%d",&size);
+	printf("\nEnter an array : \n");
+	for(i=0;i<size;i++)
+	scanf("%d",&arr[i]);
+
+	copy(arr,size,&i);
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array 
+5
+
+Enter an array : 
+22 44 66 88 100
+
+Copied Output
+22
+44
+66
+88
+100
+                </textarea>
+            </div>
+        </div>
+<div class="code-output" id="code-output-3">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+                <textarea readonly>
+//4.Enter an array from user and copy it into another array in reverse order
+#include<stdio.h>
+#include<conio.h>
+void copy_rev(int *arr,int size,int *i)
+{
+	int brr[100];
+	printf("\nReverse Output\n");
+	for(*i=size-1;*i>=0;(*i)--)
+	{
+		brr[*i]=arr[*i];  //copying one array to another
+		printf("%d",brr[*i]);
+		printf("\n");
+	}
+}
+int main()
+{
+	int size,i;
+	int arr[100],brr[100];
+	printf("\nEnter size of array \n");
+	scanf("%d",&size);
+	printf("\nEnter an array : \n");
+	for(i=0;i<size;i++)
+	scanf("%d",&arr[i]);
+
+	copy_rev(arr,size,&i);
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array 
+4
+
+Enter an array : 
+30 60 90 120
+
+Reverse Output
+120
+90
+60
+30
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-4">
+            <div class="code-frame">
+                <h2>5. Code</h2>
+                <textarea readonly>
+//5. Enter an array from user and print the no. i.e. is even
+#include<stdio.h>
+#include<conio.h>
+void print_even(int *arr,int size,int *i)
+{
+	printf("\nEven No Output\n");
+	for(*i=0;*i<size;(*i)++)
+	{
+		if(arr[*i]%2==0)
+		{
+			printf("%d",arr[*i]);
+			printf("\n");
+		}
+	}
+}
+
+int main()
+{
+	int size,i;
+	int arr[100];
+	printf("\nEnter size of array \n");
+	scanf("%d",&size);
+	printf("\nEnter an array : \n");
+	for(i=0;i<size;i++)
+	scanf("%d",&arr[i]);
+
+	print_even(arr,size,&i);
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array 
+6
+
+Enter an array : 
+11 12 13 14 15 16 
+
+Even No Output
+12
+14
+16
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-5">
+            <div class="code-frame">
+                <h2>6. Code</h2>
+                <textarea readonly>
+//6. Enter an array from user and print the no. i.e. is positive
+#include<stdio.h>
+void print_positive(int arr[],int size)
+{
+	int i,count=0;
+	for(i=0;i<size;i++)//positive
+  	{
+    	if(arr[i]>=0)
+    	{
+    		printf("\nPositive no. at index %d = %d",i,arr[i]);
+			count++;    
+		}
+	}
+		if(count==0)
+    	{
+    		printf("Positive Number Not Found !!");
+		}
+}
+int main()
+{
+	int size,arr[50],i;
+    printf("Enter size of array : ");
+    scanf("%d",&size);
+    printf("\nEnter array elements :  ");
+    for(i=0;i<size;i++)//Input from user
+    scanf("%d",&arr[i]);
+    
+   print_positive(arr,size);
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array : 5
+
+Enter array elements :  -12 0 -34 67 54    
+
+Positive no. at index 1 = 0
+Positive no. at index 3 = 67
+Positive no. at index 4 = 54
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-6">
+            <div class="code-frame">
+                <h2>7. Code</h2>
+                <textarea readonly>
+//7. Enter an array from user and  square all the values of array
+#include<stdio.h>
+#include<conio.h>
+void print_square(int *arr,int size,int *i)
+{
+	printf("\nEven No Output\n");
+	for(*i=0;*i<size;(*i)++)
+	{
+		arr[*i]=arr[*i]*arr[*i];
+		printf("%d",arr[*i]);
+		printf("\n");
+	}
+}
+
+int main()
+{
+	int size,i;
+	int arr[100];
+	printf("\nEnter size of array \n");
+	scanf("%d",&size);
+	printf("\nEnter an array : \n");
+	for(i=0;i<size;i++)
+	scanf("%d",&arr[i]);
+
+	print_square(arr,size,&i);
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array 
+5
+
+Enter an array : 
+5 12 7 10 15
+
+Even No Output
+25
+144
+49
+100
+225
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-7">
+            <div class="code-frame">
+                <h2>8. Code</h2>
+                <textarea readonly>
+//8. Enter an array from user and find the minimum and maximum value
+#include<stdio.h>
+#include<conio.h>
+int max_min(int *arr,int size,int i)
+{
+      int j,x=1,t;
+      for(j=0;j<=size-1;j++)
+	{
+		for(i=x;i<=size;i++)
+		{
+			if(arr[j]>arr[i]) //0 1//1 2//2 3//
+			{
+				t=arr[j];        //i=5  i+1=2
+				arr[j]=arr[i];
+				arr[i]=t;
+			}
+		}	x++;
+	}
+
+	printf("\nMinimum value in array is %d\n",arr[0]);
+	printf("\nMaximum value in array is %d\n",arr[size-1]);
+
+  //
+	return i;
+}
+int main()
+{
+	int arr[100],i,t,x=1,j,size;
+
+	printf("\nEnter size : ");
+	scanf("%d",&size);
+	printf("Enter an array : ");
+	for(i=0;i<=size-1;i++)
+	{
+		scanf("%d",&arr[i]);
+	}
+	i=max_min(arr,size,i);
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size : 6
+Enter an array : 21 40 34 22 15 69
+
+Minimum value in array is 15
+
+Maximum value in array is 69
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-8">
+            <div class="code-frame">
+                <h2>9. Code</h2>
+                <textarea readonly>
+//9. Enter an array from user and find kth smallest value
+#include <stdio.h>
+void swap(int *a, int *b)
+ {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void bubbleSort(int arr[], int n)
+ {
+    for (int i = 0; i < n-1; i++) 
+    {
+        for (int j = 0; j < n-i-1; j++)
+         {
+            if (arr[j] > arr[j+1])
+             {
+                swap(&arr[j], &arr[j+1]);
+            }
+        }
+    }
+}
+
+int main() {
+    int n, k;
+    
+    printf("ENTER SIZE OF ARRAY: ");
+    scanf("%d", &n);
+    
+    int arr[n];
+    printf("ENTER ARRAY: ");
+    for (int i = 0; i < n; i++)
+    { 
+        scanf("%d", &arr[i]);
+    }
+    
+    printf("ENTER k-th SMALLEST VALUE (1 to %d): ", n);
+    scanf("%d", &k); 
+    
+    if (k < 1 || k > n)
+    {
+        printf("Invalid value for k.\n");
+        return 1;
+    }
+    
+
+    bubbleSort(arr, n);
+    printf("\nK=%d\nk-th SMALLEST VALUE: %d\n", k, arr[k-1]);
+
+}
+
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY: 5
+ENTER ARRAY: 12
+56
+78
+79
+3
+ENTER k-th SMALLEST VALUE (1 to 5): 4
+
+K=4
+k-th SMALLEST VALUE: 78
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-9">
+            <div class="code-frame">
+                <h2>10. Code</h2>
+                <textarea readonly> 
+//10. Enter an array from user and add all the values
+#include<stdio.h>
+int main()
+{
+    int n,i,add=0;
+    printf("ENTER SIZE OF ARRAY=");
+	scanf("%d",&n);
+    int arr[n];
+	printf("ENTER ARRAY ");
+	for(i=0;i<n;i++)//Input from user
+	{
+		scanf("%d",&arr[i]);
+	}
+	for(i=0;i<n;i++)//addition
+	{
+		add = add + arr[i];
+		
+	}
+	
+			printf("\nSum of all values  = %d",add);
+		
+		
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY=5
+ENTER ARRAY 10
+20
+30
+40
+50
+
+Sum of all values  = 150
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-10">
+            <div class="code-frame">
+                <h2>11. Code</h2>
+                <textarea readonly>
+//11.Enter an array from user and print duplicate values
+#include <stdio.h>
+int main() 
+{
+    int size,i,j;  
+    printf("ENTER SIZE OF ARRAY= ");
+    scanf("%d",&size);
+  int arr[size];
+  printf("ENTER ARRAY: ");
+    for(i=0;i<size; i++) // Input from user
+	{ 
+        scanf("%d",&arr[i]);
+    }
+    for(i=0;i<size;i++) 
+	{
+        for(j=i+1;j<size;j++) 
+		{
+            if(arr[i]==arr[j]) 
+			{
+                printf("\nDUPLICATE VALUE AT %d and %d INDEX = %d",i,j,arr[i]);
+            }
+        }
+    }
+}
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size : 5
+Enter an array : 21 45 21 67 89
+
+Enter the no. you want to find duplicate of : 21
+
+Duplicate found at index no : 2 is 21
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-11">
+            <div class="code-frame">
+                <h2>12. Code</h2>
+                <textarea readonly>
+//12.Enter an  array from user and remove the duplicate values and fill with zero
+#include<stdio.h>
+#include<conio.h>
+    void remove_duplicate(int *arr,int size,int i,int dup)
+    {
+        int c=0;
+            for(i=0;i<=size-1;i++)
+            {
+                 if(arr[i]==dup)
+                 {
+                  //	arr[i]=0;
+                c++;
+                 }
+    
+                 if(c>1)
+                 {
+                if(arr[i]==dup)
+                arr[i]=0;
+                 }
+            }
+    
+                 if(c==1)
+                 {
+                printf("\nDuplicate Not found\n\n");
+                 }
+            for(i=0;i<=size-1;i++)
+            printf("%d ",arr[i]);
+    }
+    int main()
+    {
+        int arr[100],i,size,dup;
+    
+        printf("\nEnter size : ");
+        scanf("%d",&size);
+        printf("Enter an array : ");
+        for(i=0;i<=size-1;i++)
+        {
+            scanf("%d",&arr[i]);
+        }
+        printf("\nEnter the no. you want to find duplicate of : ");
+        scanf("%d",&dup);
+        remove_duplicate(arr,size,i,dup);
+
+    }
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size : 5
+Enter an array : 25 21 56 21 78
+
+Enter the no. you want to find duplicate of : 21
+25 21 56 0 78
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-12">
+            <div class="code-frame">
+                <h2>13. Code</h2>
+                <textarea readonly>
+//13. Enter an array from user and count the duplicate values
+#include<stdio.h>
+#include<conio.h>
+void count_duplicate(int *arr,int size,int i,int dup)
+{
+	int c=0;
+		for(i=0;i<=size-1;i++)
+		{
+		     if(arr[i]==dup)
+		     {
+			c++;
+		     }
+
+		}
+	       if(c>1)
+	       {
+			printf("\n%d Duplicate values of %d Found !!\n",c-1,dup);
+	       }
+	       else
+	       {
+		       printf("\nDupliate Not Found!! \n");
+	       }
+}
+int main()
+{
+	int arr[100],i,size,dup;
+
+	printf("\nEnter size : ");
+	scanf("%d",&size);
+	printf("Enter an array : ");
+	for(i=0;i<=size-1;i++)
+	{
+		scanf("%d",&arr[i]);
+	}
+	printf("\nEnter the no. you want to find duplicate of : ");
+	scanf("%d",&dup);
+	count_duplicate(arr,size,i,dup);
+
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY= 6
+ENTER ARRAY: 45
+67
+89
+Enter size : 5
+Enter an array : 25 21 45 21 21
+
+Enter the no. you want to find duplicate of : 21
+
+2 Duplicate values of 21 Found !!
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-13">
+            <div class="code-frame">
+                <h2>14. Code</h2>
+                <textarea readonly>
+//14.Enter an array from user & print all possible combinations of elements
+#include <stdio.h>
+
+void input(int arr[],int size)
+ {
+ 	int i;
+    printf("ENTER ARRAY ELEMENTS: ");
+    for(i=0;i<size;i++)
+	 {
+        scanf("%d",&arr[i]);
+    }
+}
+
+void combinations(int* arr,int size,int start,int cur_size,int* output) 
+{
+
+int i;
+    if(cur_size>0) 
+	{
+        for(i=0;i<cur_size;i++)
+		 {
+            printf("%d ",output[i]);
+        }
+    printf("\n");
+    }
+
+  
+    for(i=start;i<size;i++)
+	 {
+        output[cur_size]=arr[i]; 
+        combinations(arr,size,i+1,cur_size+1,output); 
+}
+}
+int main() 
+{
+    int size;
+    printf("ENTER SIZE OF ARRAY: ");
+    scanf("%d",&size);
+
+    int arr[size],combination[size];
+    input(arr,size);
+
+
+    printf("ALL POSSIBLE COMBINATIONS:\n");
+    combinations(arr,size,0,0,combination);
+
+ 
+}
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY: 5
+ENTER ARRAY ELEMENTS: 67
+43
+5
+0
+1
+ALL POSSIBLE COMBINATIONS:
+67 
+67 43 
+67 43 5 
+67 43 5 0 
+67 43 5 0 1 
+67 43 5 1 
+67 43 0 
+67 43 0 1 
+67 43 1 
+67 5 
+67 5 0 
+67 5 0 1 
+67 5 1 
+67 0 
+67 0 1 
+67 1 
+43 
+43 5 
+43 5 0 
+43 5 0 1 
+43 5 1 
+43 0 
+43 0 1 
+43 1 
+5 
+5 0 
+5 0 1 
+5 1 
+0 
+0 1 
+1 
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-14">
+            <div class="code-frame">
+                <h2>15. Code</h2>
+                <textarea readonly>
+//15.Enter an array from user & print all the pallindrme numbers
+#include<stdio.h>
+int main()
+{
+	int real_num, num,rem,i,reverse=0;
+	printf("ENTER NUMBER:");
+	scanf("%d",&num);
+	real_num=num;
+	
+	while (num!=0)
+	 {
+	 	//printf("hello");
+        rem=num%10;  // last digit
+        reverse=reverse*10+rem; // reversing th no,
+        num=num/10; // Removing last digit
+    }
+	if(reverse==real_num)
+	{
+		printf("%d NUMBER IS PALLINDROME",reverse);
+		}	
+	else 
+	printf("INVALID NUMBER");
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER NUMBER:989
+989 NUMBER IS PALLINDROME
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-15">
+            <div class="code-frame">
+                <h2>16. Code</h2>
+                <textarea readonly>
+//16. Enter two arrays from user and check they are same or not
+#include<stdio.h>
+#include<conio.h>
+void check(int *arr,int *brr,int size,int i)
+{
+	int c=0;
+	printf("\nFIRST ARRAY\n");
+	for(i=0;i<size;i++)
+	{
+		printf("%d ",arr[i]);
+	}
+	printf("\nSECOND ARRAY\n");
+	for(i=0;i<size;i++)
+	{
+		printf("%d ",brr[i]);
+	}
+	for(i=0;i<size;i++)
+	{
+		if(arr[i]==brr[i])
+		{
+			c++;
+		}
+	}
+	if(c==size)
+	{
+		printf("\nBoth arrays are same\n");
+	}
+	else
+	{
+		printf("\nMatch not Found!!\n");
+	}
+}
+int main()
+{
+	int arr[100],brr[100],i,size;
+
+	printf("\nEnter size : ");
+	scanf("%d",&size);
+	printf("Enter first array : ");
+	for(i=0;i<=size-1;i++)
+	{
+		scanf("%d",&arr[i]);
+	}
+	printf("Enter second array : ");
+	for(i=0;i<=size-1;i++)
+	{
+		scanf("%d",&brr[i]);
+	}
+	check(arr,brr,size,i);
+}                    
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size : 5
+Enter first array : 1 2 3 4 5
+Enter second array : 1 2 3 4 5
+
+FIRST ARRAY
+1 2 3 4 5
+SECOND ARRAY
+1 2 3 4 5
+Both arrays are same
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-16">
+            <div class="code-frame">
+                <h2>17. Code</h2>
+                <textarea readonly>
+//17. Merge the two sorted arrays into one array but in sorted order
+#include<stdio.h>
+void selection_sort(int arr[], int n)
+{
+    int i,j,temp;
+    for(i=0;i<n-1;i++) 
+    {
+        for(j=i+1;j<n;j++)
+        {
+            if(arr[i]>arr[j])
+            {
+                temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+            }
+        }
+    }
+}
+
+void input_arr1(int* arr1, int size1)
+{
+    int i;
+    printf("Enter First Array Elements: ");
+    for(i = 0; i < size1; i++)
+    scanf("%d", &arr1[i]);
+
+    selection_sort(arr1, size1);
+    printf("Sorted First Array: ");
+    for(i = 0; i < size1; i++)
+    printf("%d ", arr1[i]);
+    printf("\n");
+}
+
+void input_arr2(int* arr2, int size2)
+{
+    int i;
+    printf("Enter Second Array Elements: ");
+    for(i = 0; i < size2; i++)
+        scanf("%d", &arr2[i]);
+
+    selection_sort(arr2, size2);
+    printf("Sorted Second Array: ");
+    for(i = 0; i < size2; i++)
+        printf("%d ", arr2[i]);
+    printf("\n");
+}
+
+void merge(int* arr1, int size1, int* arr2, int size2, int* result)
+{
+    int i = 0, j = 0, k = 0;
+    printf("\nMerging both arrays (In Sorted Order)\n");
+
+    while(i<size1&&j<size2)
+    {
+        if(arr1[i]<arr2[j])
+        {
+        	result[k++] = arr1[i++];	
+		}
+        else
+        {
+        	result[k++] = arr2[j++];	
+		}    
+    }
+    while(i<size1)
+        result[k++] = arr1[i++];
+
+    while(j<size2)
+        result[k++] = arr2[j++];
+}
+
+int main()
+{
+    int size1, size2, i;
+    printf("Enter size of first array: ");
+    scanf("%d", &size1);
+    int arr1[size1];
+
+    printf("Enter size of second array: ");
+    scanf("%d", &size2);
+    int arr2[size2];
+
+    int result[size1+size2];
+
+    input_arr1(arr1,size1);
+    input_arr2(arr2,size2);
+
+    merge(arr1,size1,arr2,size2,result);
+
+    printf("\nMerged Sorted Array:\n");
+    for(i=0;i<(size1+size2); i++)
+    {
+        printf("%d\t",result[i]);
+    }
+    return 0;
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of first array: 5
+Enter size of second array: 5
+Enter First Array Elements: 3 1 5 2 4
+Sorted First Array: 1 2 3 4 5
+Enter Second Array Elements: 9 7 6 8 10
+Sorted Second Array: 6 7 8 9 10
+
+Merging both arrays (In Sorted Order)
+
+Merged Sorted Array:
+1       2       3       4       5       6       7       8       9       10
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-17">
+            <div class="code-frame">
+                <h2>18. Code</h2>
+                <textarea readonly>
+//18.Find the local minima in the array?
+#include<stdio.h>
+#include<conio.h>
+void minima(int *arr,int size,int i)
+{
+	for(i=0;i<=size-1;i++)
+	{
+		if(arr[i]<arr[i+1]&&arr[i]<arr[i-1])
+		{
+			printf("Local minima is %d at index no. %d\n",arr[i],i);
+		}
+	}
+      //	printf("%d ",arr[i]);
+}
+int main()
+{
+	int arr[100],i,size;
+
+	printf("\nEnter size : ");
+	scanf("%d",&size);
+	printf("Enter elements of array: ");
+	for(i=0;i<=size-1;i++)
+	{
+		scanf("%d",&arr[i]);
+	}
+	minima(arr,size,i);
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size : 5
+Enter elements of array: 21 45 11 34 35
+Local minima is 11 at index no. 2
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-18">
+            <div class="code-frame">
+                <h2>19. Code</h2>
+                <textarea readonly>
+//19.Find the local maxima in the array?
+#include<stdio.h>
+#include<conio.h>
+void maxima(int *arr,int size,int i)
+{
+	for(i=0;i<=size-1;i++)
+	{
+		if(arr[i]>arr[i+1]&&arr[i]>arr[i-1])
+		{
+			printf("Local maxima is %d at index no. %d\n",arr[i],i);
+		}
+	}
+      //	printf("%d ",arr[i]);
+}
+int main()
+{
+	int arr[100],i,size;
+	printf("\nEnter size : ");
+	scanf("%d",&size);
+	printf("Enter elements of array: ");
+	for(i=0;i<=size-1;i++)
+	{
+		scanf("%d",&arr[i]);
+	}
+	maxima(arr,size,i);
+
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size : 5
+Enter elements of array: 42 56 44 12 50
+Local maxima is 56 at index no. 1
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-19">
+            <div class="code-frame">
+                <h2>20. Code</h2>
+                <textarea readonly>
+//20. Trapping Rain Water Problem: Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining
+#include <stdio.h>
+
+// Function to calculate the amount of trapped water
+int trapRainWater(int height[], int n) {
+    if (n <= 2) {
+        return 0;
+    }
+
+    int left[n], right[n];
+    int water = 0;
+
+    left[0] = height[0];
+    for (int i = 1; i < n; i++) {
+        left[i] = (height[i] > left[i - 1]) ? height[i] : left[i - 1];
+    }
+
+    right[n - 1] = height[n - 1];
+    for (int i = n - 2; i >= 0; i--) {
+        right[i] = (height[i] > right[i + 1]) ? height[i] : right[i + 1];
+    }
+
+    for (int i = 0; i < n; i++) {
+        water += (left[i] < right[i] ? left[i] : right[i]) - height[i];
+    }
+
+    return water;
+}
+
+int main() {
+    int n;
+
+    printf("Enter the number of elements in the elevation map: ");
+    scanf("%d", &n);
+
+    int height[n];
+    printf("Enter the elevation map values:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &height[i]);
+    }
+
+    int water = trapRainWater(height, n);
+    printf("Amount of water trapped: %d\n", water);
+
+    return 0;
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of elements in the elevation map: 12
+Enter the elevation map values:
+0
+1
+0
+2
+1
+0
+1
+3
+2
+1
+2
+1
+Amount of water trapped: 6
+
+</textarea>
+</div>
+</div>
+
+   </DIV>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+    <script>
+        function toggleCode(index) {
+            const codeOutput = document.getElementById(`code-output-${index}`);
+            const isVisible = codeOutput.style.display === "flex";
+            
+            // Hide all code outputs first
+            const allOutputs = document.querySelectorAll('.code-output');
+            allOutputs.forEach(output => output.style.display = "none");
+            
+            // Toggle visibility of the selected output only if it was not already visible
+            if (!isVisible) {
+                codeOutput.style.display = "flex";
+            }
+        }
+
+        // Initially hide all code outputs
+        document.querySelectorAll('.code-output').forEach(output => {
+            output.style.display = "none";
+        });
+    </script>
+</body>
+</html>

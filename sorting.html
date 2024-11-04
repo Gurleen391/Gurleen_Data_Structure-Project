@@ -1,0 +1,2661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SORTING</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+            list-style: none;
+            padding-left: 20px; /* Adjust this value to increase or decrease the right shift */
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SORTING</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='2Darray.html'"><b>2D Array</b></div>
+            <div class="tab" onclick="location.href='graphs.html'"><b>Graphs</b></div>
+            <div class="tab" onclick="location.href='linkedlist.html'"><b>Linked List</b></div>
+            <div class="tab" onclick="location.href='queues.html'"><b>Queues</b></div>
+            <div class="tab" onclick="location.href='recursion.html'"><b>Recursion</b></div>
+            <div class="tab" onclick="location.href='searching.html'"><b>Searching Algorithms</b></div>
+            <div class="tab" onclick="location.href='singlearray.html'"><b>Single Dimension Array</b></div>
+            <div class="tab" onclick="location.href='sorting.html'"><b>Sorting</b></div>
+            <div class="tab" onclick="location.href='stack.html'"><b>Stack</b></div>
+            <div class="tab" onclick="location.href='string.html'"><b>Strings</b></div>
+            <div class="tab" onclick="location.href='trees.html'"><b>Trees</b></div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol style="list-style-type: decimal;">
+                <li onclick="toggleCode(0)">Enter an integer array from the user and perform selection sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(1)">Enter an integer array from the user and perform selection sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(2)">Enter an integer array from the user and perform bubble sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(3)">Enter an integer array from the user and perform bubble sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(4)">Enter an integer array from the user and perform insertion sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(5)">Enter an integer array from the user and perform insertion sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(6)">Enter an integer array from the user and perform merge sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(7)">Enter an integer array from the user and perform merge sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(8)">Enter an integer array from the user and perform quick sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(9)">Enter an integer array from the user and perform quick sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(10)">Enter a string array from the user and perform selection sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(11)">Enter a string array from the user and perform selection sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(12)">Enter a string array from the user and perform bubble sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(13)">Enter a string array from the user and perform bubble sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(14)">Enter a string array from the user and perform insertion sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(15)">Enter a string array from the user and perform insertion sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(16)">Enter a string array from the user and perform merge sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(17)">Enter a string array from the user and perform merge sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(18)">Enter a string array from the user and perform quick sort algorithm through iteration. Also calculate the worst and best complexity with exact time.</li>
+                <li onclick="toggleCode(19)">Enter a string array from the user and perform quick sort algorithm through recursion. Also calculate the worst and best complexity with exact time.</li>
+                
+
+            </ol>
+        </div>
+
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+                <textarea readonly>
+//1. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM SELECTION SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME
+#include <stdio.h>
+#include <time.h>
+
+void selection_sort(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        int min_index = i;
+
+        for (int j = i + 1; j < size; j++) {
+            if (arr[j] < arr[min_index]) {
+                min_index = j;
+            }
+        }
+
+        if (min_index != i) {
+            int temp = arr[i];
+            arr[i] = arr[min_index];
+            arr[min_index] = temp;
+        }
+    }
+}
+
+void input_array(int arr[], int size) {
+    printf("ENTER ARRAY ELEMENTS:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+}
+
+void display_array(int arr[], int size) {
+    printf("SORTED ARRAY: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+void check_performance(int arr[], int size) {
+    clock_t start = clock();
+    selection_sort(arr, size);
+    clock_t end = clock();
+
+    // Calculate the time taken
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+    printf("Time taken to sort: %f seconds\n", time_taken);
+}
+
+int main() {
+    int size;
+    printf("ENTER SIZE OF ARRAY: ");
+    scanf("%d", &size);
+
+    int arr[100]; 
+
+    // Best Case: Already Sorted Array
+    printf("\nFOR BEST CASE (SORTED ARRAY):\n");
+    input_array(arr, size);
+    check_performance(arr, size);
+    display_array(arr, size);
+    printf("Best Case Time Complexity: O(n^2)\n");
+
+    // Worst Case: Reverse Sorted Array
+    printf("\nFOR WORST CASE (REVERSE SORTED ARRAY):\n");
+    input_array(arr, size);
+    check_performance(arr, size);
+    display_array(arr, size);
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+    return 0;
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER SIZE OF ARRAY: 7
+
+FOR BEST CASE (SORTED ARRAY):
+ENTER ARRAY ELEMENTS:
+10
+20
+30
+40
+50
+60
+70
+Time taken to sort: 0.000002 seconds
+SORTED ARRAY: 10 20 30 40 50 60 70 
+Best Case Time Complexity: O(n^2)
+
+FOR WORST CASE (REVERSE SORTED ARRAY):
+ENTER ARRAY ELEMENTS:
+70
+60
+50
+40
+30
+20
+10
+Time taken to sort: 0.000002 seconds
+SORTED ARRAY: 10 20 30 40 50 60 70 
+Worst Case Time Complexity: O(n^2)
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-1">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+                <textarea readonly>
+//2. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM SELECTION SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+void selection(int arr[], int size, int start) {
+    if (start >= size - 1) {
+        return;
+    }
+
+    int min_index = start;
+    for (int i = start + 1; i < size; i++) {
+        if (arr[i] < arr[min_index]) {
+            min_index = i;
+        }
+    }
+
+    if (min_index != start) {
+        int temp = arr[start];
+        arr[start] = arr[min_index];
+        arr[min_index] = temp;
+    }
+
+    selection(arr, size, start + 1);
+}
+
+void input_array(int arr[], int size) {
+    printf("ENTER ARRAY ELEMENTS:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+}
+
+void display_array(int arr[], int size) {
+    printf("\nSORTED ARRAY: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+void check_performance(int arr[], int size) {
+    clock_t start_time = clock();
+    selection(arr, size, 0);
+    clock_t end_time = clock();
+
+    // Calculate the time taken
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+    printf("Time taken to sort: %f seconds\n", time_taken);
+}
+
+int main() {
+    int size;
+    printf("ENTER SIZE OF ARRAY: ");
+    scanf("%d", &size);
+
+    int arr[100]; 
+
+    // Best Case: Already Sorted Array
+    printf("\nFOR BEST CASE (SORTED ARRAY):\n");
+    input_array(arr, size);
+    check_performance(arr, size);
+    display_array(arr, size);
+    printf("Best Case Time Complexity: O(n^2)\n");
+
+    // Worst Case: Reverse Sorted Array
+    printf("\nFOR WORST CASE (REVERSE SORTED ARRAY):\n");
+    input_array(arr, size);
+    check_performance(arr, size);
+    display_array(arr, size);
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+    return 0;
+}
+
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER SIZE OF ARRAY: 6
+
+FOR BEST CASE (SORTED ARRAY):
+ENTER ARRAY ELEMENTS:
+10
+20
+30
+40
+50
+60
+Time taken to sort: 0.000001 seconds
+
+SORTED ARRAY: 10 20 30 40 50 60 
+Best Case Time Complexity: O(n^2)
+
+FOR WORST CASE (REVERSE SORTED ARRAY):
+ENTER ARRAY ELEMENTS:
+60
+50
+40
+30
+20
+10
+Time taken to sort: 0.000001 seconds
+
+SORTED ARRAY: 10 20 30 40 50 60 
+Worst Case Time Complexity: O(n^2)
+
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-2">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+
+                <textarea readonly>
+//3. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM BUBBLE SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+void bubble_sort(int arr[], int size) {
+    int i, j, temp;
+    for (i = 0; i < size - 1; i++) {
+        for (j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void input_array(int arr[], int size) {
+    printf("ENTER ARRAY ELEMENTS:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+}
+
+void display_array(int arr[], int size) {
+    printf("SORTED ARRAY: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+void check_performance(int arr[], int size) {
+    clock_t start_time = clock();
+    bubble_sort(arr, size);
+    clock_t end_time = clock();
+
+    // Calculate the time taken
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+    printf("Time taken to sort: %f seconds\n", time_taken);
+}
+
+int main() {
+    int size;
+    printf("ENTER SIZE OF ARRAY: ");
+    scanf("%d", &size);
+
+    int arr[100]; // Assuming a maximum size of 100
+
+    // Best Case: Already Sorted Array
+    printf("\nFOR BEST CASE (SORTED ARRAY):\n");
+    input_array(arr, size);
+    check_performance(arr, size);
+    display_array(arr, size);
+    printf("Best Case Time Complexity: O(n)\n");
+
+    // Worst Case: Reverse Sorted Array
+    printf("\nFOR WORST CASE (REVERSE SORTED ARRAY):\n");
+    for (int i = 0; i < size; i++) {
+        arr[i] = (size - i) * 10; // Fill array with reverse sorted values
+    }
+    check_performance(arr, size);
+    display_array(arr, size);
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+    return 0;
+}
+
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER SIZE OF ARRAY: 5
+
+FOR BEST CASE (SORTED ARRAY):
+ENTER ARRAY ELEMENTS:
+10
+20
+30
+40
+50
+Time taken to sort: 0.000001 seconds
+SORTED ARRAY: 10 20 30 40 50 
+Best Case Time Complexity: O(n)
+
+FOR WORST CASE (REVERSE SORTED ARRAY):
+Time taken to sort: 0.000001 seconds
+SORTED ARRAY: 10 20 30 40 50 
+Worst Case Time Complexity: O(n^2)
+
+                </textarea>
+            </div>
+        </div>
+<div class="code-output" id="code-output-3">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+                <textarea readonly>
+//4. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM BUBBLE SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+void bubble_sort(int arr[], int size, int end) {
+    if (end == 1) {
+        return;
+    }
+
+    for (int i = 0; i < end - 1; i++) {
+        if (arr[i] > arr[i + 1]) {
+            // Swap
+            int temp = arr[i];
+            arr[i] = arr[i + 1];
+            arr[i + 1] = temp;
+        }
+    }
+
+    bubble_sort(arr, size, end - 1);
+}
+
+void test_bubble_sort(int arr[], int size) {
+    clock_t start_time = clock();
+    bubble_sort(arr, size, size);
+    clock_t end_time = clock();
+
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+    printf("Time taken for sorting: %f seconds\n", time_taken);
+}
+
+int main() {
+    int size, i;
+
+    // Test for Best Case
+    printf("ENTER SIZE OF ARRAY for Best Case: ");
+    scanf("%d", &size);
+    int best_case_array[size];
+
+    printf("\nENTER SORTED ARRAY ELEMENTS for Best Case: ");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &best_case_array[i]);
+    }
+
+    printf("\nTesting Best Case:\n");
+    test_bubble_sort(best_case_array, size);
+
+    // Test for Worst Case
+    printf("\nENTER SIZE OF ARRAY for Worst Case: ");
+    scanf("%d", &size);
+    int worst_case_array[size];
+
+    printf("\nENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case: ");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &worst_case_array[i]);
+    }
+
+    printf("\nTesting Worst Case:\n");
+    test_bubble_sort(worst_case_array, size);
+
+    return 0;
+}
+
+</textarea>
+</div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY for Best Case: 5
+
+ENTER SORTED ARRAY ELEMENTS for Best Case: 10
+20
+30
+40
+50
+
+Testing Best Case:
+Time taken for sorting: 0.000001 seconds
+
+ENTER SIZE OF ARRAY for Worst Case: 5
+
+ENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case: 50
+40
+30
+20
+10
+
+Testing Worst Case:
+Time taken for sorting: 0.000002 seconds
+                </textarea>
+            </div>
+        </div>
+<div class="code-output" id="code-output-4">
+            <div class="code-frame">
+                <h2>5. Code</h2>
+                <textarea readonly>
+//5. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM INSERTION SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+#define MAX_SIZE 100 
+
+void insertion_sort(int arr[], int size) {
+    int k, temp, loc;
+    for (k = 1; k < size; k++) {
+        temp = arr[k];
+        loc = k - 1;
+        while (loc >= 0 && temp < arr[loc]) {
+            arr[loc + 1] = arr[loc];
+            loc = loc - 1;
+        }
+        arr[loc + 1] = temp;
+    }
+}
+
+int main() {
+    int size, arr[MAX_SIZE], i;
+
+    // Best Case
+    printf("ENTER SIZE OF ARRAY for Best Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER SORTED ARRAY ELEMENTS for Best Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in best case
+    clock_t start = clock();
+    insertion_sort(arr, size);
+    clock_t end = clock();
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Best Case:\n");
+    printf("Time taken for sorting: %f seconds\n", time_taken);
+
+    // Reset array for worst case
+    printf("\nENTER SIZE OF ARRAY for Worst Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in worst case
+    start = clock();
+    insertion_sort(arr, size);
+    end = clock();
+    time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Worst Case:\n");
+    printf("Time taken for sorting: %f seconds\n", time_taken);
+
+
+}
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+ENTER SIZE OF ARRAY for Best Case: 5
+
+ENTER SORTED ARRAY ELEMENTS for Best Case:
+12
+45
+56
+78
+90
+
+Testing Best Case:
+Time taken for sorting: 0.000001 seconds
+
+ENTER SIZE OF ARRAY for Worst Case: 5
+
+ENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:
+12
+45
+56
+78
+90
+
+Testing Worst Case:
+Time taken for sorting: 0.000002 seconds
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-5">
+            <div class="code-frame">
+                <h2>6. Code</h2>
+                <textarea readonly>
+//6. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM INSERTION SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+#define MAX_SIZE 100 // Define a maximum size for the array
+
+void insertion_sort(int arr[], int size, int k) {
+    if (k >= size) {
+        return;
+    }
+
+    int temp = arr[k];
+    int loc = k - 1;
+
+    while (loc >= 0 && arr[loc] > temp) {
+        arr[loc + 1] = arr[loc];
+        loc--;
+    }
+    arr[loc + 1] = temp;
+
+    insertion_sort(arr, size, k + 1);
+}
+
+int main() {
+    int size, arr[MAX_SIZE], i;
+
+    // Best Case
+    printf("ENTER SIZE OF ARRAY for Best Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER SORTED ARRAY ELEMENTS for Best Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in best case
+    clock_t start = clock();
+    insertion_sort(arr, size, 1);
+    clock_t end = clock();
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Best Case:\n");
+    printf("SORTED ARRAY:");
+    for (i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    // Reset array for worst case
+    printf("\nENTER SIZE OF ARRAY for Worst Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in worst case
+    start = clock();
+    insertion_sort(arr, size, 1);
+    end = clock();
+    time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Worst Case:\n");
+    printf("SORTED ARRAY:");
+    for (i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n) (when the array is already sorted)\n");
+    printf("Worst Case Time Complexity: O(n^2) (when the array is sorted in reverse order)\n");
+
+    return 0;
+}
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY for Best Case: 5
+
+ENTER SORTED ARRAY ELEMENTS for Best Case:
+10
+20
+30
+40
+50
+
+Testing Best Case:
+SORTED ARRAY:
+10
+20
+30
+40
+50
+Time taken for sorting: 0.000001 seconds
+
+ENTER SIZE OF ARRAY for Worst Case: 5
+
+ENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:
+10
+20
+30
+40
+50
+
+Testing Worst Case:
+SORTED ARRAY:
+10
+20
+30
+40
+50
+Time taken for sorting: 0.000002 seconds
+Best Case Time Complexity: O(n) (when the array is already sorted)
+Worst Case Time Complexity: O(n^2) (when the array is sorted in reverse order)
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-6">
+            <div class="code-frame">
+                <h2>7. Code</h2>
+                <textarea readonly>
+//7.ENTER A INTEGER ARRAY FROM THE USER AND PERFORM MERGE SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME
+#include <stdio.h>
+#include <time.h>
+
+#define MAX_SIZE 100 
+
+void merge(int arr[], int left, int mid, int right) {
+    int n1 = mid - left + 1; 
+    int n2 = right - mid;   
+
+    int L[MAX_SIZE], R[MAX_SIZE];
+
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
+
+    int i = 0, j = 0, k = left; 
+
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void merge_sort(int arr[], int n) {
+    int curr_size;  
+    int left_start; 
+
+    for (curr_size = 1; curr_size < n; curr_size *= 2) {
+        for (left_start = 0; left_start < n - 1; left_start += 2 * curr_size) {
+            int mid = left_start + curr_size - 1;
+            int right_end = left_start + 2 * curr_size - 1;
+
+            merge(arr, left_start, mid, (right_end < n - 1) ? right_end : n - 1);
+        }
+    }
+}
+
+int main() {
+    int size, arr[MAX_SIZE], i;
+
+    // Best Case
+    printf("ENTER SIZE OF ARRAY for Best Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER SORTED ARRAY ELEMENTS for Best Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in best case
+    clock_t start = clock();
+    merge_sort(arr, size);
+    clock_t end = clock();
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Best Case:\n");
+    printf("SORTED ARRAY:");
+    for (i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    // Reset array for worst case
+    printf("\nENTER SIZE OF ARRAY for Worst Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in worst case
+    start = clock();
+    merge_sort(arr, size);
+    end = clock();
+    time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Worst Case:\n");
+    printf("SORTED ARRAY:");
+    for (i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n log n)\n");
+    printf("Worst Case Time Complexity: O(n log n)\n");
+
+
+}
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER SIZE OF ARRAY for Best Case: 5
+
+ENTER SORTED ARRAY ELEMENTS for Best Case:
+10
+20
+30
+40
+50
+
+Testing Best Case:
+SORTED ARRAY:
+10
+20
+30
+40
+50
+Time taken for sorting: 0.000001 seconds
+
+ENTER SIZE OF ARRAY for Worst Case: 5
+
+ENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:
+50
+40
+30
+20
+10
+
+Testing Worst Case:
+SORTED ARRAY:
+10
+20
+30
+40
+50
+Time taken for sorting: 0.000002 seconds
+Best Case Time Complexity: O(n log n)
+Worst Case Time Complexity: O(n log n)
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-7">
+            <div class="code-frame">
+                <h2>8. Code</h2>
+                <textarea readonly>
+//8.ENTER A INTEGER ARRAY FROM THE USER AND PERFORM MERGE SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME
+#include <stdio.h>
+#include <time.h>
+
+#define MAX_SIZE 100 // Define a maximum size for the array
+
+void merge(int arr[], int l, int m, int r) {
+    int n1 = m - l + 1; 
+    int n2 = r - m;   
+    int L[MAX_SIZE], R[MAX_SIZE]; // Use static arrays
+
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    int i = 0, j = 0, k = l; 
+
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void MergeSort(int arr[], int l, int r) {
+    if (l < r) {
+        int mid = l + (r - l) / 2;
+        MergeSort(arr, l, mid);
+        MergeSort(arr, mid + 1, r);
+        merge(arr, l, mid, r);
+    }
+}
+
+int main() {
+    int size, arr[MAX_SIZE], i;
+
+    // Best Case
+    printf("ENTER SIZE OF ARRAY for Best Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER SORTED ARRAY ELEMENTS for Best Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in best case
+    clock_t start = clock();
+    MergeSort(arr, 0, size - 1);
+    clock_t end = clock();
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Best Case:\n");
+    printf("SORTED ARRAY:");
+    for (i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    // Reset array for worst case
+    printf("\nENTER SIZE OF ARRAY for Worst Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in worst case
+    start = clock();
+    MergeSort(arr, 0, size - 1);
+    end = clock();
+    time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Worst Case:\n");
+    printf("SORTED ARRAY:");
+    for (i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n log n)\n");
+    printf("Worst Case Time Complexity: O(n log n)\n");
+
+    return 0;
+}
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY for Best Case: 7
+
+ENTER SORTED ARRAY ELEMENTS for Best Case:
+1
+2
+3
+4
+5
+6
+7
+
+Testing Best Case:
+SORTED ARRAY:
+1
+2
+3
+4
+5
+6
+7
+Time taken for sorting: 0.000001 seconds
+
+ENTER SIZE OF ARRAY for Worst Case: 7
+
+ENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:
+7
+6
+5
+4
+3
+2
+1
+
+Testing Worst Case:
+SORTED ARRAY:
+1
+2
+3
+4
+5
+6
+7
+Time taken for sorting: 0.000002 seconds
+Best Case Time Complexity: O(n log n)
+Worst Case Time Complexity: O(n log n)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-8">
+            <div class="code-frame">
+                <h2>9. Code</h2>
+                <textarea readonly>
+//9. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM QUICK SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+
+#include <stdio.h>
+#include <time.h>
+
+#define MAX_SIZE 100 // Define a maximum size for the array
+
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void quick_sort(int arr[], int n) {
+    int stack[MAX_SIZE], top = -1;
+
+    stack[++top] = 0;        // Push initial left index
+    stack[++top] = n - 1;    // Push initial right index
+
+    while (top >= 0) {
+        int right = stack[top--];
+        int left = stack[top--];
+
+        int pivot = arr[right];
+        int i = (left - 1); 
+
+        for (int j = left; j < right; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                swap(&arr[i], &arr[j]);
+            }
+        }
+        swap(&arr[i + 1], &arr[right]); // Place pivot in the correct position
+        int pivotIndex = i + 1;
+
+        // Push left side to stack
+        if (pivotIndex - 1 > left) {
+            stack[++top] = left;
+            stack[++top] = pivotIndex - 1;
+        }
+
+        // Push right side to stack
+        if (pivotIndex + 1 < right) {
+            stack[++top] = pivotIndex + 1;
+            stack[++top] = right;
+        }
+    }
+}
+
+int main() {
+    int size, arr[MAX_SIZE], i;
+
+    // Best Case
+    printf("ENTER SIZE OF ARRAY for Best Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER SORTED ARRAY ELEMENTS for Best Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in best case
+    clock_t start = clock();
+    quick_sort(arr, size);
+    clock_t end = clock();
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Best Case:\n");
+    printf("SORTED ARRAY:");
+    for (i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    // Reset array for worst case
+    printf("\nENTER SIZE OF ARRAY for Worst Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in worst case
+    start = clock();
+    quick_sort(arr, size);
+    end = clock();
+    time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Worst Case:\n");
+    printf("SORTED ARRAY:");
+    for (i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n log n)\n");
+    printf("Worst Case Time Complexity: O(n^2)\n");
+}
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER SIZE OF ARRAY for Best Case: 8
+
+ENTER SORTED ARRAY ELEMENTS for Best Case:
+1
+2
+3
+4
+5
+6
+7
+8
+
+Testing Best Case:
+SORTED ARRAY:
+1
+2
+3
+4
+5
+6
+7
+8
+Time taken for sorting: 0.000002 seconds
+
+ENTER SIZE OF ARRAY for Worst Case: 8
+
+ENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:
+8
+7
+6
+5
+4
+3
+2
+1
+
+Testing Worst Case:
+SORTED ARRAY:
+1
+2
+3
+4
+5
+6
+7
+8
+Time taken for sorting: 0.000002 seconds
+Best Case Time Complexity: O(n log n)
+Worst Case Time Complexity: O(n^2)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-9">
+            <div class="code-frame">
+                <h2>10. Code</h2>
+                <textarea readonly> 
+//10. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM QUICK SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+#define MAX_SIZE 100 
+
+int partition(int* arr, int lb, int ub) {
+    int temp;
+    int pivot = arr[lb];
+    int start = lb;
+    int end = ub;
+
+    while (start < end) {
+        while (start <= ub && arr[start] <= pivot) {
+            start++;
+        }
+        while (arr[end] > pivot) {
+            end--;
+        }
+        if (start < end) {
+            temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+        }
+    }
+
+    arr[lb] = arr[end];
+    arr[end] = pivot;
+
+    return end; 
+}
+
+void quick_sort(int* arr, int lb, int ub) {
+    if (lb < ub) {
+        int loc = partition(arr, lb, ub);
+        quick_sort(arr, lb, loc - 1);
+        quick_sort(arr, loc + 1, ub);
+    }
+}
+
+int main() {
+    int size, arr[MAX_SIZE];
+
+    // Best Case
+    printf("ENTER SIZE OF ARRAY for Best Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER SORTED ARRAY ELEMENTS for Best Case:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in best case
+    clock_t start = clock();
+    quick_sort(arr, 0, size - 1);
+    clock_t end = clock();
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Best Case:\n");
+    printf("SORTED ARRAY:");
+    for (int i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    // Reset array for worst case
+    printf("\nENTER SIZE OF ARRAY for Worst Case: ");
+    scanf("%d", &size);
+
+    printf("\nENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Measure time for sorting in worst case
+    start = clock();
+    quick_sort(arr, 0, size - 1);
+    end = clock();
+    time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nTesting Worst Case:\n");
+    printf("SORTED ARRAY:");
+    for (int i = 0; i < size; i++) {
+        printf("\n%d", arr[i]);
+    }
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n log n)\n");
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+
+}
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY for Best Case: 7
+
+ENTER SORTED ARRAY ELEMENTS for Best Case:
+1
+2
+3
+4
+5
+6
+7
+
+Testing Best Case:
+SORTED ARRAY:
+1
+2
+3
+4
+5
+6
+7
+Time taken for sorting: 0.000002 seconds
+
+ENTER SIZE OF ARRAY for Worst Case: 7
+
+ENTER REVERSE SORTED ARRAY ELEMENTS for Worst Case:
+7
+6
+5
+4
+3
+2
+1
+
+Testing Worst Case:
+SORTED ARRAY:
+1
+2
+3
+4
+5
+6
+7
+Time taken for sorting: 0.000003 seconds
+Best Case Time Complexity: O(n log n)
+Worst Case Time Complexity: O(n^2)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-10">
+            <div class="code-frame">
+                <h2>11. Code</h2>
+                <textarea readonly>
+//11. ENTER A STRING ARRAY FROM THE USER AND PERFORM SELECTION SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME
+#include <stdio.h>
+#include <time.h>
+
+void selection_sort(char str[], int size) {
+    int i, j, minIndex;
+    char temp;
+
+    for (i = 0; i < size - 1; i++) {
+        minIndex = i; // Assume the minimum is the first element
+
+        for (j = i + 1; j < size; j++) {
+            if (str[j] < str[minIndex]) {
+                minIndex = j; // Update minIndex if a smaller element is found
+            }
+        }
+
+      
+        if (minIndex != i) {
+            temp = str[i];
+            str[i] = str[minIndex];
+            str[minIndex] = temp;
+        }
+    }
+}
+
+int main() {
+    char str[100];
+    int count = 0;
+
+    // Best Case Input
+    printf("ENTER INPUT FOR BEST CASE (SORTED STRING): ");
+    gets(str);
+    
+    // Manually count the length and remove newline
+    while (str[count] != '\0') {
+        if (str[count] == '\n') { 
+            str[count] = '\0'; 
+            break;
+        }
+        count++;
+    }
+
+    // Measure time for sorting in best case
+    clock_t start = clock();
+    selection_sort(str, count);
+    clock_t end = clock();
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (BEST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+    
+    // Reset the string for worst case
+    printf("\nENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+    
+    // Reset count for new input
+    count = 0;
+    
+    // Manually count the length and remove newline
+    while (str[count] != '\0') {
+        if (str[count] == '\n') { // Check for newline character
+            str[count] = '\0'; // Replace newline with null terminator
+            break;
+        }
+        count++;
+    }
+
+    // Measure time for sorting in worst case
+    start = clock();
+    selection_sort(str, count);
+    end = clock();
+    time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (WORST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n^2)\n");
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+  
+}
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER INPUT FOR BEST CASE (SORTED STRING): murder
+
+OUTPUT (BEST CASE): demrru
+Time taken for sorting: 0.000001 seconds
+
+ENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): redrum
+
+OUTPUT (WORST CASE): demrru
+Time taken for sorting: 0.000001 seconds
+Best Case Time Complexity: O(n^2)
+Worst Case Time Complexity: O(n^2)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-11">
+            <div class="code-frame">
+                <h2>12. Code</h2>
+                <textarea readonly>
+
+//12.ENTER A STRING ARRAY FROM THE USER AND PERFORM SELECTION SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+void selection_sort(char str[], int n, int start) {
+    int j;
+    if (start >= n - 1) 
+        return; 
+
+    int min_index = start;
+    for (j = start + 1; j < n; j++) {
+        if (str[j] < str[min_index]) {
+            min_index = j; 
+        }
+    }
+
+    if (min_index != start) {
+        char temp = str[start];
+        str[start] = str[min_index];
+        str[min_index] = temp;
+    }
+
+    selection_sort(str, n, start + 1); 
+}
+
+int main() {
+    char str[50];
+    int length = 0;
+
+    // Best Case Input
+    printf("ENTER INPUT FOR BEST CASE (SORTED STRING): ");
+    gets(str);
+
+    // Manually count the length and remove newline
+    while (str[length] != '\0') {
+        if (str[length] == '\n') {
+            str[length] = '\0'; // Replace newline with null terminator
+            break;
+        }
+        length++;
+    }
+
+    // Measure time for sorting in best case
+    clock_t start_time = clock();
+    selection_sort(str, length, 0);
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (BEST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+    
+    // Reset the string for worst case
+    printf("\nENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+    
+    // Reset count for new input
+    length = 0;
+
+    // Manually count the length and remove newline
+    while (str[length] != '\0') {
+        if (str[length] == '\n') {
+            str[length] = '\0'; // Replace newline with null terminator
+            break;
+        }
+        length++;
+    }
+
+    // Measure time for sorting in worst case
+    start_time = clock();
+    selection_sort(str, length, 0);
+    end_time = clock();
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (WORST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n^2)\n");
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+}
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER INPUT FOR BEST CASE (SORTED STRING): border
+
+OUTPUT (BEST CASE): bdeorr
+Time taken for sorting: 0.000001 seconds
+
+ENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): redrob
+
+OUTPUT (WORST CASE): bdeorr
+Time taken for sorting: 0.000002 seconds
+Best Case Time Complexity: O(n^2)
+Worst Case Time Complexity: O(n^2)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-12">
+            <div class="code-frame">
+                <h2>13. Code</h2>
+                <textarea readonly>
+
+//13. ENTER A STRING ARRAY FROM THE USER AND PERFORM BUBBLE SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+void bubble_sort(char str[], int size) {
+    int i, j;
+    char temp;
+    for (i = 0; i < size - 1; i++) {
+        for (j = 0; j < size - 1 - i; j++) {
+            if (str[j] > str[j + 1]) {
+                temp = str[j];
+                str[j] = str[j + 1];
+                str[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    char str[100];
+    int length = 0;
+
+    // Best Case Input
+    printf("ENTER INPUT FOR BEST CASE (SORTED STRING): ");
+    gets(str);
+
+    // Calculate length and remove newline
+    while (str[length] != '\0') {
+        if (str[length] == '\n') {
+            str[length] = '\0'; // Replace newline with null terminator
+            break;
+        }
+        length++;
+    }
+
+    // Measure time for sorting in best case
+    clock_t start_time = clock();
+    bubble_sort(str, length);
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (BEST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+    
+    // Reset the string for worst case
+    printf("\nENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ");
+    gets(str);
+    
+    // Reset count for new input
+    length = 0;
+
+    // Calculate length and remove newline
+    while (str[length] != '\0') {
+        if (str[length] == '\n') {
+            str[length] = '\0'; // Replace newline with null terminator
+            break;
+        }
+        length++;
+    }
+
+    // Measure time for sorting in worst case
+    start_time = clock();
+    bubble_sort(str, length);
+    end_time = clock();
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (WORST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n)\n");
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+    return 0;
+}
+
+	
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER INPUT FOR BEST CASE (SORTED STRING): lucifer
+
+OUTPUT (BEST CASE): cefilru
+Time taken for sorting: 0.000001 seconds
+
+ENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): reficul
+
+OUTPUT (WORST CASE): cefilru
+Time taken for sorting: 0.000002 seconds
+Best Case Time Complexity: O(n)
+Worst Case Time Complexity: O(n^2)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-13">
+            <div class="code-frame">
+                <h2>14. Code</h2>
+                <textarea readonly>
+//14.ENTER A STRING ARRAY FROM THE USER AND PERFORM BUBBLE SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+void bubble_sort(char str[], int n) {
+    int i;
+    if (n == 1) {
+        return;
+    }
+    for (i = 0; i < n - 1; i++) {
+        if (str[i] > str[i + 1]) {
+            char temp = str[i];
+            str[i] = str[i + 1];
+            str[i + 1] = temp;
+        }
+    }
+    bubble_sort(str, n - 1);   
+}
+
+int main() {
+    char str[50];
+    int length = 0;
+
+    // Best Case Input
+    printf("ENTER INPUT FOR BEST CASE (SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+
+    // Calculate length and remove newline
+    while (str[length] != '\0') {
+        if (str[length] == '\n') {
+            str[length] = '\0'; 
+            break;
+        }
+        length++;
+    }
+
+    // Measure time for sorting in best case
+    clock_t start_time = clock();
+    bubble_sort(str, length);
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (BEST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+    
+    // Reset the string for worst case
+    printf("\nENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+    
+    // Reset count for new input
+    length = 0;
+
+    // Calculate length and remove newline
+    while (str[length] != '\0') {
+        if (str[length] == '\n') {
+            str[length] = '\0'; 
+            break;
+        }
+        length++;
+    }
+
+    // Measure time for sorting in worst case
+    start_time = clock();
+    bubble_sort(str, length);
+    end_time = clock();
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (WORST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n)\n");
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+ 
+}
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER INPUT FOR BEST CASE (SORTED STRING): tomorrow
+
+OUTPUT (BEST CASE): mooorrtw
+Time taken for sorting: 0.000001 seconds
+
+ENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): worromot
+
+OUTPUT (WORST CASE): mooorrtw
+Time taken for sorting: 0.000001 seconds
+Best Case Time Complexity: O(n)
+Worst Case Time Complexity: O(n^2)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-14">
+            <div class="code-frame">
+                <h2>15. Code</h2>
+                <textarea readonly>
+//15. ENTER A STRING ARRAY FROM THE USER AND PERFORM INSERTION SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME
+#include <stdio.h>
+#include <time.h>
+
+void insertion_sort(char str[], int size) {
+    int k, loc;
+    char temp;
+    for (k = 1; k < size; k++) {
+        temp = str[k];
+        loc = k - 1;
+        while (loc >= 0 && temp < str[loc]) {
+            str[loc + 1] = str[loc];
+            loc--;
+        }
+        str[loc + 1] = temp;
+    }
+}
+
+int main() {
+    char str[100];
+    int length;
+
+    // Best Case Input
+    printf("ENTER INPUT FOR BEST CASE (SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+
+    // Calculate length and remove newline
+    for (length = 0; str[length] != '\0'; length++) {
+        if (str[length] == '\n') {
+            str[length] = '\0'; // Replace newline with null terminator
+            break;
+        }
+    }
+
+    // Measure time for sorting in best case
+    clock_t start_time = clock();
+    insertion_sort(str, length);
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (BEST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    // Reset the string for worst case
+    printf("\nENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+
+    // Reset length for new input
+    for (length = 0; str[length] != '\0'; length++) {
+        if (str[length] == '\n') {
+            str[length] = '\0'; // Replace newline with null terminator
+            break;
+        }
+    }
+
+    // Measure time for sorting in worst case
+    start_time = clock();
+    insertion_sort(str, length);
+    end_time = clock();
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (WORST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n)\n");
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+
+}
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER INPUT FOR BEST CASE (SORTED STRING): abcdef
+
+OUTPUT (BEST CASE): abcdef
+Time taken for sorting: 0.000001 seconds
+
+ENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): fedcba
+
+OUTPUT (WORST CASE): abcdef
+Time taken for sorting: 0.000001 seconds
+Best Case Time Complexity: O(n)
+Worst Case Time Complexity: O(n^2)
+
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-15">
+            <div class="code-frame">
+                <h2>16. Code</h2>
+                <textarea readonly>
+//16.ENTER A STRING ARRAY FROM THE USER AND PERFORM INSERTION SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+void insertion_sort(char str[], int n) {
+    if (n <= 1) {
+        return;
+    }
+    // Sort the first n-1 elements
+    insertion_sort(str, n - 1);
+    
+    // Insert the last element at its correct position
+    char temp = str[n - 1];
+    int j = n - 2;
+
+    while (j >= 0 && str[j] > temp) {
+        str[j + 1] = str[j];
+        j--;
+    }
+    str[j + 1] = temp; 
+}
+
+int main() {
+    char str[100];
+    int length = 0;
+
+    // Best Case Input
+    printf("ENTER INPUT FOR BEST CASE (SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+
+    // Calculate length and remove newline
+    while (str[length] != '\0') {
+        if (str[length] == '\n') {
+            str[length] = '\0'; // Replace newline with null terminator
+            break;
+        }
+        length++;
+    }
+
+    // Measure time for sorting in best case
+    clock_t start_time = clock();
+    insertion_sort(str, length);
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (BEST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    // Reset the string for worst case
+    printf("\nENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+
+    // Reset length for new input
+    length = 0;
+    while (str[length] != '\0') {
+        if (str[length] == '\n') {
+            str[length] = '\0'; // Replace newline with null terminator
+            break;
+        }
+        length++;
+    }
+
+    // Measure time for sorting in worst case
+    start_time = clock();
+    insertion_sort(str, length);
+    end_time = clock();
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (WORST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds\n", time_taken);
+
+    printf("Best Case Time Complexity: O(n)\n");
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+    return 0;
+}
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER INPUT FOR BEST CASE (SORTED STRING): outside
+
+OUTPUT (BEST CASE): deiostu
+Time taken for sorting: 0.000001 seconds
+
+ENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): edistuo
+
+OUTPUT (WORST CASE): deiostu
+Time taken for sorting: 0.000001 seconds
+Best Case Time Complexity: O(n)
+Worst Case Time Complexity: O(n^2)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-16">
+            <div class="code-frame">
+                <h2>17. Code</h2>
+                <textarea readonly>
+//17.ENTER A STRING ARRAY FROM THE USER AND PERFORM MERGE SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+
+void merge(char str[], int left, int mid, int right) {
+    int n1 = mid - left + 1; // Size of left subarray
+    int n2 = right - mid;    // Size of right subarray
+
+    char L[n1], R[n2];
+
+    // Copy data to temporary arrays
+    for (int i = 0; i < n1; i++)
+        L[i] = str[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = str[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+
+    // Merge the temporary arrays back into str[left..right]
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            str[k] = L[i];
+            i++;
+        } else {
+            str[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy remaining elements of L[], if any
+    while (i < n1) {
+        str[k] = L[i];
+        i++;
+        k++;
+    }
+
+    // Copy remaining elements of R[], if any
+    while (j < n2) {
+        str[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void merge_sort(char str[], int n) {
+    for (int curr_size = 1; curr_size < n; curr_size *= 2) {
+        for (int left_start = 0; left_start < n - 1; left_start += 2 * curr_size) {
+            int mid = left_start + curr_size - 1;
+            int right_end = (left_start + 2 * curr_size - 1 < n - 1) ? left_start + 2 * curr_size - 1 : n - 1;
+
+            merge(str, left_start, mid, right_end);
+        }
+    }
+}
+
+int main() {
+    char str[100];
+
+    // Input for Best Case
+    printf("ENTER INPUT FOR BEST CASE (SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = 0; // Remove the newline character
+
+    // Measure time for sorting
+    clock_t start_time = clock();
+    merge_sort(str, strlen(str));
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (BEST CASE): %s\n", str);
+    printf("Time taken for sorting: %f seconds\n", time_taken);
+
+    // Input for Worst Case
+    printf("\nENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = 0; // Remove the newline character
+
+    // Measure time for sorting
+    start_time = clock();
+    merge_sort(str, strlen(str));
+    end_time = clock();
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (WORST CASE): %s\n", str);
+    printf("Time taken for sorting: %f seconds\n", time_taken);
+    printf("Best Case Time Complexity: O(n log n)\n");
+    printf("Worst Case Time Complexity: O(n log n)\n");
+
+    return 0;
+}
+
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER INPUT FOR BEST CASE (SORTED STRING): birthday
+
+OUTPUT (BEST CASE): abdhirty
+Time taken for sorting: 0.000002 seconds
+
+ENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): yadhtrib
+
+OUTPUT (WORST CASE): abdhirty
+Time taken for sorting: 0.000002 seconds
+Best Case Time Complexity: O(n log n)
+Worst Case Time Complexity: O(n log n)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-17">
+            <div class="code-frame">
+                <h2>18. Code</h2>
+                <textarea readonly>
+//18.ENTER A STRING ARRAY FROM THE USER AND PERFORM MERGE SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME
+#include <stdio.h>
+#include <time.h>
+
+void merge(char str[], int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    // Temporary arrays for left and right halves
+    char L[n1], R[n2];
+
+    // Copy data to temporary arrays
+    for (int i = 0; i < n1; i++)
+        L[i] = str[l + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = str[m + 1 + j];
+
+    int i = 0, j = 0, k = l;
+
+    // Merge the temporary arrays back into str[l..r]
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            str[k] = L[i];
+            i++;
+        } else {
+            str[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy remaining elements of L[], if any
+    while (i < n1) {
+        str[k] = L[i];
+        i++;
+        k++;
+    }
+
+    // Copy remaining elements of R[], if any
+    while (j < n2) {
+        str[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void MergeSort(char str[], int l, int r) {
+    if (l < r) {
+        int mid = l + (r - l) / 2;
+        MergeSort(str, l, mid);
+        MergeSort(str, mid + 1, r);
+        merge(str, l, mid, r);
+    }
+}
+
+// Function to calculate string length manually
+int string_length(char str[]) {
+    int length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+    return length;
+}
+
+int main() {
+    char str[100];
+    
+    // Input for best case (sorted string)
+    printf("ENTER INPUT FOR BEST CASE (SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+    // Remove newline character
+    for (int i = 0; i < 100; i++) {
+        if (str[i] == '\n') {
+            str[i] = '\0';
+            break;
+        }
+    }
+
+    // Measure time for sorting
+    clock_t start_time = clock();
+    int length = string_length(str);
+    MergeSort(str, 0, length - 1);
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (BEST CASE): %s\n", str);
+    printf("Time taken for sorting: %f seconds\n", time_taken);
+
+    // Input for worst case (reverse sorted string)
+    printf("\nENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ");
+    gets(str);
+    // Remove newline character
+    for (int i = 0; i < 100; i++) {
+        if (str[i] == '\n') {
+            str[i] = '\0';
+            break;
+        }
+    }
+
+    // Measure time for sorting
+    start_time = clock();
+    length = string_length(str);
+    MergeSort(str, 0, length - 1);
+    end_time = clock();
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (WORST CASE): %s\n", str);
+    printf("Time taken for sorting: %f seconds\n", time_taken);
+    printf("Best Case Time Complexity: O(n log n)\n");
+    printf("Worst Case Time Complexity: O(n log n)\n");
+
+    return 0;
+}
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER INPUT FOR BEST CASE (SORTED STRING): jasmine
+
+OUTPUT (BEST CASE): aeijmns
+Time taken for sorting: 0.000002 seconds
+
+ENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): enimsaj
+
+OUTPUT (WORST CASE): aeijmns
+Time taken for sorting: 0.000002 seconds
+Best Case Time Complexity: O(n log n)
+Worst Case Time Complexity: O(n log n)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-18">
+            <div class="code-frame">
+                <h2>19. Code</h2>
+                <textarea readonly>
+//19. ENTER A STRING ARRAY FROM THE USER AND PERFORM QUICK SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME
+#include <stdio.h>
+#include <time.h>
+
+void swap(char* a, char* b) {
+    char temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int partition(char str[], int low, int high) {
+    char pivot = str[high];  // choosing the last element as the pivot
+    int i = (low - 1);  // Index of smaller element
+
+    for (int j = low; j < high; j++) {
+        // If current element is smaller than or equal to pivot
+        if (str[j] <= pivot) {
+            i++;  // increment index of smaller element
+            swap(&str[i], &str[j]);
+        }
+    }
+    swap(&str[i + 1], &str[high]);
+    return (i + 1);
+}
+
+void quick_sort(char str[], int n) {
+    int stack[n];  // stack for indices
+    int top = -1;
+
+    // Push initial values of low and high
+    stack[++top] = 0;
+    stack[++top] = n - 1;
+
+    // Keep popping from stack while it's not empty
+    while (top >= 0) {
+        // Pop high and low
+        int high = stack[top--];
+        int low = stack[top--];
+
+        // Set pivot element at its correct position in sorted array
+        int pivotIndex = partition(str, low, high);
+
+        // If there are elements on left side of pivot, then push left side to stack
+        if (pivotIndex - 1 > low) {
+            stack[++top] = low;
+            stack[++top] = pivotIndex - 1;
+        }
+
+        // If there are elements on right side of pivot, then push right side to stack
+        if (pivotIndex + 1 < high) {
+            stack[++top] = pivotIndex + 1;
+            stack[++top] = high;
+        }
+    }
+}
+
+// Function to calculate string length manually
+int string_length(char str[]) {
+    int length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+    return length;
+}
+
+int main() {
+    char str[100];
+
+    // Input for best case (sorted string)
+    printf("ENTER INPUT FOR BEST CASE (SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+    // Remove newline character
+    for (int i = 0; i < 100; i++) {
+        if (str[i] == '\n') {
+            str[i] = '\0';
+            break;
+        }
+    }
+
+    // Measure time for sorting
+    clock_t start_time = clock();
+    int length = string_length(str);
+    quick_sort(str, length);
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (BEST CASE): %s\n", str);
+    printf("Time taken for sorting: %f seconds\n", time_taken);
+
+    // Input for worst case (reverse sorted string)
+    printf("\nENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ");
+    fgets(str, sizeof(str), stdin);
+    // Remove newline character
+    for (int i = 0; i < 100; i++) {
+        if (str[i] == '\n') {
+            str[i] = '\0';
+            break;
+        }
+    }
+
+    // Measure time for sorting
+    start_time = clock();
+    length = string_length(str);
+    quick_sort(str, length);
+    end_time = clock();
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    printf("\nOUTPUT (WORST CASE): %s\n", str);
+    printf("Time taken for sorting: %f seconds\n", time_taken);
+    printf("Best Case Time Complexity: O(n log n)\n");
+    printf("Worst Case Time Complexity: O(n^2)\n");
+
+    return 0;
+}
+
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER INPUT FOR BEST CASE (SORTED STRING): daisy
+
+OUTPUT (BEST CASE): adisy
+Time taken for sorting: 0.000001 seconds
+
+ENTER INPUT FOR WORST CASE (REVERSE SORTED STRING): ysiad
+
+OUTPUT (WORST CASE): adisy
+Time taken for sorting: 0.000002 seconds
+Best Case Time Complexity: O(n log n)
+Worst Case Time Complexity: O(n^2)
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-19">
+            <div class="code-frame">
+                <h2>20. Code</h2>
+                <textarea readonly>
+//20. ENTER A STRING ARRAY FROM THE USER AND PERFORM QUICK SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.
+#include <stdio.h>
+#include <time.h>
+
+int partition(char* str, int lb, int ub) {
+    char pivot = str[lb];
+    int start = lb;
+    int end = ub;
+
+    while (start < end) {
+        while (start <= ub && str[start] <= pivot) {
+            start++;
+        }
+        while (str[end] > pivot) {
+            end--;
+        }
+        if (start < end) {
+            char temp = str[start];
+            str[start] = str[end];
+            str[end] = temp;
+        }
+    }
+    str[lb] = str[end];
+    str[end] = pivot;
+    return end;
+}
+
+void quick_sort(char* arr, int lb, int ub) {
+    if (lb < ub) {
+        int loc = partition(arr, lb, ub);
+        quick_sort(arr, lb, loc - 1);
+        quick_sort(arr, loc + 1, ub);
+    }
+}
+
+int main() {
+    char str[100];  // Buffer for user input
+    int size = 0;
+
+    // Input for best case scenario (sorted)
+    printf("ENTER A STRING for BEST CASE (sorted): ");
+    gets(str);
+
+    // Manually calculate the length and remove newline if present
+    while (str[size] != '\0') {
+        if (str[size] == '\n') {
+            str[size] = '\0'; // Replace newline with null terminator
+            break;
+        }
+        size++;
+    }
+
+    // Sort and display results for the best case
+    clock_t start_time = clock();
+    quick_sort(str, 0, size - 1);
+    clock_t end_time = clock();
+    
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+    printf("\nOUTPUT (BEST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds", time_taken);
+
+    // Input for worst case scenario (reverse sorted)
+    printf("\n\nENTER A STRING for WORST CASE (reverse sorted): ");
+    gets(str);
+
+    // Manually calculate the length and remove newline if present
+    size = 0; // Reset size for new input
+    while (str[size] != '\0') {
+        if (str[size] == '\n') {
+            str[size] = '\0'; // Replace newline with null terminator
+            break;
+        }
+        size++;
+    }
+
+    // Sort and display results for the worst case
+    start_time = clock();
+    quick_sort(str, 0, size - 1);
+    end_time = clock();
+
+    time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+    printf("\nOUTPUT (WORST CASE): %s", str);
+    printf("\nTime taken for sorting: %f seconds", time_taken);
+
+    // Display complexities
+    printf("\n\nBest Case Time Complexity: O(n log n)");
+    printf("\nWorst Case Time Complexity: O(n^2)\n");
+
+    return 0;
+}
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER A STRING for BEST CASE (sorted): watermelon
+
+OUTPUT (BEST CASE): aeelmnortw
+Time taken for sorting: 0.000002 seconds
+
+ENTER A STRING for WORST CASE (reverse sorted): nolemretaw
+
+OUTPUT (WORST CASE): aeelmnortw
+Time taken for sorting: 0.000002 seconds
+
+Best Case Time Complexity: O(n log n)
+Worst Case Time Complexity: O(n^2)
+
+
+</textarea>
+</div>
+</div>
+
+   </DIV>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+    <script>
+        function toggleCode(index) {
+            const codeOutput = document.getElementById(`code-output-${index}`);
+            const isVisible = codeOutput.style.display === "flex";
+            
+            // Hide all code outputs first
+            const allOutputs = document.querySelectorAll('.code-output');
+            allOutputs.forEach(output => output.style.display = "none");
+            
+            // Toggle visibility of the selected output only if it was not already visible
+            if (!isVisible) {
+                codeOutput.style.display = "flex";
+            }
+        }
+
+        // Initially hide all code outputs
+        document.querySelectorAll('.code-output').forEach(output => {
+            output.style.display = "none";
+        });
+    </script>
+</body>
+</html>

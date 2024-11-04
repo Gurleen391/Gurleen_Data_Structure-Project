@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+            list-style: none;
+            padding-left: 20px; /* Adjust this value to increase or decrease the right shift */
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>STACKS</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='2darray.html'"><b>2D Array</b></div>
+            <div class="tab" onclick="location.href='graphs.html'"><b>Graphs</b></div>
+            <div class="tab" onclick="location.href='linkedlist.html'"><b>Linked List</b></div>
+            <div class="tab" onclick="location.href='queues.html'"><b>Queues</b></div>
+            <div class="tab" onclick="location.href='recursion.html'"><b>Recursion</b></div>
+            <div class="tab" onclick="location.href='searching.html'"><b>Searching Algorithms</b></div>
+            <div class="tab" onclick="location.href='singlearray.html'"><b>Single Dimension Array</b></div>
+            <div class="tab" onclick="location.href='sorting.html'"><b>Sorting</b></div>
+            <div class="tab" onclick="location.href='stack.html'"><b>Stack</b></div>            
+            <div class="tab" onclick="location.href='string.html'"><b>Strings</b></div>
+            <div class="tab" onclick="location.href='trees.html'"><b>Trees</b></div>
+        </div>
+
+    </header>
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol type=1 style="list-style-type: decimal;">
+                <li onclick="toggleCode(0)">Create a stack implementing the operations on an integer array (push, pop, peek, isEmpty, isFull).</li>
+                <li onclick="toggleCode(1)">Create a stack implementing the operations on the characters array (push, pop, peek, isEmpty, isFull).</li>
+                <li onclick="toggleCode(2)">Create a stack implementing the operations on integer nodes (dynamically) (push, pop, peek, isEmpty, isFull).</li>
+                <li onclick="toggleCode(3)">Create a stack implementing the operations on character nodes (dynamically) (push, pop, peek, isEmpty, isFull).</li>
+                <li onclick="toggleCode(4)">Enter the string from the user and reverse the string using stacks.</li>
+                <li onclick="toggleCode(5)">Create the program to match the single bracket using stacks.</li>
+                <li onclick="toggleCode(6)">Create two integer stacks in a single array.</li>
+                <li onclick="toggleCode(7)">Sort the stack in ascending order using integer array.</li>
+                <li onclick="toggleCode(8)">Enter the infix expression from user and convert into prefix expression.</li>
+                <li onclick="toggleCode(9)">Enter the infix expression from user and convert into postfix expression.</li>
+                <li onclick="toggleCode(10)">Create a program to evaluate the prefix expression.</li>
+                <li onclick="toggleCode(11)">Create a program to evaluate the postfix expression.</li>
+                <li onclick="toggleCode(12)">Implement the Tower of Hanoi using stacks.</li>
+            </ol>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+                <textarea readonly>
+/*Create a stack implementing the operations on an integer array
+(push, pop, peek, isempty, isfull)*/
+#include<stdio.h>
+
+int isEmpty(int *i)
+{
+    return *i==-1;
+}
+
+int isFull(int *i,int size)
+{
+    return *i==size-1;
+}
+
+void push(int stack[],int size,int value,int *i)
+{
+    if(*i==size-1) 
+    {
+        printf("\nStack is full");
+    }
+    else
+    {
+        (*i)++;
+        stack[*i]=value;
+    }
+}
+void pop(int stack[],int *i)
+{
+    if(*i==-1)
+    {
+        printf("\nStack is empty");
+    }
+    else
+    {
+        printf("\nValue pop is:%d",stack[*i]);
+        (*i)--;
+    }
+}
+void peek(int stack[],int *i)
+{
+    if(*i==-1)
+    {
+        printf("\nStack is empty");
+    }
+    else
+    {
+        printf("\nTop value is:%d",stack[*i]);
+    }
+}
+void main()
+{
+    int stack[10],size=10,value,i=-1,choice;
+    do
+    {
+        printf("\n1. PUSH\n2. POP\n3. PEEK\n4. IS EMPTY\n5. IS FULL\n6. EXIT");
+        printf("\nEnter your choice:");
+        scanf("%d",&choice);
+        if(choice==1)
+        {
+            printf("PUSH OPERATION ");
+            printf("\nEnter value:");
+            scanf("%d",&value);
+            push(stack,size,value,&i);
+        }
+        else if(choice==2)
+        {
+            printf("POP OPERATION");
+            pop(stack,&i);
+        }
+        else if(choice==3)
+        {
+            printf("PEEK OPERATION ");
+            peek(stack,&i);
+        }
+        else if(choice==4)
+        {
+            printf("IS EMPTY OPERATION");
+            if(isEmpty(&i))
+            {
+                printf("\nThe stack is empty\n");
+            } 
+            else 
+            {
+                printf("\nThe stack is not empty\n");
+            }
+        }
+        else if(choice==5)
+        {
+            printf("IS FULL OPERATION");
+            if(isFull(&i,size)) 
+            {
+                printf("\nThe stack is full\n");
+            }
+            else
+            {
+                printf("\nThe stack is not full\n");
+            }
+        }
+        else if(choice==6)
+        {
+            printf("EXIT");
+            break;
+        }
+        else
+        {
+            printf("INVALID INPUT");
+        }
+    }while(1);
+}
+
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+PUSH OPERATION 
+Enter value:10
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:8
+INVALID INPUT
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:4
+IS EMPTY OPERATION
+The stack is not empty
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+PUSH OPERATION 
+Enter value:20
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:3
+PEEK OPERATION 
+Top value is:20
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:2
+POP OPERATION
+Value pop is:20
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:5
+IS FULL OPERATION
+The stack is not full
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:2
+POP OPERATION
+Value pop is:10
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:4
+IS EMPTY OPERATION
+The stack is empty
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:6
+EXIT
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-1">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+                <textarea readonly>
+/*Create a stack implementing the operations on the characters 
+array(push, pop, peek, isempty, isfull)*/
+#include<stdio.h>
+
+int isEmpty(int *i) 
+{
+    return *i==-1;
+}
+
+int isFull(int *i,int size) 
+{
+    return *i==size-1;
+}
+
+void push(char stack[],int size,char value,int *i)
+{
+    if(*i==size-1) 
+    {
+        printf("\nStack is full");
+    }
+    else
+    {
+        (*i)++;
+        stack[*i]=value;
+    }
+}
+
+void pop(char stack[],int *i)
+{
+    if(*i==-1)
+    {
+        printf("\nStack is empty");
+    }
+    else
+    {
+        printf("\nValue pop is: %c",stack[*i]);
+        (*i)--;
+    }
+}
+
+void peek(char stack[],int *i)
+{
+    if(*i==-1)
+    {
+        printf("\nStack is empty");
+    }
+    else
+    {
+        printf("\nTop value is: %c",stack[*i]);
+    }
+}
+void main()
+{
+    char stack[10],value;
+    int size=10,i=-1,choice;
+    do
+    {
+        printf("\n1. PUSH\n2. POP\n3. PEEK\n4. IS EMPTY\n5. IS FULL\n6. EXIT");
+        printf("\nEnter your choice:");
+        scanf("%d",&choice);
+        if(choice==1)
+        {
+            printf("PUSH OPERATION ");
+            printf("\nEnter character:");
+            scanf(" %c",&value);
+            push(stack,size,value,&i);
+        }
+        else if(choice==2)
+        {
+            printf("POP OPERATION ");
+            pop(stack,&i);
+        }
+        else if(choice==3)
+        {
+            printf("PEEK OPERATION ");
+            peek(stack,&i);
+        }
+        else if(choice==4)
+        {
+            printf("IS EMPTY OPERATION");
+            if(isEmpty(&i))
+            {
+                printf("\nThe stack is empty\n");
+            } 
+            else 
+            {
+                printf("\nThe stack is not empty\n");
+            }
+        }
+        else if(choice==5)
+        {
+            printf("IS FULL OPERATION");
+            if(isFull(&i,size)) 
+            {
+                printf("\nThe stack is full\n");
+            }
+            else
+            {
+                printf("\nThe stack is not full\n");
+            }
+        }
+        else if(choice==6)
+        {
+            printf("EXIT");
+            break;
+        }
+        else
+        {
+            printf("INVALID INPUT");
+        }
+    }while(1);
+}
+
+
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:2
+POP OPERATION 
+Stack is empty
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+PUSH OPERATION 
+Enter character:a
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:3
+PEEK OPERATION 
+Top value is: a
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:10
+INVALID INPUT
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+PUSH OPERATION 
+Enter character:b
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+PUSH OPERATION 
+Enter character:c
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:2
+POP OPERATION 
+Value pop is: c
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:6
+EXIT
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-2">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+                <textarea readonly>
+/*Create a stack implementing the operations on an integer nodes 
+(dynamically) (push, pop, peek, isempty, isfull)*/
+#include<stdio.h>
+#include<stdlib.h>
+struct stack
+{
+    int data;
+    struct stack *next;
+};
+struct stack *start=NULL,*temp;
+
+int isEmpty() 
+{
+    return start==NULL;
+}
+
+int isFull()
+{
+    temp=(struct stack *)malloc(sizeof(struct stack));
+    if(temp!=NULL) 
+    {
+        free(temp);
+        return 0;
+    } 
+    else 
+    {
+        return 1;
+    }
+}
+
+void push()
+{
+    int value;
+    if(start==NULL)
+    {
+        start=(struct stack *)malloc(sizeof(struct stack));
+        printf("\nEnter value:");
+        scanf("%d",&value);
+        start->data=value;
+        start->next=NULL;
+    }
+    else
+    {
+        temp=(struct stack *)malloc(sizeof(struct stack));
+        if(temp!=NULL)
+        {
+            printf("\nEnter the value:");
+            scanf("%d",&value);
+            temp->data=value;
+            temp->next=start;
+            start=temp;
+        }
+        else
+        {
+            printf("\nStack is full");
+        }
+    }
+}
+
+void pop()
+{
+    if(start==NULL)
+    {
+        printf("\nStack is empty");
+    }
+    else
+    {
+        temp=start;
+        start=start->next;
+        printf("\nvalue popped is:%d",temp->data);
+        free(temp);
+    }
+}
+
+void peek()
+{
+    if(start==NULL)
+    {
+        printf("\nStack is empty");
+    }
+    else
+    {
+        printf("\nValue at peek is:%d",start->data);
+    }
+}
+
+void main()
+{
+    int value,i=-1,choice;
+    do
+    {
+        printf("\n1. PUSH\n2. POP\n3. PEEK\n4. IS EMPTY\n5. IS FULL\n6. EXIT");
+        printf("\nEnter your choice:");
+        scanf("%d",&choice);
+        if(choice==1)
+        {
+            printf("PUSH OPERATION ");
+            push();
+        }
+        else if(choice==2)
+        {
+            printf("POP OPERATION");
+            pop();
+        }
+        else if(choice==3)
+        {
+            printf("PEEK OPERATION ");
+            peek();
+        }
+        else if(choice==4)
+        {
+            printf("IS EMPTY OPERATION");
+            if(isEmpty())
+            {
+                printf("\nStack is empty\n");
+            }
+            else
+            {
+                printf("Stack is not empty\n");
+            }
+        }
+        else if(choice==5)
+        {
+            printf("IS FULL OPERATION");
+            if(isFull())
+            {
+                printf("\nStack is full\n");
+            }
+            else
+            {
+                printf("\nStack is not full\n");
+            }
+        }
+        else if(choice==6)
+        {
+            printf("EXIT");
+            break;
+        }
+        else
+        {
+            printf("INVALID INPUT");
+        }
+    }while(1);
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+PUSH OPERATION 
+Enter value:10
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:5
+IS FULL OPERATION
+Stack is not full
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:4
+IS EMPTY OPERATIONStack is not empty
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:2
+POP OPERATION
+value popped is:10
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:3
+PEEK OPERATION 
+Stack is empty
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:6
+EXIT
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-3">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+                <textarea readonly>
+/*Create a stack implementing the operations on the characters 
+nodes (dynamically) (push, pop, peek, isempty, isfull)*/
+#include<stdio.h>
+#include<stdlib.h>
+struct stack
+{
+    char data;
+    struct stack *next;
+};
+struct stack *start=NULL,*temp;
+
+int isEmpty()
+{
+    return start==NULL;
+}
+
+void push()
+{
+    char value;
+    if(start==NULL)
+    {
+        start=(struct stack *)malloc(sizeof(struct stack));
+        printf("\nEnter character:");
+        scanf(" %c",&value);
+        start->data=value;
+        start->next=NULL;
+    }
+    else
+    {
+        temp=(struct stack *)malloc(sizeof(struct stack));
+        if(temp!=NULL)
+        {
+            printf("\nEnter the character:");
+            scanf(" %c",&value);
+            temp->data=value;
+            temp->next=start;
+            start=temp;
+        }
+        else
+        {
+            printf("\nStack is full");
+        }
+    }
+}
+
+void pop()
+{
+    if(start==NULL)
+    {
+        printf("\nStack is empty");
+    }
+    else
+    {
+        temp=start;
+        start=start->next;
+        printf("\nValue popped is: %c",temp->data);
+        free(temp);
+    }
+}
+
+int isFull() 
+{
+    temp=(struct stack *)malloc(sizeof(struct stack));
+    if(temp!=NULL) 
+    {
+        free(temp);
+        return 0;
+    } 
+    else
+    {
+        return 1;
+    }
+}
+
+void peek()
+{
+    if(start==NULL)
+    {
+        printf("\nStack is empty");
+    }
+    else
+    {
+        printf("\nCharacter at peek is: %c",start->data);
+    }
+}
+
+void main()
+{
+    int i=-1,choice;
+    do
+    {
+        printf("\n1. PUSH\n2. POP\n3. PEEK\n4. IS EMPTY\n5. IS FULL\n6. EXIT");
+        printf("\nEnter your choice:");
+        scanf("%d",&choice);
+        if(choice==1)
+        {
+            printf("PUSH OPERATION ");
+            push();
+        }
+        else if(choice==2)
+        {
+            printf("POP OPERATION");
+            pop();
+        }
+        else if(choice==3)
+        {
+            printf("PEEK OPERATION ");
+            peek();
+        }
+        else if(choice==4)
+        {
+            printf("IS EMPTY OPERATION");
+            if(isEmpty()) 
+            {
+                printf("\nStack is empty\n");
+            }
+            else 
+            {
+                printf("\nStack is not empty\n");
+            }
+        }
+        else if(choice==5)
+        {
+            printf("IS FULL OPERATION");
+            if(isFull())
+            {
+                printf("\nStack is full\n");
+            }
+            else 
+            {
+                printf("\nStack is not full\n");
+            }
+        }
+        else if(choice==6)
+        {
+            printf("EXIT");
+            break;
+        }
+        else
+        {
+            printf("INVALID INPUT");
+        }
+    }while(1);
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+PUSH OPERATION 
+Enter character:a
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:2
+POP OPERATION
+Value popped is: a
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:3
+PEEK OPERATION 
+Stack is empty
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:4
+IS EMPTY OPERATION
+Stack is empty
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:5
+IS FULL OPERATION
+Stack is not full
+
+1. PUSH
+2. POP
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:6
+EXIT
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-4">
+            <div class="code-frame">
+                <h2>5. Code</h2>
+                <textarea readonly>
+//Enter the string from the user and reverse the string using stacks
+#include<stdio.h>
+void push_char(char stack[],char value,int *i)
+{
+    (*i)++;
+    stack[*i]=value;
+    //printf("string entered is: %c",stack[*i]);
+}
+void pop_char(char stack[],int *i)
+{
+    printf("\nvalue pop is:%c",stack[*i]);
+    (*i)--;
+}
+void main()
+{
+    char stack[100],str[100];
+    int i=-1,j;
+    printf("Enter the string:");
+    gets(str);
+    
+    for(j=0;str[j]!='\0';j++)
+    {
+        push_char(stack,str[j],&i);
+    }
+    while(i>=0)
+    {
+        pop_char(stack,&i);
+    }
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the string:vaishali
+
+value pop is:i
+value pop is:l
+value pop is:a
+value pop is:h
+value pop is:s
+value pop is:i
+value pop is:a
+value pop is:v
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-5">
+            <div class="code-frame">
+                <h2>6. Code</h2>
+                <textarea readonly>
+//Enter the string from the user and reverse the string using stacks
+#include<stdio.h>
+
+void push(char stack[],char value,int *top) 
+{
+    stack[++(*top)]=value;
+}
+
+char pop(char stack[],int *top)
+{
+    return stack[(*top)--];
+}
+
+int is_empty(int top)
+{
+    return top==-1;
+}
+
+int brackets_match(char expression[]) 
+{
+    char stack[100];
+    int top=-1;
+    int i=0;
+
+    while(expression[i]!='\0') 
+    {
+        if(expression[i]=='(') 
+        {
+            push(stack,'(',&top);
+        } 
+        else if(expression[i]==')')
+        {
+            if(is_empty(top)) 
+            {
+                return 0; 
+            }
+            pop(stack,&top);
+        }
+        i++;
+    }
+    return is_empty(top); 
+}
+
+int main() 
+{
+    char expression[100];
+    printf("Enter an expression:");
+    gets(expression);
+
+    if(brackets_match(expression)) 
+    {
+        printf("Brackets are matched\n");
+    } 
+    else
+    {
+        printf("Brackets are not matched\n");
+    }
+
+    return 0;
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter an expression:a+(b+c)
+Brackets are matched
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-6">
+            <div class="code-frame">
+                <h2>7. Code</h2>
+                <textarea readonly>
+//Create two integer stacks in a single array
+#include<stdio.h>
+#define SIZE 10
+
+void push1(int arr[],int *top1,int *top2,int x)
+{
+    if(*top1+1==*top2)
+    {
+        printf("Stack 1 is full\n");
+        return;
+    }
+    arr[++(*top1)]=x;
+    printf("Pushed %d onto Stack 1\n",x);
+}
+
+void push2(int arr[],int *top1,int *top2,int x)
+{
+    if(*top1+1==*top2) 
+    {
+        printf("Stack 2 is full\n");
+        return;
+    }
+    arr[--(*top2)]=x;
+    printf("Pushed %d onto Stack 2\n",x);
+}
+
+int pop1(int arr[],int *top1) 
+{
+    if(*top1==-1)
+    {
+        printf("Stack 1 is empty\n");
+        return -1;
+    }
+    int x=arr[(*top1)--];
+    printf("Popped %d from Stack 1\n",x);
+    return x;
+}
+
+int pop2(int arr[],int *top2) 
+{
+    if(*top2==SIZE)
+    {
+        printf("Stack 2 is empty\n");
+        return -1;
+    }
+    int x=arr[(*top2)++];
+    printf("Popped %d from Stack 2\n",x);
+    return x;
+}
+
+int main() 
+{
+    int arr[SIZE];
+    int top1=-1,top2=SIZE;
+    int choice,value;
+
+    while (1) 
+    {
+        printf("\n1. Push (Stack 1)\n2. Push (Stack 2)\n3. Pop (Stack 1)\n4. Pop (Stack 2)\n5. Exit\n");
+        printf("Enter your choice:");
+        scanf("%d",&choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter value to push onto Stack 1:");
+                scanf("%d",&value);
+                push1(arr,&top1,&top2,value);
+                break;
+            case 2:
+                printf("Enter value to push onto Stack 2:");
+                scanf("%d",&value);
+                push2(arr,&top1,&top2,value);
+                break;
+            case 3:
+                pop1(arr,&top1);
+                break;
+            case 4:
+                pop2(arr,&top2);
+                break;
+            case 5:
+                printf("EXIT");
+                return 0; 
+            default:
+                printf("INVALID INPUT\n");
+        }
+    }
+
+    return 0;
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. Push (Stack 1)
+2. Push (Stack 2)
+3. Pop (Stack 1)
+4. Pop (Stack 2)
+5. Exit
+Enter your choice:1
+Enter value to push onto Stack 1:10
+Pushed 10 onto Stack 1
+
+1. Push (Stack 1)
+2. Push (Stack 2)
+3. Pop (Stack 1)
+4. Pop (Stack 2)
+5. Exit
+Enter your choice:2
+Enter value to push onto Stack 2:20
+Pushed 20 onto Stack 2
+
+1. Push (Stack 1)
+2. Push (Stack 2)
+3. Pop (Stack 1)
+4. Pop (Stack 2)
+5. Exit
+Enter your choice:3
+Popped 10 from Stack 1
+
+1. Push (Stack 1)
+2. Push (Stack 2)
+3. Pop (Stack 1)
+4. Pop (Stack 2)
+5. Exit
+Enter your choice:4
+Popped 20 from Stack 2
+
+1. Push (Stack 1)
+2. Push (Stack 2)
+3. Pop (Stack 1)
+4. Pop (Stack 2)
+5. Exit
+Enter your choice:5
+EXIT
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-7">
+            <div class="code-frame">
+                <h2>8. Code</h2>
+                <textarea readonly>
+//Sort the stack in ascending order using integer array
+#include<stdio.h>
+#define MAX 10
+
+void push(int stack[],int *top,int value) 
+{
+    if(*top<MAX-1)
+    {
+        stack[++(*top)]=value;
+    } 
+    else
+    {
+        printf("Stack Overflow\n");
+    }
+}
+
+int pop(int stack[],int *top)
+{
+    if(*top>=0)
+    {
+        return stack[(*top)--];
+    } 
+    else
+    {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+}
+
+void sort(int stack[],int *top)
+{
+    int temp_arr[MAX],i,j,temp;
+    int size=*top+1;
+    for(i=0;i<size;i++)
+    {
+        temp_arr[i]=pop(stack,top);
+    }
+    for(i=0;i<size-1;i++)
+    {
+        for(j=i+1;j<size;j++)
+        {
+            if(temp_arr[i]>temp_arr[j])
+            {
+                temp=temp_arr[i];
+                temp_arr[i]=temp_arr[j];
+                temp_arr[j]=temp;
+            }
+        }
+    }
+    for(i=0;i<size;i++)
+    {
+        push(stack,top,temp_arr[i]);
+    }
+}
+
+int main() 
+{
+    int stack[MAX];
+    int top=-1;
+    int n,i,value;
+
+    printf("Enter the number of elements in the stack:");
+    scanf("%d",&n);
+
+    printf("Enter the elements:");
+    for(i=0;i<n;i++) 
+    {
+        scanf("%d",&value);
+        push(stack,&top,value);
+    }
+    
+    sort(stack,&top);
+    
+    printf("Sorted stack is:");
+    for(i=0;i<=top;i++) 
+    {
+        printf("%d ",stack[i]);
+    }
+
+    return 0;
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of elements in the stack:5
+Enter the elements:2
+8
+7
+1
+6
+Sorted stack is:1 2 6 7 8 
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-8">
+            <div class="code-frame">
+                <h2>9. Code</h2>
+                <textarea readonly>
+/*Enter the infix expression from user and convert into prefix 
+expression.*/
+#include<stdio.h>
+#define MAX 100
+
+int string_length(const char *str)
+{
+    int length=0;
+    while(str[length]!='\0')
+    {
+        length++;
+    }
+    return length;
+}
+
+int precedence(char symbol) 
+{
+    switch(symbol) 
+    {
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        case '^':
+            return 3;
+        default:
+            return 0;
+    }
+}
+
+void push(char stack[],char value,int s,int *i) 
+{
+    if (*i==s-1) 
+    {
+        printf("Stack is full\n");
+    } 
+    else 
+    {
+        (*i)++;
+        stack[*i]=value;
+    }
+}
+
+char pop(char stack[],int *i) 
+{
+    if (*i==-1) 
+    {
+        printf("Stack is empty\n");
+        return '\0'; 
+    } 
+    else 
+    {
+        return stack[(*i)--];
+    }
+}
+
+int is_operator(char symbol) 
+{
+    return (symbol=='+'||symbol=='-'||symbol=='*'||symbol=='/'|| symbol=='^');
+}
+
+void reverse(char *exp) 
+{
+    int i,n;
+    n=string_length(exp);
+    for(i=0;i<n/2;i++) 
+    {
+        char temp;
+        temp=exp[i];
+        exp[i]=exp[n-i-1];
+        exp[n-i-1]=temp;
+    }
+}
+
+void infix_to_post(char infix[],char postfix[]) 
+{
+    int i=0,j=0,top=-1;
+    char value,stack[MAX];
+
+    while(infix[i]!='\0') 
+    {
+        value=infix[i];
+        if((value>='a'&&value<='z')||(value>='A'&&value<='Z')|| (value>='0'&&value<='9')) 
+        {
+            postfix[j++]=value;
+        } 
+        else if(value=='(') 
+        {
+            push(stack,value,MAX,&top);
+        } 
+        else if (value==')') 
+        {
+            while(top!=-1&&stack[top]!='(') 
+            {
+                postfix[j++]=pop(stack,&top);
+            }
+            pop(stack,&top); 
+        } 
+        else if(is_operator(value)) 
+        {
+            while(top!=-1&&precedence(stack[top])>=precedence(value)) 
+            {
+                postfix[j++]=pop(stack,&top);
+            }
+            push(stack,value,MAX,&top);
+        }
+        i++;
+    }
+    while(top!=-1) 
+    {
+        postfix[j++]=pop(stack,&top);
+    }
+    postfix[j]='\0'; 
+}
+
+void infix_to_prefix(char infix[],char prefix[]) 
+{
+    reverse(infix);
+
+    int i;
+    for(i=0;infix[i]!='\0';i++) 
+    {
+        if(infix[i]=='(') 
+            infix[i]=')';
+        else if(infix[i]==')') 
+            infix[i]='(';
+    }
+
+    char postfix[MAX];
+    infix_to_post(infix,postfix);
+
+    reverse(postfix);
+    for(i=0;postfix[i]!='\0';i++) 
+    {
+        prefix[i]=postfix[i];
+    }
+    prefix[string_length(postfix)]='\0';
+}
+
+int main() 
+{
+    char infix[MAX],prefix[MAX];
+
+    printf("Enter the infix expression:");
+    gets(infix); 
+
+    int len;
+    len=string_length(infix);
+    if(len>0&&infix[len-1]=='\n')
+    {
+        infix[len-1]='\0';
+    }
+
+    infix_to_prefix(infix,prefix);
+
+    printf("Prefix expression is:%s\n",prefix);
+    return 0;
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the infix expression:7+8-9*10
+Prefix expression is:+7-8*910
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-9">
+            <div class="code-frame">
+                <h2>10. Code</h2>
+                <textarea readonly>
+/*Enter the infix expression from user and convert into postfix 
+expression.*/
+#include<stdio.h>
+#define MAX 100
+
+int precedence(char symbol) 
+{
+    switch(symbol) 
+    {
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        case '^':
+            return 3;
+        default:
+            return 0;
+    }
+}
+
+void push(char stack[],char value,int s,int *i) 
+{
+    if(*i==s-1) 
+    {
+        printf("Stack is full\n");
+    } 
+    else
+    {
+        (*i)++;
+        stack[*i]=value;
+    }
+}
+
+char pop(char stack[],int *i) 
+{
+    if(*i==-1) 
+    {
+        printf("Stack is empty\n");
+        return -1;
+    } 
+    else 
+    {
+        return stack[(*i)--];
+    }
+}
+
+int is_operator(char symbol) 
+{
+    switch(symbol) 
+    {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '^':
+            return 1;
+        default:
+            return 0;
+    }
+}
+
+void infix_to_post(char infix[],char postfix[]) 
+{
+    int i=0,j=0,top=-1;
+    char value,stack[MAX];
+
+    while(infix[i]!='\0')
+    {
+        value=infix[i];
+        if((value>='a'&&value<='z')||(value>='A'&&value<='Z')|| (value>='0'&&value<='9')) 
+        {
+            postfix[j++]=value;
+        } 
+        else if(value=='(')
+        {
+            push(stack,value,MAX,&top);
+        } 
+        else if(value==')')
+        {
+            while(top!=-1&&stack[top]!='(')
+            {
+                postfix[j++]=pop(stack,&top);
+            }
+            pop(stack,&top); 
+        } 
+        else if(is_operator(value))
+        {
+            while(top!=-1&&precedence(stack[top])>=precedence(value))
+            {
+                postfix[j++]=pop(stack,&top);
+            }
+            push(stack,value,MAX,&top);
+        }
+        i++;
+    }
+    while(top!=-1) 
+    {
+        postfix[j++]=pop(stack,&top);
+    }
+    postfix[j]='\0'; 
+}
+
+int main() 
+{
+    char infix[100],postfix[100];
+
+    printf("Enter the infix expression:");
+    gets(infix);
+
+    infix_to_post(infix,postfix);
+
+    printf("Postfix expression is:%s\n",postfix);
+    return 0;
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the infix expression:7+8-9*10
+Postfix expression is:78+910*-
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-10">
+            <div class="code-frame">
+                <h2>11. Code</h2>
+                <textarea readonly>
+//Create a program to evaluate the prefix expression.
+#include<stdio.h>
+#define MAX 100
+
+void push(int stack[],int *top,int value)
+{
+    if(*top<MAX-1)
+    {
+        stack[++(*top)]=value;
+    } 
+    else
+    {
+        printf("Stack overflow\n");
+    }
+}
+
+int pop(int stack[],int *top)
+{
+    if(*top>=0) 
+    {
+        return stack[(*top)--];
+    }
+    else
+    {
+        printf("Stack underflow\n");
+        return -1;
+    }
+}
+
+int is_digit(char ch)
+{
+    return ch>='0'&&ch<='9';
+}
+
+int prefix(char expression[])
+{
+    int stack[MAX];
+    int top=-1,i=0;
+    while(expression[i]!='\0')
+    {
+        i++;
+    }
+    i--;
+    while(i>=0) 
+    {
+        if(is_digit(expression[i])) 
+        {
+            push(stack,&top,expression[i]-'0');
+        } 
+        else
+        {
+            int operand1=pop(stack,&top);
+            int operand2=pop(stack,&top);
+            switch(expression[i])
+            {
+                case '+':
+                    push(stack,&top,operand1+operand2);
+                    break;
+                case '-':
+                    push(stack,&top,operand1-operand2);
+                    break;
+                case '*':
+                    push(stack,&top,operand1*operand2);
+                    break;
+                case '/':
+                    push(stack,&top,operand1/operand2);
+                    break;
+            }
+        }
+        i--;
+    }
+    return pop(stack,&top);
+}
+
+int main() 
+{
+    char expression[MAX];
+    printf("Enter a prefix expression:");
+    gets(expression);
+
+    int result=prefix(expression);
+    printf("Evaluation of the prefix expression is: %d\n",result);
+
+    return 0;
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter a prefix expression:+3*45
+Evaluation of the prefix expression is: 23
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-11">
+            <div class="code-frame">
+                <h2>12. Code</h2>
+                <textarea readonly>
+//Create a program to evaluate the postfix expression.
+#include<stdio.h>
+#define MAX 100
+
+void push(int stack[],int *top,int value)
+{
+    if(*top<MAX-1)
+    {
+        stack[++(*top)]=value;
+    } 
+    else
+    {
+        printf("Stack overflow\n");
+    }
+}
+
+int pop(int stack[],int *top) 
+{
+    if(*top>=0)
+    {
+        return stack[(*top)--];
+    }
+    else
+    {
+        printf("Stack underflow\n");
+        return -1;
+    }
+}
+
+int is_digit(char ch) 
+{
+    return ch>='0'&&ch<='9';
+}
+
+int postfix(char expression[])
+{
+    int stack[MAX];
+    int top=-1,i=0;
+    while(expression[i]!='\0')
+    {
+        if(is_digit(expression[i]))
+        {
+            push(stack,&top,expression[i]-'0');
+        } 
+        else
+        {
+            int operand2=pop(stack,&top);
+            int operand1=pop(stack,&top);
+            switch(expression[i])
+            {
+                case '+':
+                    push(stack,&top,operand1+operand2);
+                    break;
+                case '-':
+                    push(stack,&top,operand1-operand2);
+                    break;
+                case '*':
+                    push(stack,&top,operand1*operand2);
+                    break;
+                case '/':
+                    push(stack,&top,operand1/operand2);
+                    break;
+            }
+        }
+        i++;
+    }
+    return pop(stack,&top);
+}
+
+int main()
+{
+    char expression[MAX];
+    printf("Enter a postfix expression:");
+    gets(expression);
+
+    int result=postfix(expression);
+    printf("Evaluation of the postfix expression is: %d\n",result);
+
+    return 0;
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter a postfix expression:345*+
+Evaluation of the postfix expression is: 23
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-12">
+            <div class="code-frame">
+                <h2>13. Code</h2>
+                <textarea readonly>
+//13. Implement the Tower of Hanoi using stacks.
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 100
+
+void initializeStack(int stack[], int* top) 
+{
+    *top = -1;
+}
+
+int isEmpty(int top) 
+{
+    return top == -1;
+}
+
+int isFull(int top) 
+{
+    return top == MAX - 1;
+}
+
+void push(int stack[], int* top, int item) 
+{
+    if (isFull(*top)) return;
+    stack[++(*top)] = item;
+}
+
+int pop(int stack[], int* top) 
+{
+    if (isEmpty(*top)) return -1;
+    return stack[(*top)--];
+}
+
+void moveDisksBetweenTwoPoles(int src[], int* srcTop, int dest[], int* destTop, char s, char d) 
+{
+    int pole1TopDisk = pop(src, srcTop);
+    int pole2TopDisk = pop(dest, destTop);
+
+    if (pole1TopDisk == -1) 
+    {
+        push(src, srcTop, pole2TopDisk);
+        printf("Move disk %d from '%c' to '%c'\n", pole2TopDisk, d, s);
+    }
+    else if (pole2TopDisk == -1) 
+    {
+        push(dest, destTop, pole1TopDisk);
+        printf("Move disk %d from '%c' to '%c'\n", pole1TopDisk, s, d);
+    }
+    else if (pole1TopDisk > pole2TopDisk) 
+    {
+        push(src, srcTop, pole1TopDisk);
+        push(src, srcTop, pole2TopDisk);
+        printf("Move disk %d from '%c' to '%c'\n", pole2TopDisk, d, s);
+    }
+    else 
+    {
+        push(dest, destTop, pole2TopDisk);
+        push(dest, destTop, pole1TopDisk);
+        printf("Move disk %d from '%c' to '%c'\n", pole1TopDisk, s, d);
+    }
+}
+
+void towerOfHanoi(int num_of_disks, int src[], int* srcTop, int aux[], int* auxTop, int dest[], int* destTop) 
+{
+    int total_num_of_moves = (1 << num_of_disks) - 1; 
+    char s = 'S', d = 'D', a = 'A';
+    
+    if (num_of_disks % 2 == 0) 
+    {
+        char temp = d;
+        d = a;
+        a = temp;
+    }
+    for (int i = num_of_disks; i >= 1; i--) 
+    {
+        push(src, srcTop, i);
+    }
+
+    for (int i = 1; i <= total_num_of_moves; i++) 
+    {
+        if (i % 3 == 1) 
+        {
+            moveDisksBetweenTwoPoles(src, srcTop, dest, destTop, s, d);
+        }
+        else if (i % 3 == 2) 
+        {
+            moveDisksBetweenTwoPoles(src, srcTop, aux, auxTop, s, a);
+        }
+        else if (i % 3 == 3) 
+        {
+            moveDisksBetweenTwoPoles(aux, auxTop, dest, destTop, a, d);
+        }
+    }
+}
+
+int main() 
+{
+    int num_of_disks;
+    int src[MAX], aux[MAX], dest[MAX];
+    int srcTop, auxTop, destTop;
+
+    printf("Enter the number of disks: ");
+    scanf("%d", &num_of_disks);
+
+    initializeStack(src, &srcTop);
+    initializeStack(aux, &auxTop);
+    initializeStack(dest, &destTop);
+
+    towerOfHanoi(num_of_disks, src, &srcTop, aux, &auxTop, dest, &destTop);
+
+    return 0;
+}
+
+
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of disks: 4
+Move disk 1 from 'S' to 'A'
+Move disk 2 from 'S' to 'D'
+Move disk 1 from 'A' to 'S'
+Move disk 1 from 'S' to 'D'
+Move disk 3 from 'S' to 'A'
+Move disk 1 from 'D' to 'S'
+Move disk 1 from 'S' to 'A'
+Move disk 2 from 'D' to 'S'
+Move disk 1 from 'A' to 'S'
+Move disk 1 from 'S' to 'D'
+
+
+                </textarea>
+            </div>
+        </div>
+
+
+    </div>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+         <a href="index.html">Back to Home</a>
+    </footer>
+    <script>
+        function toggleCode(index) {
+            const codeOutput = document.getElementById(`code-output-${index}`);
+            const isVisible = codeOutput.style.display === "flex";
+            
+            // Hide all code outputs first
+            const allOutputs = document.querySelectorAll('.code-output');
+            allOutputs.forEach(output => output.style.display = "none");
+            
+            // Toggle visibility of the selected output only if it was not already visible
+            if (!isVisible) {
+                codeOutput.style.display = "flex";
+            }
+        }
+
+        // Initially hide all code outputs
+        document.querySelectorAll('.code-output').forEach(output => {
+            output.style.display = "none";
+        });
+    </script>
+</body>
+</html>

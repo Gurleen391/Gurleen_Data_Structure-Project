@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset default margin and padding */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background: #333333; /* Dark gray background */
+            color: #f5f5dc; /* Beige text */
+            width: 100%;
+            padding: 1.5em 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        header h1 {
+            font-size: 2.4em;
+            font-weight: 700;
+            color: #f5f5dc; /* Lighter beige for the title */
+            text-shadow: 2px 2px 4px rgba(217, 203, 182, 0.3);
+            margin-bottom: 10px;
+        }
+
+        /* Navbar styling */
+        nav {
+            display: flex;
+            gap: 1em;
+        }
+
+        nav a {
+            color: #d9cbb6; /* Light beige for links */
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f5f5dc; /* Beige on hover */
+        }
+
+        /* Main content area */
+        main {
+            width: 95%;
+            max-width: 1400px;
+            margin: 2em auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Sequential Card Styling */
+        .category {
+            background-color: #444444; /* Darker gray for card background */
+            color: #f5f5dc; /* Beige text */
+            box-shadow: 0 10px 30px rgba(100, 100, 100, 0.2);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border-top: 4px solid #d9cbb6; /* Light beige border */
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 20px;
+        }
+
+        .category:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(100, 100, 100, 0.4);
+        }
+
+        /* Icon and heading styles within cards */
+        .category i {
+            font-size: 50px;
+            color: #d9cbb6; /* Light beige icon color */
+        }
+
+        .category h2 {
+            font-size: 1.5em;
+            color: #e1e2e7; /* Light gray text */
+            font-weight: 600;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #333333;
+            color: #d9cbb6;
+            width: 100%;
+            text-align: center;
+            padding: 1.5em 0;
+            font-size: 0.9em;
+            margin-top: 1em;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer a {
+            color: #d9cbb6; /* Light beige links */
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with title and navigation -->
+    <header>
+        <h1>DATA STRUCTURES</h1>
+    </header>
+
+    <!-- Main content area with sequential cards for each data structure topic -->
+    <main>
+        <div class="category" onclick="location.href='2Darray.html'">
+            <i class="fas fa-th"></i>
+            <h2>2D Arrays</h2>
+        </div>
+        <div class="category" onclick="location.href='graphs.html'">
+            <i class="fas fa-project-diagram"></i>
+            <h2>Graphs</h2>
+        </div>
+        <div class="category" onclick="location.href='linkedlist.html'">
+            <i class="fas fa-list-alt"></i>
+            <h2>Linked List</h2>
+        </div>
+        <div class="category" onclick="location.href='queues.html'">
+            <i class="fas fa-arrow-right"></i>
+            <h2>Queues</h2>
+        </div>
+        <div class="category" onclick="location.href='recursion.html'">
+            <i class="fas fa-recycle"></i>
+            <h2>Recursion</h2>
+        </div>
+        <div class="category" onclick="location.href='searching.html'">
+            <i class="fas fa-search"></i>
+            <h2>Searching Algorithms</h2>
+        </div>
+        <div class="category" onclick="location.href='singlearray.html'">
+            <i class="fas fa-align-left"></i>
+            <h2>Single Dimension Arrays</h2>
+        </div>
+        <div class="category" onclick="location.href='sorting.html'">
+            <i class="fas fa-sort"></i>
+            <h2>Sorting Algorithms</h2>
+        </div>
+        <div class="category" onclick="location.href='stack.html'">
+            <i class="fas fa-archive"></i>
+            <h2>Stacks</h2>
+        </div>
+        <div class="category" onclick="location.href='string.html'">
+            <i class="fas fa-font"></i>
+            <h2>Strings</h2>
+        </div>
+        <div class="category" onclick="location.href='trees.html'">
+            <i class="fas fa-tree"></i>
+            <h2>Trees</h2>
+        </div>
+    </main>
+
+    <!-- Footer with a copyright notice -->
+    <footer>
+        <p>&copy; 2024 Data Structure Tutorials. All rights reserved. | <a href="#privacy">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,4475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUEUES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+            list-style: none;
+            padding-left: 20px; /* Adjust this value to increase or decrease the right shift */
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>QUEUES</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='2darray.html'"><b>2D Array</b></div>
+            <div class="tab" onclick="location.href='graphs.html'"><b>Graphs</b></div>
+            <div class="tab" onclick="location.href='linkedlist.html'"><b>Linked List</b></div>
+            <div class="tab" onclick="location.href='queues.html'"><b>Queues</b></div>            
+            <div class="tab" onclick="location.href='recursion.html'"><b>Recursion</b></div>
+            <div class="tab" onclick="location.href='searching.html'"><b>Searching Algorithms</b></div>
+            <div class="tab" onclick="location.href='singlearray.html'"><b>Single Dimension Array</b></div>
+            <div class="tab" onclick="location.href='sorting.html'"><b>Sorting Algorithms</b></div>
+            <div class="tab" onclick="location.href='stack.html'"><b>Stack</b></div>
+            <div class="tab" onclick="location.href='string.html'"><b>Strings</b></div>
+            <div class="tab" onclick="location.href='trees.html'"><b>Trees</b></div>
+        </div>
+
+    </header>
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol type=1 style="list-style-type: decimal;">
+                <li onclick="toggleCode(0)">Implement the operations of simple queue in an integer array (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(1)">Implement the operations of simple queue in a string array (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(2)">Implement the operations of queue dynamically with integers (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(3)">Implement the operations of queue dynamically with strings (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(4)">Implement the operations of circular queue in an integer array (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(5)">Implement the operations of circular queue in a string array (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(6)">Implement the operations of priority queue in an integer array (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(7)">Implement the operations of priority queue in a string array (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(8)">Implement the operations of double ended queue in an integer array (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(9)">Implement the operations of double ended queue in a string array (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(10)">Implement the operations of priority queue dynamically with integers (insert, delete, peek, isempty, isfull).</li>
+<li onclick="toggleCode(11)">Implement the operations of priority queue dynamically with strings (insert, delete, peek, isempty, isfull).</li>
+                <li onclick="toggleCode(12)">Find the first circular tour that visits all petrol pumps Explanation -Given information about N petrol pumps (say arr[]) that are present in a circular path. The information consists of the distance of the next petrol pump from the current one (in arr[i][1]) and the amount of petrol stored in that petrol pump (in arr[i][0]). Consider a truck with infinite capacity that consumes 1 unit of petrol to travel 1 unit distance. The task is to find the index of the first starting point such that the truck can visit all the petrol pumps and come back to that starting point. Note: Return -1 if no such tour exists. Examples: Input: arr[] = {{4, 6}, {6, 5}, {7, 3}, {4, 5}}. Output: 1 Explanation: If started from 1st index then a circular tour can be covered.Input: arr[] {{6, 4}, {3, 6}, {7, 3}} Output: 2</li>
+                <li onclick="toggleCode(13)">Length of the longest valid substring Explanation -Given a string consisting of opening and closing parenthesis, find the length of the longest valid parenthesis substring. Examples: Input : ((() Output : 2 Explanation : () Input: )()()) Output : 4 Explanation: ()() Input: ()(())))) Output: 6 Explanation: ()(())</li>
+                <li onclick="toggleCode(14)">Find the Next Greater Element Explanation -Given an array arr[ ] of size N having elements, the task is to find the next greater element for each element of the array in order of their appearance in the array. Next greater element of an element in the array is the nearest element on the right which is greater than the current element. If there does not exist next greater of current element, then next greater element for current element is -1. For example, next greater of the last element is always -1. Example 1: Input: N = 4, arr[] = [1 3 2 4] Output: 3 4 4 -1 Explanation: In the array, the next larger element to 1 is 3 , 3 is 4 , 2 is 4 and for 4 ? since it doesn't exist, it is -1. Example 2: Input: N = 5, arr[] [6 8 0 1 3] Output: 8 -1 1 3 -1 Explanation: In the array, the next larger element to 6 is 8, for 8 there is no larger elements hence it is -1, for 0 it is 1 , for 1 it is 3 and then for 3 there is no larger element on right and hence -1.</li>
+                <li onclick="toggleCode(15)">Find Next Smaller Element Explanation -Given an array, print the Next Smaller Element (NSE) for every element. The NSE for an element x is the first smaller element on the right side of x in the array. Elements for which no smaller element exist (on the right side), consider NSE as -1. Examples: Input: [4, 8, 5, 2, 25] Output: [2, 5, 2, -1, -1] Explanation: The first element smaller than 4 having index > 0 is 2. The first element smaller than 8 having index > 1 is 5. The first element smaller than 5 having index > 2 is 2. There are no elements smaller than 4 having index > 3. There are no elements smaller than 4 having index > 4. Input: [13, 7, 6, 12] Output: [7, 6, -1, -1] Explanation: The first element smaller than 13 having index > 0 is 7. The first element smaller than 7 having index > 1 is 6. There are no elements smaller than 6 having index > 2. There are no elements smaller than 12 having index > 3.</li>
+                <li onclick="toggleCode(16)">Queue based approach for first non-repeating character in a stream Explanation -Given a stream of characters and we have to find first non repeating character each time a character is inserted to the stream. Examples: Input : a a b c Output : a -1 b b Input : a a c Output : a -1 c</li>
+                <li onclick="toggleCode(17)">Reverse First K elements of Queue Explanation -Given an integer K and a queue of integers, we need to reverse the order of the first K elements of the queue, leaving the other elements in the same relative order. Only following standard operations are allowed on queue. enqueue(x) : Add an item x to rear of queue dequeue() : Remove an item from front of queue size() : Returns number of elements in queue. front() : Finds front item. Note: The above operations represent the general processings. In-built functions of the respective languages can be used to solve the problem. Example 1: Input: 5 3 1 2 3 4 5 Output: 3 2 1 4 5 Explanation: After reversing the given input from the 3rd position the resultant output will be 3 2 1 4 5. Example 2: Input: 4 4 4 3 2 1 Output: 1 2 3 4 Explanation: After reversing the given input from the 4th position the resultant output will be 1 2 3 4.</li> 
+                <li onclick="toggleCode(18)">Queue Reversal Explanation - Rotten Oranges Explanation -Given a grid of dimension nxm where each cell in the grid can have values 0, 1 or 2 which has the following meaning: 0 : Empty cell 1 : Cells have fresh oranges 2 : Cells have rotten oranges We have to determine what is the earliest time after which all the oranges are rotten. A rotten orange at index [i,j] can rot other fresh orange at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] (up, down, left and right) in unit time. Example 1: Input: grid = {{0,1,2},{0,1,2},{2,1,1}} Output: 1 Explanation: The grid is- 0 1 2 0 1 2 2 1 1 Oranges at positions (0,2), (1,2), (2,0) will rot oranges at (0,1), (1,1), (2,2) and (2,1) in unit time. Example 2: Input: grid = {{2,2,0,1}} Output: -1 Explanation: The grid is- 2 2 0 1 Oranges at (0,0) and (0,1) can't rot orange at (0,3).Given a Queue Q containing N elements. The task is to reverse the Queue. Your task is to complete the function rev(), that reverses the N elements of the queue. Example 1: Input:6 4 3 1 10 2 6 Output: 6 2 10 1 3 4 Explanation: After reversing the given elements of the queue , the resultant queue will be 6 2 10 1 3 4. Example 2: Input: 4 4 3 2 1 Output: 1 2 3 4 Explanation: After reversing the given elements of the queue , the resultant queue will be 1 2 3 4.</li>
+                <li onclick="toggleCode(19)"> Rotten Oranges Explanation -Given a grid of dimension nxm where each cell in the grid can have values 0, 1 or 2 which has the following meaning: 0 : Empty cell 1 : Cells have fresh oranges 2 : Cells have rotten oranges We have to determine what is the earliest time after which all the oranges are rotten. A rotten orange at index [i,j] can rot other fresh orange at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] (up, down, left and right) in unit time. Example 1: Input: grid = {{0,1,2},{0,1,2},{2,1,1}} Output: 1 Explanation: The grid is- 0 1 2 0 1 2 2 1 1 Oranges at positions (0,2), (1,2), (2,0) will rot oranges at (0,1), (1,1), (2,2) and (2,1) in unit time. Example 2: Input: grid = {{2,2,0,1}} Output: -1 Explanation: The grid is- 2 2 0 1 Oranges at (0,0) and (0,1) can't rot orange at (0,3).</li> 
+            </ol>
+        </div>
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+                <textarea readonly>
+/*1. IMPLEMENT THE OPERATIONS OF SIMPLE QUEUE IN AN INTEGER ARRAY 
+(INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include<stdio.h>
+
+void peek(int* queue,int front) 
+{
+    if(front==-1)
+    {
+        printf("\nQUEUE IS EMPTY");
+    } 
+    else
+    {
+        printf("\nFRONT VALUE IS: %d",queue[front]);
+    }
+}
+
+int Delete(int* queue,int* front,int* rear)
+{
+    int value=0;
+    if(*front==-1) 
+    {
+        printf("\nUNDERFLOW");
+        return 0;
+    }
+    value=queue[*front];
+    if(*front==*rear)
+    {
+        *front=-1;
+        *rear=-1;
+    } 
+    else
+    {
+        (*front)++;
+    }
+    return value;
+}
+
+void insert(int* queue,int size,int value,int* front,int* rear) 
+{
+    if(*rear==size-1) 
+    {
+        printf("OVERFLOW");
+        return;
+    }
+    if(*rear==-1 && *front==-1)
+    {
+        *rear=0;
+        *front=0;
+    } 
+    else
+    {
+        (*rear)++;
+    }
+    queue[*rear]=value;
+    printf("Inserted value is: %d",value);
+}
+
+int isEmpty(int front) 
+{
+    return front==-1;
+}
+
+int isFull(int rear,int size) 
+{
+    return  rear==size-1; 
+}
+
+int main() 
+{
+    int queue[10],size=10,value,choice;
+    int front=-1,rear=-1;
+    do 
+    {
+        printf("\n\n1. INSERT\n2. DELETE\n3. PEEK\n4. IS EMPTY\n5. IS FULL\n6. EXIT");
+        printf("\nEnter your choice:");
+        scanf("%d",&choice);
+        
+        if (choice==1)
+        {
+            printf("\nINSERT OPERATION");
+            printf("\nEnter value:");
+            scanf("%d",&value);
+            insert(queue,size,value,&front,&rear);
+        } 
+        else if(choice==2) 
+        {
+            printf("\nDELETE OPERATION");
+            value=Delete(queue,&front,&rear);
+            if(value!=0) 
+            {  
+                printf("\nDeleted value is: %d",value);
+            }
+        }
+        else if(choice==3)
+        {
+            printf("\nPEEK OPERATION");
+            peek(queue,front);
+        }
+        else if(choice==4)
+        {
+            printf("\nIS EMPTY OPERATION");
+            if(isEmpty(front)) 
+            {
+                printf("\nThe queue is empty\n");
+            } 
+            else 
+            {
+                printf("\nThe queue is not empty\n");
+            }
+        }
+        else if(choice==5)
+        {
+            printf("\nIS FULL OPERATION");
+            if(isFull(rear,size))
+            {
+                printf("\nThe queue is full\n");
+            } 
+            else
+            {
+                printf("\nThe queue is not full\n");
+            }
+        }
+        else if(choice==6)
+        {
+            printf("\nEXIT");
+            break;
+        } 
+        else
+        {
+            printf("\nINVALID INPUT");
+        }
+    }
+    while (1);
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+
+INSERT OPERATION
+Enter value:10
+Inserted value is: 10
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+
+INSERT OPERATION
+Enter value:20
+Inserted value is: 20
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:3
+
+PEEK OPERATION
+FRONT VALUE IS: 10
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:4
+
+IS EMPTY OPERATION
+The queue is not empty
+
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:5
+
+IS FULL OPERATION
+The queue is not full
+
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:2
+
+DELETE OPERATION
+Deleted value is: 10
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:3
+
+PEEK OPERATION
+FRONT VALUE IS: 20
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:7
+
+INVALID INPUT
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:6
+
+EXIT
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-1">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+                <textarea readonly>
+/*2. IMPLEMENT THE OPERATIONS OF SIMPLE QUEUE IN AN STRING ARRAY 
+(INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include <stdio.h>
+#include <string.h>
+#define MAX 10
+#define STR_LEN 50
+
+char queue[MAX][STR_LEN];
+int front = -1;
+int rear = -1;
+
+int isEmpty() 
+{
+    return front == -1;
+}
+
+int isFull() 
+{
+    return (rear + 1) % MAX == front;
+}
+
+void insert(char str[]) 
+{
+    if (isFull()) 
+    {
+        printf("Queue is full\n");
+        return;
+    }
+    if (isEmpty()) 
+    {
+        front = 0;
+    }
+    rear = (rear + 1) % MAX;
+    strcpy(queue[rear], str);
+    printf("Inserted: %s\n", str);
+}
+
+void delete() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Deleted: %s\n", queue[front]);
+    if (front == rear) 
+    {
+        front = rear = -1;
+    }
+    else
+    {
+        front = (front + 1) % MAX;
+    }
+}
+
+void peek() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Front element: %s\n", queue[front]);
+    }
+}
+
+int main()
+{
+    int choice;
+    char str[STR_LEN];
+
+    do 
+    {
+        printf("\nMenu:\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Peek\n");
+        printf("4. Check if Empty\n");
+        printf("5. Check if Full\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar();  
+
+        switch (choice) 
+        {
+            case 1:
+                printf("Enter string to insert: ");
+                gets(str);
+                insert(str);
+                break;
+            case 2:
+                delete();
+                break;
+            case 3:
+                peek();
+                break;
+            case 4:
+                if (isEmpty()) 
+                {
+                    printf("Queue is empty\n");
+                }
+                else
+                {
+                    printf("Queue is not empty\n");
+                }
+                break;
+            case 5:
+                if (isFull()) 
+                {
+                    printf("Queue is full\n");
+                }
+                else
+                {
+                    printf("Queue is not full\n");
+                }
+                break;
+            case 6:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    while (choice != 6);
+
+    return 0;
+}
+
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter string to insert: hi
+Inserted: hi
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter string to insert: vaishali
+Inserted: vaishali
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter string to insert: bansal
+Inserted: bansal
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element: hi
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 4
+Queue is not empty
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 5
+Queue is not full
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 2
+Deleted: hi
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element: vaishali
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 7
+Invalid choice! Please try again.
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 6
+Exiting...
+
+
+</textarea>
+</div>
+</div>   
+
+
+        <div class="code-output" id="code-output-2">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+                <textarea readonly>
+
+/*3. IMPLEMENT THE OPERATIONS OF QUEUE DYNAMICALLY OF INTEGERS 
+(INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include<stdio.h>
+#include<stdlib.h>
+
+struct queue 
+{
+    int data;
+    struct queue *next;
+};
+
+struct queue *start=NULL,*temp,*last;
+
+void insert() 
+{
+    temp=(struct queue*)malloc(sizeof(struct queue));
+    if(temp!=NULL)
+    { 
+        printf("\nEnter the data:");
+        scanf("%d",&temp->data);
+        temp->next=NULL;
+
+        if(start==NULL) 
+        { 
+            start=temp; 
+            last=temp; 
+        } 
+        else 
+        {
+            last->next=temp; 
+            last=temp;
+        }
+        printf("Inserted value is: %d\n",temp->data);
+    } 
+    else 
+    {
+        printf("QUEUE IS FULL\n");
+    }
+}
+
+void deletion() 
+{
+    if(start==NULL)
+    {
+        printf("\nQUEUE IS EMPTY\n");
+    } 
+    else 
+    {
+        temp=start; 
+        start=start->next; 
+        printf("\nDeleted value is: %d\n",temp->data); 
+        free(temp); 
+
+        if (start==NULL)
+        { 
+            last=NULL; 
+        }
+    }
+}
+
+void peek() 
+{
+    if(start==NULL) 
+    {
+        printf("\nQUEUE IS EMPTY\n");
+    }
+    else 
+    {
+        printf("\nFront element is: %d\n",start->data);
+    }
+}
+
+int isEmpty() 
+{
+    return start==NULL; 
+}
+
+int isFull() 
+{
+    return 0;
+}
+
+int main() 
+{
+    int choice;
+    do 
+    {
+        printf("\n1. INSERT\n2. DELETE\n3. PEEK\n4. IS EMPTY\n5. IS FULL\n6. EXIT\n");
+        printf("Enter your choice:");
+        scanf("%d",&choice);
+
+        if(choice==1) 
+        {
+            printf("\nINSERT OPERATION");
+            insert();
+        }
+        else if(choice==2) 
+        {
+            printf("\nDELETE OPERATION");
+            deletion();
+        } 
+        else if(choice==3) 
+        {
+            printf("\nPEEK OPERATION");
+            peek();
+        } 
+        else if(choice==4) 
+        {
+            printf("\nIS EMPTY OPERATION");
+            if(isEmpty()) 
+            {
+                printf("\nQueue is empty\n");
+            }
+            else 
+            {
+                printf("\nQueue is not empty\n");
+            }
+        } 
+        else if(choice==5) 
+        {
+            printf("\nIS FULL OPERATION");
+            if(isFull()) 
+            {
+                printf("\nQueue is full\n");
+            } 
+            else 
+            {
+                printf("\nQueue is not full\n");
+            }
+        } 
+        else if(choice==6) 
+        {
+            printf("EXIT\n");
+            break; 
+        } 
+        else 
+        {
+            printf("\nINVALID INPUT\n");
+        }
+    }
+    while (1);
+    /*while(start!=NULL) 
+    {
+        deletion();
+    }*/
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+
+INSERT OPERATION
+Enter the data:10
+Inserted value is: 10
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+
+INSERT OPERATION
+Enter the data:20
+Inserted value is: 20
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:4
+
+IS EMPTY OPERATION
+Queue is not empty
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:5
+
+IS FULL OPERATION
+Queue is not full
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:3
+
+PEEK OPERATION
+Front element is: 10
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:2
+
+DELETE OPERATION
+Deleted value is: 10
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:34
+
+INVALID INPUT
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:3
+
+PEEK OPERATION
+Front element is: 20
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:6
+EXIT
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-3">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+                <textarea readonly>
+
+/*4. IMPLEMENT THE OPERATIONS OF QUEUE DYNAMICALLY OF STRING 
+(INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct QueueNode 
+{
+    char data[100];
+    struct QueueNode* next;
+};
+
+struct QueueNode* start = NULL;
+struct QueueNode* last = NULL;
+
+int isEmpty() 
+{
+    return start == NULL;
+}
+
+void insert() 
+{
+    struct QueueNode* temp = (struct QueueNode*)malloc(sizeof(struct QueueNode));
+    if (temp == NULL) 
+    {
+        printf("Queue is full\n");
+        return;
+    }
+    printf("Enter the string: ");
+    scanf(" %[^\n]", temp->data);  
+    temp->next = NULL;
+
+    if (isEmpty()) 
+    {
+        start = temp;
+        last = temp;
+    }
+    else
+    {
+        last->next = temp;
+        last = temp;
+    }
+    printf("Inserted string is: %s\n", temp->data);
+}
+
+void delete() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        struct QueueNode* temp = start;
+        start = start->next;
+        if (start == NULL) 
+        {
+            last = NULL;
+        }
+        printf("Deleted string is: %s\n", temp->data);
+        free(temp);
+    }
+}
+
+void peek() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Front element is: %s\n", start->data);
+    }
+}
+
+int isFull() 
+{
+    return 0;
+}
+
+int main() 
+{
+    int choice;
+    do 
+    {
+        printf("\nMenu:\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Peek\n");
+        printf("4. Check if Empty\n");
+        printf("5. Check if Full\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) 
+        {
+            case 1:
+                insert();
+                break;
+            case 2:
+                delete();
+                break;
+            case 3:
+                peek();
+                break;
+            case 4:
+                if (isEmpty()) 
+                {
+                    printf("Queue is empty\n");
+                }
+                else
+                {
+                    printf("Queue is not empty\n");
+                }
+                break;
+            case 5:
+                if (isFull()) 
+                {
+                    printf("Queue is full\n");
+                }
+                else
+                {
+                    printf("Queue is not full\n");
+                }
+                break;
+            case 6:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    while (choice != 6);
+
+    return 0;
+}
+
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter the string: hello
+Inserted string is: hello
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter the string: it's
+Inserted string is: it's
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter the string: me
+Inserted string is: me
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element is: hello
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 2
+Deleted string is: hello
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 4
+Queue is not empty
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 5
+Queue is not full
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element is: it's
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 7
+Invalid choice! Please try again.
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 6
+Exiting...
+
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-4">
+            <div class="code-frame">
+                <h2>5. Code</h2>
+                <textarea readonly>
+
+/*5. IMPLEMENT THE OPERATIONS OF CIRCULAR QUEUE IN AN INTEGER ARRAY
+(INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include<stdio.h>
+
+void peek(int* queue,int front) 
+{
+    if(front==-1) 
+    {
+        printf("\nQUEUE IS EMPTY");
+    }
+    else
+    {
+        printf("\nFront value is: %d",queue[front]);
+    }
+}
+
+int deletion(int* queue,int* front,int* rear,int size)
+{
+    int value=0;
+    if(*front==-1) 
+    {
+        printf("\nUNDERFLOW");
+        return 0;
+    }
+    value=queue[*front];
+    if(*front==*rear) 
+    { 
+        *front=-1;
+        *rear=-1;
+    } 
+    else
+    {
+        *front=(*front+1)%size; 
+    }
+    return value;
+}
+
+void insert(int* queue,int size,int value,int* front,int* rear)
+{
+    if((*rear+1)%size==*front) 
+    { 
+        printf("\nOVERFLOW");
+        return;
+    }
+    if(*front==-1) 
+    { 
+        *front=0;
+        *rear=0;
+    } 
+    else
+    {
+        *rear=(*rear+1)%size; 
+    }
+    queue[*rear]=value;
+    printf("Inserted value is: %d",value);
+}
+
+int isEmpty(int front) 
+{
+    return front==-1;
+}
+
+int isFull(int rear,int front,int size) 
+{
+    return (rear+1)%size==front; 
+}
+
+int main() 
+{
+    int queue[10],size=10,value,choice;
+    int front=-1,rear=-1;
+
+    do 
+    {
+        printf("\n\n1. INSERT\n2. DELETE\n3. PEEK\n4. IS EMPTY\n5. IS FULL\n6. EXIT");
+        printf("\nEnter your choice:");
+        scanf("%d",&choice);
+        
+        if(choice==1) 
+        {
+            printf("\nINSERT OPERATION");
+            printf("\nEnter value:");
+            scanf("%d",&value);
+            insert(queue,size,value,&front,&rear);
+        }
+        else if(choice==2) 
+        {
+            printf("\nDELETE OPERATION");
+            value=deletion(queue,&front,&rear,size);
+            if(value!=0) 
+            { 
+                printf("\nDeleted value is: %d",value);
+            }
+        }
+        else if(choice==3) 
+        {
+            printf("\nPEEK OPERATION");
+            peek(queue,front);
+        } 
+        else if(choice==4)
+        {
+            printf("\nIS EMPTY OPERATION");
+            if(isEmpty(front)) 
+            {
+                printf("\nThe queue is empty\n");
+            } 
+            else
+            {
+                printf("\nThe queue is not empty\n");
+            }
+        }
+        else if(choice==5)
+        {
+            printf("\nIS FULL OPERATION");
+            if(isFull(rear,front,size)) 
+            {
+                printf("\nThe queue is full\n");
+            } 
+            else
+            {
+                printf("\nThe queue is not full\n");
+            }
+        }
+        else if(choice==6) 
+        {
+            printf("\nEXIT");
+            break;
+        } 
+        else
+        {
+            printf("\nINVALID INPUT");
+        }
+    }
+    while (1);
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+
+INSERT OPERATION
+Enter value:10
+Inserted value is: 10
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:1
+
+INSERT OPERATION
+Enter value:50
+Inserted value is: 50
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:2
+
+DELETE OPERATION
+Deleted value is: 10
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:5
+
+IS FULL OPERATION
+The queue is not full
+
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:4
+
+IS EMPTY OPERATION
+The queue is not empty
+
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:7
+
+INVALID INPUT
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:3
+
+PEEK OPERATION
+Front value is: 50
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice:6
+
+EXIT
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-5">
+            <div class="code-frame">
+                <h2>6. Code</h2>
+                <textarea readonly>
+
+/*6. IMPLEMENT THE OPERATIONS OF CIRCULAR QUEUE IN AN STRING ARRAY 
+(INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include <stdio.h>
+#include <string.h>
+#define MAX 10
+#define STR_LEN 100
+
+char queue[MAX][STR_LEN];
+int front = -1;
+int rear = -1;
+
+int isEmpty() 
+{
+    return front == -1;
+}
+
+int isFull() 
+{
+    return (rear + 1) % MAX == front;
+}
+
+void insert(char str[]) 
+{
+    if (isFull()) 
+    {
+        printf("Queue is full\n");
+        return;
+    }
+    if (isEmpty()) 
+    {
+        front = 0;
+    }
+    rear = (rear + 1) % MAX;
+    strcpy(queue[rear], str);
+    printf("Inserted: %s\n", str);
+}
+
+void delete() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Deleted: %s\n", queue[front]);
+    if (front == rear) 
+    {
+        front = rear = -1;
+    }
+    else
+    {
+        front = (front + 1) % MAX;
+    }
+}
+
+void peek() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Front element: %s\n", queue[front]);
+    }
+}
+
+int main()
+{
+    int choice;
+    char str[STR_LEN];
+
+    do 
+    {
+        printf("\nMenu:\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Peek\n");
+        printf("4. Check if Empty\n");
+        printf("5. Check if Full\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar();  
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter string to insert: ");
+                gets(str);
+                str[strcspn(str, "\n")] = '\0';
+                insert(str);
+                break;
+            case 2:
+                delete();
+                break;
+            case 3:
+                peek();
+                break;
+            case 4:
+                if (isEmpty()) 
+                {
+                    printf("Queue is empty\n");
+                }
+                else
+                {
+                    printf("Queue is not empty\n");
+                }
+                break;
+            case 5:
+                if (isFull()) 
+                {
+                    printf("Queue is full\n");
+                }
+                else
+                {
+                    printf("Queue is not full\n");
+                }
+                break;
+            case 6:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    while (choice != 6);
+
+    return 0;
+}
+
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter string to insert: hi
+Inserted: hi
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter string to insert: there
+Inserted: there
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element: hi
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 4
+Queue is not empty
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 5
+Queue is not full
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 7
+Invalid choice! Please try again.
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 2
+Deleted: hi
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element: there
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 6
+Exiting...
+
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-6">
+            <div class="code-frame">
+                <h2>7. Code</h2>
+                <textarea readonly>
+/*7.IMPLEMENT THE OPERATIONS OF PRIORITY QUEUE IN AN INTEGER ARRAY 
+(INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include <stdio.h>
+#define MAX_SIZE 10
+
+int queue[MAX_SIZE];
+int front = -1;
+int rear = -1;
+
+int isEmpty() 
+{
+    return front == -1;
+}
+
+int isFull() 
+{
+    return rear == MAX_SIZE - 1;
+}
+
+int peek() 
+{
+    if (isEmpty()) 
+    {
+        printf("QUEUE IS EMPTY\n");
+        return 0; 
+    }
+    return queue[front];
+}
+
+int delete() 
+{
+    if (isEmpty()) 
+    {
+        printf("UNDERFLOW\n");
+        return 0; 
+    }
+    int highestPriority = queue[front];
+    for (int i = front; i < rear; i++) 
+    {
+        queue[i] = queue[i + 1];
+    }
+    rear--;
+    if (rear < 0)
+    {
+        front = -1;
+    }
+    return highestPriority;
+}
+
+void insert(int value) 
+{
+    if (isFull()) 
+    {
+        printf("OVERFLOW\n");
+        return;
+    }
+    int i;
+    for (i = rear; (i >= front) && (queue[i] < value); i--) 
+    {
+        queue[i + 1] = queue[i];
+    }
+    queue[i + 1] = value;
+
+    if (front == -1) 
+    {
+        front = 0;
+    }
+    rear++;
+    printf("Inserted element is: %d\n", value);
+}
+
+int main() 
+{
+    int choice, value;
+    do 
+    {
+        printf("\n1. INSERT\n2. DELETE\n3. PEEK\n4. IS EMPTY\n5. IS FULL\n6. EXIT\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) 
+        {
+            case 1:
+                printf("Enter integer to insert: ");
+                scanf("%d", &value);
+                insert(value);
+                break;
+            case 2:
+                value = delete();
+                if (value != 0) 
+                {
+                    printf("Deleted element is: %d\n", value);
+                }
+                break;
+            case 3:
+                value = peek();
+                if (value != 0) 
+                {
+                    printf("Highest priority element is: %d\n", value);
+                }
+                break;
+            case 4:
+                if (isEmpty()) 
+                {
+                    printf("The queue is empty\n");
+                }
+                else
+                {
+                    printf("The queue is not empty\n");
+                }
+                break;
+            case 5:
+                if (isFull()) 
+                {
+                    printf("The queue is full\n");
+                }
+                else
+                {
+                    printf("The queue is not full\n");
+                }
+                break;
+            case 6:
+                printf("EXIT\n");
+                break;
+            default:
+                printf("INVALID INPUT\n");
+                break;
+        }
+    }
+    while (choice != 6);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 10
+Inserted element is: 10
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 20
+Inserted element is: 20
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 30
+Inserted element is: 30
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 40
+Inserted element is: 40
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 50
+Inserted element is: 50
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 60
+Inserted element is: 60
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 70
+Inserted element is: 70
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 80
+Inserted element is: 80
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 90
+Inserted element is: 90
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 100
+Inserted element is: 100
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter integer to insert: 110
+OVERFLOW
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 2
+Deleted element is: 100
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 3
+Highest priority element is: 90
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 2
+Deleted element is: 90
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 3
+Highest priority element is: 80
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 4
+The queue is not empty
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 5
+The queue is not full
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 7
+INVALID INPUT
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 6
+EXIT
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-7">
+            <div class="code-frame">
+                <h2>8. Code</h2>
+                <textarea readonly>
+
+/*8. IMPLEMENT THE OPERATIONS OF PRIORITY QUEUE IN AN STRING ARRAY 
+(INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define MAX_SIZE 10
+#define MAX_STRING_LENGTH 256
+
+char queue[MAX_SIZE][MAX_STRING_LENGTH];
+int front = -1;
+int rear = -1;
+
+int isEmpty() 
+{
+    return front == -1;
+}
+
+int isFull() 
+{
+    return rear >= MAX_SIZE - 1;
+}
+
+const char* peek() 
+{
+    if (isEmpty()) 
+    {
+        printf("QUEUE IS EMPTY\n");
+        return NULL;
+    }
+    return queue[front];
+}
+
+const char* delete() 
+{
+    if (isEmpty()) 
+    {
+        printf("UNDERFLOW\n");
+        return NULL;
+    }
+    const char* highestPriority = queue[front];
+    
+    for (int i = front; i < rear; i++) 
+    {
+        strcpy(queue[i], queue[i + 1]);
+    }
+    rear--;
+    if (rear < 0) 
+    {
+        front = -1; 
+    }
+    return highestPriority;
+}
+
+void insert(const char* value) 
+{
+    if (isFull()) 
+    {
+        printf("OVERFLOW\n");
+        return;
+    }
+    
+    if (isEmpty()) 
+    {
+        front = 0;
+    }
+    
+    int i;
+    for (i = rear; (i >= front) && (strcmp(queue[i], value) < 0); i--) 
+    {
+        strcpy(queue[i + 1], queue[i]);
+    }
+    
+    strcpy(queue[i + 1], value);
+    rear++;
+    printf("Inserted element is: %s\n", value);
+}
+
+int main() 
+{
+    int choice;
+    char value[MAX_STRING_LENGTH];
+
+    do 
+    {
+        printf("\n1. INSERT\n2. DELETE\n3. PEEK\n4. IS EMPTY\n5. IS FULL\n6. EXIT\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); 
+
+        switch (choice) 
+        {
+            case 1:
+                printf("Enter string to insert: ");
+                gets(value);
+                value[strcspn(value, "\n")] = 0;
+                insert(value);
+                break;
+            case 2:
+                const char* deletedValue = delete();
+                if (deletedValue != NULL) 
+                {
+                    printf("Deleted element is: %s\n", deletedValue);
+                }
+                break;
+            case 3:
+                const char* peekedValue = peek();
+                if (peekedValue != NULL) 
+                {
+                    printf("Highest priority element is: %s\n", peekedValue);
+                }
+                break;
+            case 4:
+                if (isEmpty()) 
+                {
+                    printf("The queue is empty\n");
+                }
+                else
+                {
+                    printf("The queue is not empty\n");
+                }
+                break;
+            case 5:
+                if (isFull()) 
+                {
+                    printf("The queue is full\n");
+                }
+                else
+                {
+                    printf("The queue is not full\n");
+                }
+                break;
+            case 6:
+                printf("EXIT\n");
+                break;
+            default:
+                printf("INVALID INPUT\n");
+                break;
+        }
+    }
+    while (choice != 6);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter string to insert: hello
+Inserted element is: hello
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 1
+Enter string to insert: there
+Inserted element is: there
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 3
+Highest priority element is: there
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 4
+The queue is not empty
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 5
+The queue is not full
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 7
+INVALID INPUT
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 2
+Deleted element is: hello
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 3
+Highest priority element is: hello
+
+1. INSERT
+2. DELETE
+3. PEEK
+4. IS EMPTY
+5. IS FULL
+6. EXIT
+Enter your choice: 6
+EXIT
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-8">
+            <div class="code-frame">
+                <h2>9. Code</h2>
+                <textarea readonly>
+
+/*9. IMPLEMENT THE OPERATIONS OF DOUBLE ENDED QUEUE IN AN INTEGER 
+ARRAY (INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include <stdio.h>
+#define MAX 10
+
+int deque[MAX];
+int front = -1;
+int rear = -1;
+
+int isEmpty() 
+{
+    return front == -1;
+}
+
+int isFull() 
+{
+    return (front == 0 && rear == MAX - 1) || (front == rear + 1);
+}
+
+void insertFront(int value) 
+{
+    if (isFull()) 
+    {
+        printf("Queue is full\n");
+        return;
+    }
+    if (isEmpty()) 
+    {
+        front = 0;
+        rear = 0;
+    }
+    else if (front == 0) 
+    {
+        front = MAX - 1;
+    }
+    else
+    {
+        front--;
+    }
+    deque[front] = value;
+    printf("Inserted %d at the front\n", value);
+}
+
+void insertRear(int value) 
+{
+    if (isFull()) 
+    {
+        printf("Queue is full\n");
+        return;
+    }
+    if (isEmpty()) 
+    {
+        front = 0;
+        rear = 0;
+    }
+    else if (rear == MAX - 1) 
+    {
+        rear = 0;
+    }
+    else
+    {
+        rear++;
+    }
+    deque[rear] = value;
+    printf("Inserted %d at the rear\n", value);
+}
+
+void deleteFront() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Deleted %d from the front\n", deque[front]);
+    if (front == rear) 
+    {
+        front = -1;
+        rear = -1;
+    }
+    else if (front == MAX - 1) 
+    {
+        front = 0;
+    }
+    else
+    {
+        front++;
+    }
+}
+
+void deleteRear() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Deleted %d from the rear\n", deque[rear]);
+    if (front == rear) 
+    {
+        front = -1;
+        rear = -1;
+    }
+    else if (rear == 0) 
+    {
+        rear = MAX - 1;
+    }
+    else
+    {
+        rear--;
+    }
+}
+
+void peekFront() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Front element: %d\n", deque[front]);
+    }
+}
+
+void peekRear() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Rear element: %d\n", deque[rear]);
+    }
+}
+
+int main() 
+{
+    int choice, value;
+
+    do 
+    {
+        printf("\nMenu:\n");
+        printf("1. Insert at front\n");
+        printf("2. Insert at rear\n");
+        printf("3. Delete from front\n");
+        printf("4. Delete from rear\n");
+        printf("5. Peek at front\n");
+        printf("6. Peek at rear\n");
+        printf("7. Check if Empty\n");
+        printf("8. Check if Full\n");
+        printf("9. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) 
+        {
+            case 1:
+                printf("Enter value to insert at front: ");
+                scanf("%d", &value);
+                insertFront(value);
+                break;
+            case 2:
+                printf("Enter value to insert at rear: ");
+                scanf("%d", &value);
+                insertRear(value);
+                break;
+            case 3:
+                deleteFront();
+                break;
+            case 4:
+                deleteRear();
+                break;
+            case 5:
+                peekFront();
+                break;
+            case 6:
+                peekRear();
+                break;
+            case 7:
+                if (isEmpty()) 
+                {
+                    printf("Queue is empty\n");
+                }
+                else 
+                {
+                    printf("Queue is not empty\n");
+                }
+                break;
+            case 8:
+                if (isFull()) 
+                {
+                    printf("Queue is full\n");
+                }
+                else
+                {
+                    printf("Queue is not full\n");
+                }
+                break;
+            case 9:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    while (choice != 9);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 1
+Enter value to insert at front: 10
+Inserted 10 at the front
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 2
+Enter value to insert at rear: 50
+Inserted 50 at the rear
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 1
+Enter value to insert at front: 20
+Inserted 20 at the front
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 2
+Enter value to insert at rear: 40
+Inserted 40 at the rear
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 5
+Front element: 20
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 6
+Rear element: 40
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 8
+Queue is not full
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 7
+Queue is not empty
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 3
+Deleted 20 from the front
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 4
+Deleted 40 from the rear
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 5
+Front element: 10
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 6
+Rear element: 50
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 7
+Queue is not empty
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 10
+Invalid choice! Please try again.
+
+Menu:
+1. Insert at front
+2. Insert at rear
+3. Delete from front
+4. Delete from rear
+5. Peek at front
+6. Peek at rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 9
+Exiting...
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-9">
+            <div class="code-frame">
+                <h2>10. Code</h2>
+                <textarea readonly>
+
+/*10. IMPLEMENT THE OPERATIONS OF DOUBLE ENDED QUEUE IN AN STRING 
+ARRAY (INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include <stdio.h>
+#include <string.h>
+#define MAX 10
+#define STR_LEN 100
+
+char queue[MAX][STR_LEN];
+int front = -1;
+int rear = -1;
+
+int isEmpty() 
+{
+    return front == -1;
+}
+
+int isFull() 
+{
+    return (front == 0 && rear == MAX - 1) || (front == rear + 1);
+}
+
+void insertRear(char str[]) 
+{
+    if (isFull()) 
+    {
+        printf("Queue is full\n");
+        return;
+    }
+    if (isEmpty()) 
+    {
+        front = 0;
+        rear = 0;
+    }
+    else if (rear == MAX - 1) 
+    {
+        rear = 0;
+    }
+    else
+    {
+        rear++;
+    }
+    strcpy(queue[rear], str);
+    printf("Inserted at rear: %s\n", str);
+}
+
+void insertFront(char str[]) 
+{
+    if (isFull()) 
+    {
+        printf("Queue is full\n");
+        return;
+    }
+    if (isEmpty()) 
+    {
+        front = 0;
+        rear = 0;
+    }
+    else if (front == 0) 
+    {
+        front = MAX - 1;
+    }
+    else
+    {
+        front--;
+    }
+    strcpy(queue[front], str);
+    printf("Inserted at front: %s\n", str);
+}
+
+void deleteFront() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Deleted from front: %s\n", queue[front]);
+    if (front == rear) 
+    {
+        front = -1;
+        rear = -1;
+    }
+    else if (front == MAX - 1) 
+    {
+        front = 0;
+    }
+    else
+    {
+        front++;
+    }
+}
+
+void deleteRear() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Deleted from rear: %s\n", queue[rear]);
+    if (front == rear) 
+    {
+        front = -1;
+        rear = -1;
+    }
+    else if (rear == 0) 
+    {
+        rear = MAX - 1;
+    }
+    else
+    {
+        rear--;
+    }
+}
+
+void peekFront() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Front element: %s\n", queue[front]);
+    }
+}
+
+void peekRear() 
+{
+    if (isEmpty()) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Rear element: %s\n", queue[rear]);
+    }
+}
+
+int main()
+{
+    int choice;
+    char str[STR_LEN];
+
+    do 
+    {
+        printf("\nMenu:\n");
+        printf("1. Insert Rear\n");
+        printf("2. Insert Front\n");
+        printf("3. Delete Front\n");
+        printf("4. Delete Rear\n");
+        printf("5. Peek Front\n");
+        printf("6. Peek Rear\n");
+        printf("7. Check if Empty\n");
+        printf("8. Check if Full\n");
+        printf("9. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar();  
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter string to insert at rear: ");
+                gets(str);
+                str[strcspn(str, "\n")] = '\0';  
+                insertRear(str);
+                break;
+            case 2:
+                printf("Enter string to insert at front: ");
+                gets(str);
+                str[strcspn(str, "\n")] = '\0';  
+                insertFront(str);
+                break;
+            case 3:
+                deleteFront();
+                break;
+            case 4:
+                deleteRear();
+                break;
+            case 5:
+                peekFront();
+                break;
+            case 6:
+                peekRear();
+                break;
+            case 7:
+                if (isEmpty()) 
+                {
+                    printf("Queue is empty\n");
+                }
+                else 
+                {
+                    printf("Queue is not empty\n");
+                }
+                break;
+            case 8:
+                if (isFull()) 
+                {
+                    printf("Queue is full\n");
+                }
+                else
+                {
+                    printf("Queue is not full\n");
+                }
+                break;
+            case 9:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    while (choice != 9);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 1
+Enter string to insert at rear: hi
+Inserted at rear: hi
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 2
+Enter string to insert at front: bansal
+Inserted at front: bansal
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 5
+Front element: bansal
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 3
+Deleted from front: bansal
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 3
+Deleted from front: hi
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 5
+Queue is empty
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 6
+Queue is empty
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 7
+Queue is empty
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 8
+Queue is not full
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 10
+Invalid choice! Please try again.
+
+Menu:
+1. Insert Rear
+2. Insert Front
+3. Delete Front
+4. Delete Rear
+5. Peek Front
+6. Peek Rear
+7. Check if Empty
+8. Check if Full
+9. Exit
+Enter your choice: 9
+Exiting...
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-10">
+            <div class="code-frame">
+                <h2>11. Code</h2>
+                <textarea readonly>
+/*11. IMPLEMENT THE OPERATIONS OF PRIORITY QUEUE DYNAMICALLY OF 
+INTEGERS (INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node 
+{
+    int data;
+    int priority;
+    struct Node* next;
+};
+
+struct Node* createNode(int data, int priority) 
+{
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->priority = priority;
+    newNode->next = NULL;
+    return newNode;
+}
+
+int isEmpty(struct Node* head) 
+{
+    return head == NULL;
+}
+
+void insert(struct Node** head, int data, int priority) 
+{
+    struct Node* newNode = createNode(data, priority);
+    if (isEmpty(*head) || (*head)->priority > priority) 
+    {
+        newNode->next = *head;
+        *head = newNode;
+    }
+    else
+    {
+        struct Node* temp = *head;
+        while (temp->next != NULL && temp->next->priority <= priority)
+        {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+    printf("Inserted %d with priority %d\n", data, priority);
+}
+
+void delete(struct Node** head) 
+{
+    if (isEmpty(*head)) 
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    struct Node* temp = *head;
+    *head = (*head)->next;
+    printf("Deleted %d with priority %d\n", temp->data, temp->priority);
+    free(temp);
+}
+
+void peek(struct Node* head) 
+{
+    if (isEmpty(head)) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Front element: %d with priority %d\n", head->data, head->priority);
+    }
+}
+
+int isFull() 
+{
+    return 0;
+}
+
+int main() 
+{
+    struct Node* head = NULL;
+    int choice, data, priority;
+
+    do 
+    {
+        printf("\nMenu:\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Peek\n");
+        printf("4. Check if Empty\n");
+        printf("5. Check if Full\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) 
+        {
+            case 1:
+                printf("Enter data to insert: ");
+                scanf("%d", &data);
+                printf("Enter priority: ");
+                scanf("%d", &priority);
+                insert(&head, data, priority);
+                break;
+            case 2:
+                delete(&head);
+                break;
+            case 3:
+                peek(head);
+                break;
+            case 4:
+                if (isEmpty(head)) 
+                {
+                    printf("Queue is empty\n");
+                }
+                else
+                {
+                    printf("Queue is not empty\n");
+                }
+                break;
+            case 5:
+                if (isFull()) 
+                {
+                    printf("Queue is full\n");
+                }
+                else
+                {
+                    printf("Queue is not full\n");
+                }
+                break;
+            case 6:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    while (choice != 6);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter data to insert: 10
+Enter priority: 5
+Inserted 10 with priority 5
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter data to insert: 10
+Enter priority: 2
+Inserted 10 with priority 2
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter data to insert: 20
+Enter priority: 1
+Inserted 20 with priority 1
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element: 20 with priority 1
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 2
+Deleted 20 with priority 1
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element: 10 with priority 2
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 4
+Queue is not empty
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 5
+Queue is not full
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 7
+Invalid choice! Please try again.
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 6
+Exiting...
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-11">
+            <div class="code-frame">
+                <h2>12. Code</h2>
+                <textarea readonly>
+/*12. IMPLEMENT THE OPERATIONS OF PRIORITY QUEUE DYNAMICALLY OF 
+STRING (INSERT, DELETE, PEEK, ISEMPTY, ISFULL)*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Node 
+{
+    char data[100];
+    int priority;
+    struct Node* next;
+};
+
+struct Node* createNode(char data[], int priority) 
+{
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    strcpy(newNode->data, data);
+    newNode->priority = priority;
+    newNode->next = NULL;
+    return newNode;
+}
+
+int isEmpty(struct Node* head) 
+{
+    return head == NULL;
+}
+
+void insert(struct Node** head, char data[], int priority) 
+{
+    struct Node* newNode = createNode(data, priority);
+    if (isEmpty(*head) || (*head)->priority > priority) 
+    {
+        newNode->next = *head;
+        *head = newNode;
+    }
+    else
+    {
+        struct Node* temp = *head;
+        while (temp->next != NULL && temp->next->priority <= priority)
+        {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+    printf("Inserted %s with priority %d\n", data, priority);
+}
+
+void delete(struct Node** head) 
+{
+    if (isEmpty(*head)) 
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    struct Node* temp = *head;
+    *head = (*head)->next;
+    printf("Deleted %s with priority %d\n", temp->data, temp->priority);
+    free(temp);
+}
+
+void peek(struct Node* head) 
+{
+    if (isEmpty(head)) 
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        printf("Front element: %s with priority %d\n", head->data, head->priority);
+    }
+}
+
+int isFull() 
+{
+    return 0;
+}
+
+int main() 
+{
+    struct Node* head = NULL;
+    int choice, priority;
+    char data[100];
+
+    do 
+    {
+        printf("\nMenu:\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Peek\n");
+        printf("4. Check if Empty\n");
+        printf("5. Check if Full\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); 
+
+        switch (choice) 
+        {
+            case 1:
+                printf("Enter string to insert: ");
+                gets(data);
+                data[strcspn(data, "\n")] = '\0'; 
+                printf("Enter priority: ");
+                scanf("%d", &priority);
+                insert(&head, data, priority);
+                break;
+            case 2:
+                delete(&head);
+                break;
+            case 3:
+                peek(head);
+                break;
+            case 4:
+                if (isEmpty(head)) 
+                {
+                    printf("Queue is empty\n");
+                }
+                else
+                {
+                    printf("Queue is not empty\n");
+                }
+                break;
+            case 5:
+                if (isFull())
+                {
+                    printf("Queue is full\n");
+                }
+                else
+                {
+                    printf("Queue is not full\n");
+                }
+                break;
+            case 6:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    while (choice != 6);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter string to insert: i
+Enter priority: 2
+Inserted i with priority 2
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter string to insert: am
+Enter priority: 4
+Inserted am with priority 4
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter string to insert: vaishali
+Enter priority: 5
+Inserted vaishali with priority 5
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 1
+Enter string to insert: bansal
+Enter priority: 3
+Inserted bansal with priority 3
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element: i with priority 2
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 2
+Deleted i with priority 2
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 3
+Front element: bansal with priority 3
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 4
+Queue is not empty
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 5
+Queue is not full
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 7
+Invalid choice! Please try again.
+
+Menu:
+1. Insert
+2. Delete
+3. Peek
+4. Check if Empty
+5. Check if Full
+6. Exit
+Enter your choice: 6
+Exiting...
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-12">
+            <div class="code-frame">
+                <h2>13. Code</h2>
+                <textarea readonly>
+//13. Find the first circular tour that visits all petrol pumps
+
+#include <stdio.h>
+
+int findStartPoint(int arr[][2], int n) 
+{
+    int start = 0;
+    int end = 1;
+    int curr_petrol = arr[start][0] - arr[start][1];
+
+    while (end != start || curr_petrol < 0) 
+    {
+        while (curr_petrol < 0 && start != end) 
+        {
+            curr_petrol -= arr[start][0] - arr[start][1];
+            start = (start + 1) % n;
+            if (start == 0) 
+            {
+                return -1;
+            }
+        }
+        curr_petrol += arr[end][0] - arr[end][1];
+        end = (end + 1) % n;
+    }
+    return start;
+}
+
+int main() 
+{
+    int n;
+    printf("Enter the number of petrol pumps: ");
+    scanf("%d", &n);
+
+    int arr[n][2];
+    for (int i = 0; i < n; i++) 
+    {
+        printf("Enter petrol and distance for petrol pump %d: ", i + 1);
+        scanf("%d %d", &arr[i][0], &arr[i][1]);
+    }
+
+    int start = findStartPoint(arr, n);
+    if (start != -1) 
+    {
+        printf("The starting point is: %d\n", start);
+    }
+    else
+    {
+        printf("No possible tour.\n");
+    }
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of petrol pumps: 4
+Enter petrol and distance for petrol pump 1: 4 6
+Enter petrol and distance for petrol pump 2: 6 5
+Enter petrol and distance for petrol pump 3: 7 3
+Enter petrol and distance for petrol pump 4: 4 5
+The starting point is: 1
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-13">
+            <div class="code-frame">
+                <h2>14. Code</h2>
+                <textarea readonly>
+
+//14. Length of the longest valid substring
+#include <stdio.h>
+#include <string.h>
+
+
+int longestValidParentheses(char *s) 
+{
+    int maxLen = 0;
+    int len = strlen(s);
+    int stack[len + 1];
+    int top = -1;
+    stack[++top] = -1; 
+
+    for (int i = 0; i < len; i++)
+    {
+        if (s[i] == '(') 
+        {
+            stack[++top] = i; 
+        }
+        else
+        {
+            top--; 
+            if (top == -1) 
+            {
+                stack[++top] = i; 
+            } 
+            else
+            {
+                int currentLen = i - stack[top];
+                if (currentLen > maxLen) 
+                {
+                    maxLen = currentLen;
+                }
+            }
+        }
+    }
+
+    return maxLen;
+}
+
+int main() 
+{
+    char s[100];
+    printf("Enter a string of parentheses: ");
+    scanf("%s", s);
+
+    int result = longestValidParentheses(s);
+    printf("The length of the longest valid parentheses substring is: %d\n", result);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter a string of parentheses: ((()
+The length of the longest valid parentheses substring is: 2
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-14">
+            <div class="code-frame">
+                <h2>15. Code</h2>
+                <textarea readonly>
+//15.Find the Next Greater Element
+#include <stdio.h>
+#include <stdlib.h>
+
+void nextGreaterElement(int arr[], int n, int result[]) 
+{
+    int stack[n];
+    int top = -1;
+
+    for (int i = n - 1; i >= 0; i--) 
+    {
+        while (top != -1 && stack[top] <= arr[i]) 
+        {
+            top--;
+        }
+        if (top == -1) 
+        {
+            result[i] = -1;
+        }
+        else
+        {
+            result[i] = stack[top];
+        }
+
+        stack[++top] = arr[i];
+    }
+}
+
+int main()
+{
+    int n;
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    int result[n];
+
+    printf("Enter the elements of the array:\n");
+    for (int i = 0; i < n; i++) 
+    {
+        scanf("%d", &arr[i]);
+    }
+
+    nextGreaterElement(arr, n, result);
+
+    printf("The next greater elements are:\n");
+    for (int i = 0; i < n; i++) 
+    {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of elements: 4
+Enter the elements of the array:
+1 3 2 4
+The next greater elements are:
+3 4 4 -1 
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-15">
+            <div class="code-frame">
+                <h2>16. Code</h2>
+                <textarea readonly>
+//16.Find Next Smaller Element
+#include <stdio.h>
+
+void nextSmallerElement(int arr[], int n, int result[]) 
+{
+    int stack[n];
+    int top = -1;
+
+    for (int i = n - 1; i >= 0; i--) 
+    {
+        while (top != -1 && stack[top] >= arr[i]) 
+        {
+            top--;
+        }
+
+        if (top == -1) 
+        {
+            result[i] = -1;
+        }
+        else
+        {
+            result[i] = stack[top];
+        }
+
+        stack[++top] = arr[i];
+    }
+}
+
+int main() 
+{
+    int n;
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    int result[n];
+
+    printf("Enter the elements of the array:\n");
+    for (int i = 0; i < n; i++) 
+    {
+        scanf("%d", &arr[i]);
+    }
+
+    nextSmallerElement(arr, n, result);
+
+    printf("The next smaller elements are:\n");
+    for (int i = 0; i < n; i++) 
+    {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of elements: 5
+Enter the elements of the array:
+4 8 5 2 25
+The next smaller elements are:
+2 5 2 -1 -1 
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-16">
+            <div class="code-frame">
+                <h2>17. Code</h2>
+                <textarea readonly>
+
+/*17.Queue based approach for first non-repeating character in a 
+stream*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void firstNonRepeating(char stream[]) 
+{
+    int freq[256] = {0}; 
+    char queue[256]; 
+    int front = 0, rear = 0;
+
+    for (int i = 0; i < strlen(stream); i++) 
+    {
+        char ch = stream[i];
+        freq[ch]++;
+        queue[rear++] = ch;
+        
+        while (front != rear && freq[queue[front]] > 1) 
+        {
+            front++;
+        }
+
+        if (front != rear) 
+        {
+            printf("%c ", queue[front]);
+        }
+        else
+        {
+            printf("-1 ");
+        }
+    }
+    printf("\n");
+}
+
+int main()
+{
+    char stream[100];
+    printf("Enter a stream of characters: ");
+    scanf("%s", stream);
+
+    printf("The first non-repeating characters in the stream are:\n");
+    firstNonRepeating(stream);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter a stream of characters: a a b c
+The first non-repeating characters in the stream are:
+a 
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-17">
+            <div class="code-frame">
+                <h2>18. Code</h2>
+                <textarea readonly>
+
+//18. Reverse First K elements of Queue
+#include <stdio.h>
+#include <stdlib.h>
+
+struct QueueNode 
+{
+    int data;
+    struct QueueNode* next;
+};
+
+struct Queue 
+{
+    struct QueueNode *front, *rear;
+};
+
+struct QueueNode* createNode(int data) 
+{
+    struct QueueNode* newNode = (struct QueueNode*)malloc(sizeof(struct QueueNode));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+struct Queue* createQueue() 
+{
+    struct Queue* queue = (struct Queue*)malloc(sizeof(struct Queue));
+    queue->front = queue->rear = NULL;
+    return queue;
+}
+
+void enqueue(struct Queue* queue, int data) 
+{
+    struct QueueNode* newNode = createNode(data);
+    if (queue->rear == NULL) 
+    {
+        queue->front = queue->rear = newNode;
+        return;
+    }
+    queue->rear->next = newNode;
+    queue->rear = newNode;
+}
+
+int dequeue(struct Queue* queue) 
+{
+    if (queue->front == NULL) 
+    {
+        return -1;
+    }
+    struct QueueNode* temp = queue->front;
+    int data = temp->data;
+    queue->front = queue->front->next;
+    if (queue->front == NULL) 
+    {
+        queue->rear = NULL;
+    }
+    free(temp);
+    return data;
+}
+
+int front(struct Queue* queue) 
+{
+    if (queue->front == NULL) 
+    {
+        return -1;
+    }
+    return queue->front->data;
+}
+
+void reverseFirstKElements(struct Queue* queue, int k) 
+{
+    if (queue->front == NULL || k <= 0) 
+    {
+        return;
+    }
+
+    int stack[k];
+    int top = -1;
+
+    for (int i = 0; i < k; i++) 
+    {
+        stack[++top] = dequeue(queue);
+    }
+
+    while (top != -1) 
+    {
+        enqueue(queue, stack[top--]);
+    }
+
+    int size = 0;
+    struct QueueNode* temp = queue->front;
+    while (temp != NULL) 
+    {
+        size++;
+        temp = temp->next;
+    }
+
+    for (int i = 0; i < size - k; i++) 
+    {
+        enqueue(queue, dequeue(queue));
+    }
+}
+
+void printQueue(struct Queue* queue) 
+{
+    struct QueueNode* temp = queue->front;
+    while (temp != NULL) 
+    {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main()
+{
+    struct Queue* queue = createQueue();
+    int n, k, value;
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter the elements of the queue:\n");
+    for (int i = 0; i < n; i++) 
+    {
+        scanf("%d", &value);
+        enqueue(queue, value);
+    }
+
+    printf("Enter the value of K: ");
+    scanf("%d", &k);
+
+    reverseFirstKElements(queue, k);
+
+    printf("Queue after reversing the first %d elements:\n", k);
+    printQueue(queue);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of elements: 6
+Enter the elements of the queue:
+4 4 4 3 2 1
+Enter the value of K: 5
+Queue after reversing the first 5 elements:
+2 3 4 4 4 1 
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-18">
+            <div class="code-frame">
+                <h2>19. Code</h2>
+                <textarea readonly>
+
+//19. Queue Reversal Explanation - Rotten Oranges Explanation
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 1000 
+#define QUEUE_SIZE MAX * MAX
+
+typedef struct 
+{
+    int x, y;
+}
+Position;
+
+typedef struct 
+{
+    Position arr[QUEUE_SIZE];
+    int front, rear;
+}
+Queue;
+
+void initQueue(Queue* q) 
+{
+    q->front = 0;
+    q->rear = 0;
+}
+
+int isEmpty(Queue* q) 
+{
+    return q->front == q->rear;
+}
+
+void enqueue(Queue* q, Position pos) 
+{
+    q->arr[q->rear++] = pos;
+}
+
+Position dequeue(Queue* q) 
+{
+    return q->arr[q->front++];
+}
+
+int directions[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+int isValid(int x, int y, int rows, int cols) 
+{
+    return x >= 0 && x < rows && y >= 0 && y < cols;
+}
+
+int orangesRotting(int** grid, int rows, int cols) 
+{
+    Queue q;
+    initQueue(&q);
+    int freshCount = 0;
+
+    for (int r = 0; r < rows; r++) 
+    {
+        for (int c = 0; c < cols; c++) 
+        {
+            if (grid[r][c] == 2) 
+            {
+                Position pos = {r, c};
+                enqueue(&q, pos);
+            }
+            else if (grid[r][c] == 1) 
+            {
+                freshCount++;
+            }
+        }
+    }
+
+    int time = 0;
+
+    while (!isEmpty(&q) && freshCount > 0) 
+    {
+        int size = q.rear - q.front;
+        for (int i = 0; i < size; i++) 
+        {
+            Position pos = dequeue(&q);
+            for (int j = 0; j < 4; j++) 
+            {
+                int newX = pos.x + directions[j][0];
+                int newY = pos.y + directions[j][1];
+                if (isValid(newX, newY, rows, cols) && grid[newX][newY] == 1) 
+                {
+                    grid[newX][newY] = 2; 
+                    freshCount--;
+                    Position newPos = {newX, newY};
+                    enqueue(&q, newPos);
+                }
+            }
+        }
+        time++;
+    }
+
+    return freshCount == 0 ? time : -1;
+}
+
+int main() 
+{
+    int rows, cols;
+
+    printf("Enter the number of rows and columns in the grid: ");
+    scanf("%d %d", &rows, &cols);
+
+    int** grid = (int**)malloc(rows * sizeof(int*));
+    for (int i = 0; i < rows; i++) 
+    {
+        grid[i] = (int*)malloc(cols * sizeof(int));
+    }
+
+    printf("Enter the grid values (0 for empty, 1 for fresh orange, 2 for rotten orange):\n");
+    for (int r = 0; r < rows; r++) 
+    {
+        for (int c = 0; c < cols; c++) 
+        {
+            scanf("%d", &grid[r][c]);
+        }
+    }
+    
+    int result = orangesRotting(grid, rows, cols);
+    
+    if (result == -1) 
+    {
+        printf("Not all oranges can rot.\n");
+    }
+    else
+    {
+        printf("Time taken for all oranges to rot: %d minute(s).\n", result);
+    }
+
+    for (int i = 0; i < rows; i++) 
+    {
+        free(grid[i]);
+    }
+    free(grid);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of rows and columns in the grid: 3 3
+Enter the grid values (0 for empty, 1 for fresh orange, 2 for rotten orange):
+0 1 2
+0 1 2
+2 1 1
+Time taken for all oranges to rot: 1 minute(s).
+
+</textarea>
+</div>
+</div>   
+
+        <div class="code-output" id="code-output-19">
+            <div class="code-frame">
+                <h2>20. Code</h2>
+                <textarea readonly>
+
+//20. Rotten Oranges Explanation 
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 1000 
+#define QUEUE_SIZE MAX * MAX
+
+typedef struct 
+{
+    int x, y;
+}
+Position;
+
+typedef struct 
+{
+    Position arr[QUEUE_SIZE];
+    int front, rear;
+}
+Queue;
+
+void initQueue(Queue* q) 
+{
+    q->front = 0;
+    q->rear = 0;
+}
+
+int isEmpty(Queue* q) 
+{
+    return q->front == q->rear;
+}
+
+void enqueue(Queue* q, Position pos) 
+{
+    q->arr[q->rear++] = pos;
+}
+
+Position dequeue(Queue* q) 
+{
+    return q->arr[q->front++];
+}
+
+int directions[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+int isValid(int x, int y, int rows, int cols) 
+{
+    return x >= 0 && x < rows && y >= 0 && y < cols;
+}
+
+int orangesRotting(int** grid, int rows, int cols) 
+{
+    Queue q;
+    initQueue(&q);
+    int freshCount = 0;
+
+    for (int r = 0; r < rows; r++) 
+    {
+        for (int c = 0; c < cols; c++) 
+        {
+            if (grid[r][c] == 2) 
+            {
+                Position pos = {r, c};
+                enqueue(&q, pos);
+            }
+            else if (grid[r][c] == 1) 
+            {
+                freshCount++;
+            }
+        }
+    }
+
+    int time = 0;
+
+    while (!isEmpty(&q) && freshCount > 0) 
+    {
+        int size = q.rear - q.front;
+        for (int i = 0; i < size; i++) 
+        {
+            Position pos = dequeue(&q);
+            for (int j = 0; j < 4; j++) 
+            {
+                int newX = pos.x + directions[j][0];
+                int newY = pos.y + directions[j][1];
+                if (isValid(newX, newY, rows, cols) && grid[newX][newY] == 1) 
+                {
+                    grid[newX][newY] = 2;  
+                    freshCount--;
+                    Position newPos = {newX, newY};
+                    enqueue(&q, newPos);
+                }
+            }
+        }
+        time++;
+    }
+
+    return freshCount == 0 ? time : -1;
+}
+
+int main() 
+{
+    int rows, cols;
+    printf("Enter the number of rows and columns in the grid: ");
+    scanf("%d %d", &rows, &cols);
+
+    int** grid = (int**)malloc(rows * sizeof(int*));
+    for (int i = 0; i < rows; i++) 
+    {
+        grid[i] = (int*)malloc(cols * sizeof(int));
+    }
+
+    printf("Enter the grid values (0 for empty, 1 for fresh orange, 2 for rotten orange):\n");
+    for (int r = 0; r < rows; r++) 
+    {
+        for (int c = 0; c < cols; c++) 
+        {
+            scanf("%d", &grid[r][c]);
+        }
+    }
+
+    int result = orangesRotting(grid, rows, cols);
+    
+    if (result == -1) 
+    {
+        printf("Not all oranges can rot.\n");
+    }
+    else 
+    {
+        printf("Time taken for all oranges to rot: %d minute(s).\n", result);
+    }
+
+    for (int i = 0; i < rows; i++) 
+    {
+        free(grid[i]);
+    }
+    free(grid);
+
+    return 0;
+}
+
+</textarea>
+</div>
+
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the number of rows and columns in the grid: 1 4
+Enter the grid values (0 for empty, 1 for fresh orange, 2 for rotten orange):
+2 2 0 1
+Not all oranges can rot.
+
+</textarea>
+</div>
+</div>   
+
+ </div>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+    <script>
+        function toggleCode(index) {
+            const codeOutput = document.getElementById(`code-output-${index}`);
+            const isVisible = codeOutput.style.display === "flex";
+            
+            // Hide all code outputs first
+            const allOutputs = document.querySelectorAll('.code-output');
+            allOutputs.forEach(output => output.style.display = "none");
+            
+            // Toggle visibility of the selected output only if it was not already visible
+            if (!isVisible) {
+                codeOutput.style.display = "flex";
+            }
+        }
+
+        // Initially hide all code outputs
+        document.querySelectorAll('.code-output').forEach(output => {
+            output.style.display = "none";
+        });
+    </script>
+</body>
+</html>

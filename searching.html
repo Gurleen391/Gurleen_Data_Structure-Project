@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEARCHING</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+            list-style: none;
+            padding-left: 20px; /* Adjust this value to increase or decrease the right shift */
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SEARCHING</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='2Darray.html'"><b>2D Array</b></div>
+            <div class="tab" onclick="location.href='graphs.html'"><b>Graphs</b></div>
+            <div class="tab" onclick="location.href='linkedlist.html'"><b>Linked List</b></div>
+            <div class="tab" onclick="location.href='queues.html'"><b>Queues</b></div>
+            <div class="tab" onclick="location.href='recursion.html'"><b>Recursion</b></div>
+            <div class="tab" onclick="location.href='searching.html'"><b>Searching Algorithms</b></div>
+            <div class="tab" onclick="location.href='singlearray.html'"><b>Single Dimension Array</b></div>
+            <div class="tab" onclick="location.href='sorting.html'"><b>Sorting</b></div>
+            <div class="tab" onclick="location.href='stack.html'"><b>Stack</b></div>
+            <div class="tab" onclick="location.href='string.html'"><b>Strings</b></div>
+            <div class="tab" onclick="location.href='trees.html'"><b>Trees</b></div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol style="list-style-type: decimal;">
+                <li onclick="toggleCode(0)">Enter an integer array from the user, enter an integer value and perform linear search algorithm through iteration.</li>
+                <li onclick="toggleCode(1)">Enter a string from the user, enter a character and perform linear search algorithm through recursion.</li>
+                <li onclick="toggleCode(2)">Enter an integer array from the user, enter an integer value and perform linear search algorithm through recursion.</li>
+                <li onclick="toggleCode(3)">Enter a string from the user, enter a character and perform linear search algorithm through iteration.</li>
+                <li onclick="toggleCode(4)">Enter an integer array from the user, enter an integer value and perform binary search algorithm through iteration.</li>
+                <li onclick="toggleCode(5)">Enter a string from the user, enter a character and perform binary search algorithm through recursion.</li>
+                <li onclick="toggleCode(6)">Enter an integer array from the user, enter an integer value and perform binary search algorithm through recursion.</li>
+                <li onclick="toggleCode(7)">Enter a string from the user, enter a character and perform binary search algorithm through iteration.</li>
+                <li onclick="toggleCode(8)">Calculate the best and worst complexity of the linear searching algorithm with exact time taken by the algorithm on integer array.</li>
+                <li onclick="toggleCode(9)">Calculate the best and worst complexity of the binary searching algorithm with exact time taken by the algorithm on integer array.</li>
+            </ol>
+        </div>
+
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+                <textarea readonly>
+//1. ENTER A INTEGER ARRAY FROM THE USER, ENTER AN INTEGER VALUE AND PERFORM LINEAR SEARCH THROUGH ITERATION.
+#include<stdio.h>
+void search(int arr[],int s,int x)
+{
+
+int j;
+for(j=0;j<=s;j++)
+{
+
+if(x==arr[j])
+{
+  printf("\nIndex no.=%d",j);
+}
+}
+if(j==s)// control will search x till the size of array(s),if x is not found ,then index no. equals to total size of array  
+{
+  printf("\n-1");
+}
+}
+
+
+int main()
+{
+  int size,x,s,i;
+      
+  printf("Enter size of array:");
+  scanf("%d",&size);
+ int arr[size];
+  printf("Enter array");
+  for(i=0;i<=size;i++)//array input
+  {
+    scanf("%d",&arr[i]);
+  
+    }
+  for(i=0;i<=size;i++)
+  {
+    printf("\n%d",arr[i]);
+      
+  }
+    
+  printf("Enter value to search\n");
+  scanf("%d",&x);
+  search(arr,size,x);//calling  
+      
+}              </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array:5
+Enter array
+12
+43
+5
+0
+-45
+23
+
+12
+43
+5
+0
+-45
+23
+Enter value to search
+0
+
+Index no.=3	
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-1">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+                <textarea readonly>
+
+//2. ENTER A STRING FROM THE USER, ENTER A CHARACTER AND PERFORM LINEAR SEARCH ALGORITHM THROUGH RECURSION.
+#include<stdio.h>
+#define size 20
+int search(char str[],char x,int j)
+{
+
+if(x==str[j])
+{
+		return j;
+}
+
+else if(str[j]==0) 
+{
+	return -1;
+}
+
+return search(str,x,j+1);
+}
+
+
+int main()
+{
+	int result,s,i,count=0,j=0;
+	char str[size],x;		
+printf("ENTER STRING INPUT:");
+
+gets(str);
+printf("\nSTRING OUTPUT:");
+printf("\n%s",str);
+		
+	printf("\nEnter value to search\n");
+	scanf("%c",&x);
+			for(i=0;str[i];i++)
+	{
+
+		count++;
+	}
+	
+	printf("Length of string: %d",count);
+	result=search(str,x,j);//calling
+	if(result==count-1)
+	{
+		printf("-1");
+		}	
+	printf("\nINDEX NO.:%d",result);		
+}
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER STRING INPUT:EVERYDAY IS A NEW DAY!
+
+STRING OUTPUT:
+EVERYDAY IS A NEW DAY!
+Enter value to search
+N
+Length of string: 22
+INDEX NO.:14
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-2">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+
+                <textarea readonly>
+//3. ENTER A INTEGER ARRAY FROM THE USER, ENTER AN INTEGER VALUE AND PERFORM LINEAR SEARCH ALGORITHM THROUGH RECURSION.
+#include<stdio.h>
+int search(int arr[],int x,int j,int size)
+{
+
+if(x==arr[j])
+{
+return j;
+}
+
+ if(j==size) 
+{
+	return -1;
+}
+
+
+return search(arr,x,j+1,size);
+
+}
+
+
+int main()
+{
+	int size,result,x,s,i,j=0;
+			
+	printf("Enter size of array:");
+	scanf("%d",&size);
+int arr[size];
+	printf("Enter array");
+	for(i=0;i<=size;i++)//array input
+	{
+		scanf("%d",&arr[i]);
+	
+		}
+	for(i=0;i<=size;i++)
+	{
+	  printf("\n%d",arr[i]);
+	  	
+	}
+		
+	printf("Enter value to search\n");
+	scanf("%d",&x);
+	result=search(arr,x,j,size);
+	
+	printf("\nINDEX NO.:%d",result);//calling	
+		
+}
+
+                </textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array:6
+Enter array56
+788
+34
+0
+-8
+5
+45
+
+56
+788
+34
+0
+-8
+5
+45Enter value to search
+788
+
+INDEX NO.:1
+                </textarea>
+            </div>
+        </div>
+<div class="code-output" id="code-output-3">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+                <textarea readonly>
+//4. ENTER A STRING FROM THE USER, ENTER A CHARACTER AND PERFORM LINEAR SEARCH THROUGH ITERATION.
+#include<stdio.h>
+//#define size 6
+void search(char*str,int s,char x)
+{
+
+int j;
+for(j=0;str[j];j++)
+{
+
+if(x==str[j])
+{
+	printf("\nIndex no.=%d",j);
+}
+}
+if(j==s)// control will search x till the size of array(s),if x is not found ,then index no. equals to total size of array  
+{
+	printf("\n-1");
+}
+}
+
+
+int main()
+{
+	int x,s,i,count=0;
+	char str[6];
+			
+	printf("Enter string");
+gets(str);//string input
+printf("\n%s",str);//output string
+		
+	printf("Enter value to search\n");
+	scanf("%c",&x);
+		for(i=0;str[i];i++)
+	{
+
+		count++;
+	}
+	
+	printf("Length of string: %d",count);
+	search(str,count,x);//calling	
+			
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+Enter string
+my father is a doctor
+
+my father is a doctor
+Enter value to search
+i
+Length of string: 21
+Index no.=10
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-4">
+            <div class="code-frame">
+                <h2>5. Code</h2>
+                <textarea readonly>
+//5. ENTER A INTEGER ARRAY FROM THE USER, ENTER AN INTEGER VALUE AND PERFORM BINARY SEARCH THROUGH ITERATION.
+#include <stdio.h>
+
+void sort(int* arr,int count) 
+{
+	int i,j;
+    for(i=0;i<count-1;i++) 
+	{
+        for(j=0;j<count-i-1;j++)
+		 {
+            if (arr[j]>arr[j+1]) 
+			{
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+
+int binary(int* arr,int x,int count)
+ {
+    int l=0;
+    int h=count-1;
+
+    while (l<=h)
+	 {
+        int m=(l+h)/2;
+
+        if (x==arr[m]) 
+		{
+            return m; 
+        } 
+		else if(x<arr[m]) 
+		{
+            h=m-1; 
+        } 
+		else 
+		{
+            l=m+1; 
+        }
+    }
+    return -1;
+	}
+
+int main() 
+{
+    int size,i,x,index;
+
+    printf("Enter the size of array: ");
+    scanf("%d", &size);
+int arr[size];
+    printf("Enter array elements:");
+    for (i=0;i<size;i++) 
+	{
+        scanf("%d",&arr[i]);
+    }
+
+    sort(arr,size); 
+
+    printf("Sorted array: ");
+    for (i=0;i<size;i++) 
+	{
+        printf("\n%d",arr[i]);
+    }
+    
+
+    printf("\nEnter value to search: ");
+    scanf("%d",&x);
+
+     index=binary(arr,x,size);
+
+    if (index!=-1)
+	 {
+        printf("Integer %d found at index: %d\n",x,index);
+    } else 
+	{
+        printf("Integer %d not found.\n",x);
+    }
+
+ 
+}
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter the size of array: 5
+Enter array elements:12
+56
+67
+90
+7
+Sorted array: 
+7
+12
+56
+67
+90
+Enter value to search: 45
+Integer 45 not found.
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-5">
+            <div class="code-frame">
+                <h2>6. Code</h2>
+                <textarea readonly>
+//6. ENTER A STRING FROM THE USER, ENTER A CHARACTER AND PERFORM BINARY SEARCH ALGORITHM THROUGH RECURSION.
+#include <stdio.h>
+
+int sort(char* str) {
+    int count = 0;
+
+    while (str[count] != '\0') {
+        count++;
+    }
+
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = 0; j < count - i - 1; j++) {
+            if (str[j] > str[j + 1]) {
+                char temp = str[j];
+                str[j] = str[j + 1];
+                str[j + 1] = temp;
+            }
+        }
+    }
+    return count;
+}
+
+int binary(char* str, char x, int l, int h) {
+    if (l > h) {
+        return -1; 
+    }
+
+    int m = (l + h) / 2;
+    if (x == str[m]) {
+        return m;
+    } else if (x < str[m]) {
+        return binary(str, x, l, m - 1); 
+    } else {
+        return binary(str, x, m + 1, h); 
+    }
+}
+
+int main() {
+    char str[100]; 
+    char x;
+
+    printf("Enter string (max 99 characters): ");
+   gets(str);
+
+    int len = sort(str);
+    printf("Sorted string: ");
+    for (int j = 0; j < len; j++) {
+        printf("%c", str[j]); 
+    }
+    printf("\n");
+
+    printf("Enter character to search: ");
+    scanf(" %c", &x); 
+
+    int index = binary(str, x, 0, len - 1); 
+    if (index != -1) {
+        printf("Character '%c' found at index: %d\n", x, index);
+    } else {
+        printf("Character '%c' not found.\n", x);
+    }
+
+}
+
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter string (max 99 characters): his dog barks loudly!
+Sorted string:    !abddghiklloorssuy
+Enter character to search: g
+Character 'g' found at index: 8
+
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-6">
+            <div class="code-frame">
+                <h2>7. Code</h2>
+                <textarea readonly>
+//7. ENTER A INTEGER ARRAY FROM THE USER, ENTER AN INTEGER VALUE AND PERFORM BINARY SEARCH ALGORITHM THROUGH RECURSION
+#include<stdio.h>
+
+void sort(int* arr,int count) 
+{
+	int i,j;
+    for(i=0;i<count-1;i++) 
+	{
+        for(j=0;j<count-i-1;j++)
+		 {
+            if (arr[j]>arr[j+1]) 
+			{
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+
+int binary(int*arr,int x,int l,int h)
+{
+    int m;
+     m=(l+h)/2;
+    if (l>h)
+	 {
+        return -1; 
+    }
+
+    if (x==arr[m])
+	 {
+        return m;
+    } 
+	else if (x<arr[m])
+	 {
+        return binary(arr,x,l,m-1); 
+    } 
+	else 
+	{
+        return binary(arr,x,m+1,h); 
+    }
+}
+    int main()
+
+{
+		int size,i,j=0,l=0,h,index;
+		printf("Enter size of array:");
+		scanf("%d",&size);
+		int arr[size], x;
+			printf("Enter array");
+	for(i=0;i<size;i++)//array input
+	{
+		scanf("%d",&arr[i]);
+	
+		}
+	sort(arr,size);
+	for(i=0;i<size;i++)
+	{
+	  printf("\n%d",arr[i]);
+	  	
+	}
+	 	
+	    printf("\nEnter value to search:");
+	    scanf("%d",&x);//x--40--10
+	    	h=size-1;
+     index=binary(arr,x,l,h);
+        
+    if (index!=-1)
+	 {
+        printf("Integer %d found at index: %d\n",x,index);
+    } else 
+	{
+        printf("Integer %d not found.\n",x);
+    }
+        
+      
+
+
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter size of array:5
+Enter array56
+45
+23
+87
+2
+
+2
+23
+45
+56
+87
+Enter value to search:87
+Integer 87 found at index: 4
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-7">
+            <div class="code-frame">
+                <h2>8. Code</h2>
+                <textarea readonly>
+//8. ENTER A STRING FROM THE USER, ENTER A CHARACTER AND PERFORM BINARY SEARCH ALGORITHM THROUGH ITERATION.
+#include<stdio.h>
+int sort(char* str) 
+{
+
+
+     int i,count=0,j,temp;
+      for (i=0;str[i];i++) 
+	 {
+        count++;
+    }
+
+    for (i=0;i<count-1;i++) 
+	{
+        for (j=0;j<count-i-1;j++) 
+		{
+            if(str[j]>str[j+1])
+			 {
+                char temp = str[j];
+                str[j]=str[j+1];
+                str[j+1]=temp;
+            }
+        }
+    }
+    return count;
+}
+int binary(char* str,char x,int h)
+ {
+    int l=0;
+
+
+    while(str[h]) 
+	{
+        h++;
+    }
+    h--; 
+
+    while (l<=h)
+	 {
+        int m=(l+h)/2;
+
+        if(x==str[m]) 
+		{
+            return m;
+        } 
+		else if(x<str[m]) 
+		{
+            h=m-1; 
+        }
+		 else 
+		{
+            l=m+1; 
+        }
+    }
+    return -1;
+}
+int main()
+
+{
+		int index,len;
+		char str[100], x;
+	printf("Enter string:");
+	gets(str);
+	len=sort(str);
+		printf("\n%s",str);//output
+	printf("\nEnter value to search:");
+	scanf("%c",&x);
+ index=binary(str,x,len);
+    
+    if (index!=-1) 
+	{
+        printf("Character %c found at index: %d\n",x,index);
+    } 
+	else 
+	{
+        printf("Character %c not found.\n",x);
+    }
+
+
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter string:THEY TAKE THE BUS TO WORK.
+Sorted string:
+     .ABEEEHHKKOORSTTTTUWY
+Enter value to search:Y
+Character Y found at index: 25
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-8">
+            <div class="code-frame">
+                <h2>9. Code</h2>
+                <textarea readonly>
+//9.CALCULATE THE BEST AND WORST COMPLEXITY OF THE LINEAR SEARCHING ALGORITHM WITH EXACT TIME TAKEN BY THE ALGORITHM ON INTEGER ARRAY
+
+#include <stdio.h>
+
+#include <time.h>
+
+int linear_search(int arr[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            return i; // Return the index of the target
+        }
+    }
+    return -1; // Target not found
+}
+
+void test_linear_search(int arr[], int size, int target) {
+    clock_t start_time = clock();
+    int result = linear_search(arr, size, target);
+    clock_t end_time = clock();
+    
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    if (result != -1) {
+        printf("Element %d found at index: %d\n", target, result);
+    } else {
+        printf("Element %d not found in the array.\n", target);
+    }
+    printf("Time taken for search: %f seconds\n", time_taken);
+}
+
+int main() {
+    int size;
+
+    printf("ENTER SIZE OF ARRAY for Best Case: ");
+    scanf("%d", &size);
+    int best_case_array[size];
+
+    printf("\nENTER ARRAY ELEMENTS for Best Case (target should be first element): ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &best_case_array[i]);
+    }
+    
+    // Assuming the target is the first element
+    printf("\nTesting Best Case:\n");
+    test_linear_search(best_case_array, size, best_case_array[0]);
+
+    printf("\nENTER SIZE OF ARRAY for Worst Case: ");
+    scanf("%d", &size);
+    int worst_case_array[size];
+
+    printf("\nENTER ARRAY ELEMENTS for Worst Case (target should not be present): ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &worst_case_array[i]);
+    }
+
+    // Setting target to a value that is not in the array
+    int target = -1; // Assuming -1 is not in the array
+    printf("\nTesting Worst Case:\n");
+    test_linear_search(worst_case_array, size, target);
+
+    return 0;
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+ENTER SIZE OF ARRAY for Best Case: 5
+
+ENTER ARRAY ELEMENTS for Best Case (target should be first element): 10
+20
+30
+40
+50
+
+Testing Best Case:
+Element 10 found at index: 0
+Time taken for search: 0.000001 seconds
+
+ENTER SIZE OF ARRAY for Worst Case: 5
+
+ENTER ARRAY ELEMENTS for Worst Case (target should not be present): 10
+20
+30
+40
+50
+
+Testing Worst Case:
+Element -1 not found in the array.
+Time taken for search: 0.000002 seconds
+
+</textarea>
+</div>
+</div>
+
+<div class="code-output" id="code-output-9">
+            <div class="code-frame">
+                <h2>10. Code</h2>
+                <textarea readonly>
+//10.CALCULATE THE BEST AND WORST COMPLEXITY OF THE BINARY SEARCHING ALGORITHM WITH EXACT TIME TAKEN BY THE ALGORITHM ON INTEGER ARRAY.
+#include <stdio.h>
+#include <time.h>
+
+// Function to perform binary search
+int binary_search(int arr[], int size, int target) {
+    int low = 0;
+    int high = size - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2; // To prevent overflow
+        if (arr[mid] == target) {
+            return mid; // Target found
+        } else if (arr[mid] < target) {
+            low = mid + 1; // Search in the right half
+        } else {
+            high = mid - 1; // Search in the left half
+        }
+    }
+    return -1; // Target not found
+}
+
+// Function to test binary search
+void test_binary_search(int arr[], int size, int target) {
+    clock_t start_time = clock();
+    int result = binary_search(arr, size, target);
+    clock_t end_time = clock();
+
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+    if (result != -1) {
+        printf("Element %d found at index: %d\n", target, result);
+    } else {
+        printf("Element %d not found in the array.\n", target);
+    }
+    printf("Time taken for search: %f seconds\n", time_taken);
+}
+
+int main() {
+    int size;
+
+
+    printf("ENTER SIZE OF ARRAY for Best Case: ");
+    scanf("%d", &size);
+    int best_case_array[size];
+
+    printf("\nENTER SORTED ARRAY ELEMENTS for Best Case (target should be the middle element): ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &best_case_array[i]);
+    }
+    
+ 
+    int best_case_target = best_case_array[size / 2];
+    printf("\nTesting Best Case:\n");
+    test_binary_search(best_case_array, size, best_case_target);
+
+    
+    printf("\nENTER SIZE OF ARRAY for Worst Case: ");
+    scanf("%d", &size);
+    int worst_case_array[size];
+
+    printf("\nENTER SORTED ARRAY ELEMENTS for Worst Case: ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &worst_case_array[i]);
+    }
+
+    
+    int worst_case_target = -1; 
+    printf("\nTesting Worst Case:\n");
+    test_binary_search(worst_case_array, size, worst_case_target);
+
+    return 0;
+}
+
+
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+ENTER SIZE OF ARRAY for Best Case: 5
+
+ENTER SORTED ARRAY ELEMENTS for Best Case (target should be the middle element): 10
+20
+30
+40
+50
+
+Testing Best Case:
+Element 30 found at index: 2
+Time taken for search: 0.000001 seconds
+
+ENTER SIZE OF ARRAY for Worst Case: 5
+
+ENTER SORTED ARRAY ELEMENTS for Worst Case: 10
+20
+30
+40
+50
+
+Testing Worst Case:
+Element -1 not found in the array.
+Time taken for search: 0.000002 seconds
+</textarea>
+</div>
+</div>
+
+
+   </DIV>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+    <script>
+        function toggleCode(index) {
+            const codeOutput = document.getElementById(`code-output-${index}`);
+            const isVisible = codeOutput.style.display === "flex";
+            
+            // Hide all code outputs first
+            const allOutputs = document.querySelectorAll('.code-output');
+            allOutputs.forEach(output => output.style.display = "none");
+            
+            // Toggle visibility of the selected output only if it was not already visible
+            if (!isVisible) {
+                codeOutput.style.display = "flex";
+            }
+        }
+
+        // Initially hide all code outputs
+        document.querySelectorAll('.code-output').forEach(output => {
+            output.style.display = "none";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Arrays</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige background */
+            color: #333333; /* Dark gray text */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        /* Header and Title */
+        header {
+            background-color: #333333; /* Dark gray background */
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 3px solid #d9cbb6; /* Light beige border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    
+        h1 {
+            font-size: 2.5em;
+            color: #f5f5dc; /* Beige title */
+            margin: 0;
+        }
+    
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1px;
+            background-color: #444444; /* Slightly lighter dark gray */
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #f5f5dc; /* Beige text */
+            transition: background-color 0.3s;
+            background-color: #333333;
+        }
+    
+        .tab:hover {
+            background-color: #d9cbb6; /* Light beige hover */
+            color: #333333;
+        }
+    
+        /* Container for Questions and Code Output */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    
+        /* Styling for Questions List */
+        .questions {
+            flex: 1;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d9cbb6;
+        }
+    
+        .questions h2 {
+            color: #f5f5dc;
+            margin-bottom: 15px;
+        }
+    
+        .questions ol {
+            list-style: none;
+            padding-left: 0;
+            list-style: none;
+            padding-left: 20px; /* Adjust this value to increase or decrease the right shift */
+        }
+    
+        .questions li {
+            font-size: 1.1em;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(217, 203, 182, 0.5); /* Soft beige accent */
+            cursor: pointer;
+            color: #d9cbb6;
+        }
+    
+        .questions li:hover {
+            color: #f5f5dc;
+            font-weight: bold;
+        }
+    
+        /* Code and Output Frame Styling */
+        .code-output {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+        }
+    
+        .code-frame, .output-frame {
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d9cbb6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+    
+        .code-frame h2, .output-frame h2 {
+            color: #f5f5dc;
+            margin: 0;
+        }
+    
+        textarea {
+            width: 100%;
+            height: 200px;
+            background-color: #444444;
+            color: #f5f5dc;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            outline: none;
+            box-sizing: border-box;
+        }
+    
+        /* Footer */
+        footer {
+            background-color: #333333;
+            color: #f5f5dc;
+            width: 100%;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 20px;
+            border-top: 2px solid #d9cbb6;
+            
+}
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>2D ARRAYS</h1>
+        <div class="tabs">
+            <div class="tab" onclick="location.href='2Darray.html'">2D Array</div>
+            <div class="tab" onclick="location.href='graphs.html'">Graphs</div>
+            <div class="tab" onclick="location.href='linkedlist.html'">Linked List</div>
+            <div class="tab" onclick="location.href='queues.html'">Queues</div>
+            <div class="tab" onclick="location.href='recursion.html'">Recursion</div>
+            <div class="tab" onclick="location.href='searching.html'">Searching Algorithms</div>
+            <div class="tab" onclick="location.href='singlearray.html'">Single Dimension Array</div>
+            <div class="tab" onclick="location.href='sorting.html'">Sorting</div>
+            <div class="tab" onclick="location.href='stack.html'">Stack</div>
+            <div class="tab" onclick="location.href='string.html'">Strings</div>
+            <div class="tab" onclick="location.href='trees.html'">Trees</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="questions">
+            <h2>Questions</h2>
+            <ol style="list-style-type: decimal;">
+                <li onclick="toggleCode(0)">Enter a matrix of 4 rows and 2 columns from the user and display it in matrix format?</li>
+                <li onclick="toggleCode(1)">Enter two Matrices from user, add the matrices and display the answer?</li>
+                <li onclick="toggleCode(2)">Enter two Matrices from user, subtract the matrices and display the answer?</li>
+                <li onclick="toggleCode(3)">Enter two Matrices from user, multiply the matrices and display the answer?</li>
+                <li onclick="toggleCode(4)">Enter a Matrix from user, copy it in another matrix of same size?</li>
+                <li onclick="toggleCode(5)">Enter the Matrix from user, multiply it with a scalar value and display the answer?</li>
+                <li onclick="toggleCode(6)">Create a tic tac toe game using 2D Arrays.</li>
+            </ol>
+        </div>
+
+        <div class="code-output" id="code-output-0">
+            <div class="code-frame">
+                <h2>1. Code</h2>
+<textarea readonly>
+/*1. Enter a matrix of 4 rows and 2 columns from the user display it in
+matrix form.*/
+#include<stdio.h>
+    void display(int i,int j,int mat[i][j])
+    {
+    //	int i,j;
+        printf("\nMatrix Format\n");
+        for(i=0;i<4;i++) //rows
+        {
+            for(j=0;j<2;j++)
+            {
+                printf("%d ",mat[i][j]);
+            }
+            printf("\n");
+        }
+        
+    }
+    int main()
+    {
+        int mat[4][2];
+        int i,j;
+    //i=rows , j=columns	
+        printf("Enter the elements of matrix : ");
+        for(i=0;i<4;i++)
+        {
+            for(j=0;j<2;j++)
+            {
+                scanf("%d",&mat[i][j]);
+            }
+        }
+        display(i,j,mat);		
+    }
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+Enter matrix of 4 rows and 2 columns:
+Enter the element:10
+Enter the element:20
+Enter the element:30
+Enter the element:40
+Enter the element:50
+Enter the element:60
+Enter the element:70
+Enter the element:80
+
+The matrix form is:
+	10	20
+	30	40
+	50	60
+	70	80
+                </textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-1">
+            <div class="code-frame">
+                <h2>2. Code</h2>
+<textarea readonly>
+/*2. Enter two Matrices from user, add the matrices and display the 
+answer*/
+#include<stdio.h>
+    void add(int r,int c,int i,int j,int mat1[i][j],int mat2[i][j])
+    {
+        int mat3[i][j];
+        printf("\nMatrix Format\n");
+        
+        for(i=0;i<r;i++) //rows
+        {
+            for(j=0;j<c;j++)
+            {
+                mat3[i][j]=mat1[i][j]+mat2[i][j];	//printf("%d ",mat[i][j]);
+            }
+        //	printf("\n");
+        }
+        printf("\nOutput\n");
+        for(i=0;i<r;i++) //rows
+        {
+            for(j=0;j<c;j++)
+            {
+                printf("%d ",mat3[i][j]);	//printf("%d ",mat[i][j]);
+            }
+            printf("\n");
+        }
+    
+    }
+    int main()
+    {
+        int r,c;
+        int i,j;
+        int mat1[3][3];
+        int mat2[3][3];
+    //i=rows , j=columns
+        printf("Enter the no of rows and columns : ");
+        scanf("%d%d",&r,&c);	
+        printf("Enter the elements of matrix 1 : ");
+        for(i=0;i<r;i++)
+        {
+            for(j=0;j<c;j++)
+            {
+                scanf("%d",&mat1[i][j]);
+            }
+        }
+        printf("Enter the elements of matrix 2 : ");
+        for(i=0;i<r;i++)
+        {
+            for(j=0;j<c;j++)
+            {
+                scanf("%d",&mat2[i][j]);
+            }
+        }
+        add(r,c,i,j,mat1,mat2);		
+    }
+
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Enter the no of rows and columns : 3
+    3
+    Enter the elements of matrix 1 : 1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    Enter the elements of matrix 2 : 10
+    11
+    12
+    13
+    14
+    15
+    16
+    17
+    18
+    
+    Matrix Format
+    
+    Output
+    11 13 15
+    17 19 21
+    23 25 27
+</textarea>
+            </div>
+        </div>
+
+        <div class="code-output" id="code-output-2">
+            <div class="code-frame">
+                <h2>3. Code</h2>
+<textarea readonly>
+/*3. Enter two Matrices from user, subtract the matrices and display the answer*/
+#include<stdio.h>
+    void subtract(int r,int c,int i,int j,int mat1[i][j],int mat2[i][j])
+    {
+        int mat3[i][j];
+        printf("\nMatrix Format\n");
+        for(i=0;i<r;i++) //rows
+        {
+            for(j=0;j<c;j++)
+            {
+                mat3[i][j]=mat1[i][j]-mat2[i][j];	//printf("%d ",mat[i][j]);
+            }
+        //	printf("\n");
+        }
+        for(i=0;i<r;i++) //rows
+        {
+            for(j=0;j<c;j++)
+            {
+                printf("%d ",mat3[i][j]);	//printf("%d ",mat[i][j]);
+            }
+            printf("\n");
+        }
+    
+    }
+    int main()
+    {
+        int r,c;
+        int i,j;
+        int mat1[3][3];
+        int mat2[3][3];
+    //i=rows , j=columns
+        printf("Enter the no of rows and columns : ");
+        scanf("%d%d",&r,&c);	
+        printf("Enter the elements of matrix 1 : ");
+        for(i=0;i<r;i++)
+        {
+            for(j=0;j<c;j++)
+            {
+                scanf("%d",&mat1[i][j]);
+            }
+        }
+        printf("Enter the elements of matrix 2 : ");
+        for(i=0;i<r;i++)
+        {
+            for(j=0;j<c;j++)
+            {
+                scanf("%d",&mat2[i][j]);
+            }
+        }
+        subtract(r,c,i,j,mat1,mat2);		
+    }
+</textarea>
+            </div>
+            <div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Enter the no of rows and columns : 3
+    3
+    Enter the elements of matrix 1 : 10
+    11
+    12
+    13
+    14
+    15
+    16
+    17
+    18
+    Enter the elements of matrix 2 : 9
+    8
+    7
+    6
+    5
+    4
+    3
+    2
+    1
+    
+    Matrix Format
+    1 3 5 
+    7 9 11 
+    13 15 17
+</textarea>
+            </div>
+        </div>
+<div class="code-output" id="code-output-3">
+            <div class="code-frame">
+                <h2>4. Code</h2>
+<textarea readonly>
+/*4. Enter two Matrices from user, multiply the matrices and display the answer*/
+void multiply_mat(int r,int c,int i,int j,int mat1[i][j],int mat2[i][j])
+{
+	int mat3[i][j];
+	printf("\nMatrix Format\n");
+	for(i=0;i<r;i++) //rows
+	{
+		for(j=0;j<c;j++)
+		{
+			if(i==0&&j==0)  //mat3[0][0]
+			{
+				mat3[i][j]=(mat1[i][j]*mat2[i][j])+(mat1[i][j+1]*mat2[i+1][j]);
+			}
+			else if(i==0&&j==1)  //mat3[0][1]
+			{
+				mat3[i][j]=(mat1[i][j-1]*mat2[i][j])+(mat1[i][j]*mat2[i+1][j]);
+			}
+			else if(i==1&&j==0)  //mat3[1][0]
+			{
+				mat3[i][j]=(mat1[i][j]*mat2[i-1][j])+(mat1[i][j+1]*mat2[i][j]);
+			}
+			else if(i==1&&j==1)  //mat3[1][1]
+			{
+				mat3[i][j]=(mat1[i][j-1]*mat2[i-1][j])+(mat1[i][j]*mat2[i][j]);
+			}
+		}
+	}
+	for(i=0;i<r;i++) //rows
+	{
+		for(j=0;j<c;j++)
+		{
+			printf("%d ",mat3[i][j]);	//printf("%d ",mat[i][j]);
+		}
+		printf("\n");
+	}
+}
+int main()
+{
+	int r,c;
+	int i,j;
+	int mat1[2][2];
+	int mat2[2][2];
+//i=rows , j=columns
+	printf("Enter the no of rows and columns : ");
+	scanf("%d%d",&r,&c);	
+	printf("Enter the elements of matrix 1 : ");
+	for(i=0;i<r;i++)
+	{
+		for(j=0;j<c;j++)
+		{
+			scanf("%d",&mat1[i][j]);
+		}
+	}
+	printf("Enter the elements of matrix 2 : ");
+	for(i=0;i<r;i++)
+	{
+		for(j=0;j<c;j++)
+		{
+			scanf("%d",&mat2[i][j]);
+		}
+	}
+	multiply_mat(r,c,i,j,mat1,mat2);		
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Enter the no of rows and columns : 2
+    2
+    Enter the elements of matrix 1 : 2
+    4
+    6
+    8
+    Enter the elements of matrix 2 : 1
+    3
+    6
+    9
+    
+    Matrix Format
+    26 42 
+    54 90
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-4">
+            <div class="code-frame">
+                <h2>5. Code</h2>
+<textarea readonly>
+    //5. Enter a Matrix from user, copy it in another matrix of same size
+    #include<stdio.h>
+    void copy_mat(int r,int c,int i,int j,int mat1[i][j])
+    {
+        int mat2[i][j];
+        for(i=0;i<r;i++) //rows
+        {
+            for(j=0;j<c;j++)
+            {
+                mat2[i][j]=mat1[i][j];	//copy operation
+            }
+        }
+        printf("\nMatrix Format\n");
+        for(i=0;i<r;i++) //rows
+        {
+            for(j=0;j<c;j++)
+            {
+                printf("%d ",mat2[i][j]);	//printf("%d ",mat[i][j]);
+            }
+            printf("\n");
+        }
+    
+    }
+    int main()
+    {
+        int r,c;
+        int i,j;
+        int mat1[3][3];
+    //i=rows , j=columns
+        printf("Enter the no of rows and columns : ");
+        scanf("%d%d",&r,&c);	
+        printf("Enter the elements of matrix : ");
+        for(i=0;i<r;i++)
+        {
+            for(j=0;j<c;j++)
+            {
+                scanf("%d",&mat1[i][j]);
+            }
+        }
+    
+        copy_mat(r,c,i,j,mat1);		
+    }
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+<textarea readonly>
+    Enter the no of rows and columns : 2
+    2
+    Enter the elements of matrix : 2
+    4
+    6
+    8
+    
+    Matrix Format
+    2 4 
+    6 8 
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-5">
+            <div class="code-frame">
+                <h2>6. Code</h2>
+<textarea readonly>
+//6. Enter the Matrix from user, multiply it with a scalar value and display the answer
+#include<stdio.h>
+    void copy_mat(int r,int c,int i,int j,int mat1[i][j],int value)
+    {
+        int mat2[i][j];
+        for(i=0;i<r;i++) //rows
+        {
+            for(j=0;j<c;j++)
+            {
+                mat2[i][j]=value*mat1[i][j];	//multiplying scalar value operation
+            }
+        }
+        printf("\nMatrix Format\n");
+        for(i=0;i<r;i++) //rows
+        {
+            for(j=0;j<c;j++)
+            {
+                printf("%d ",mat2[i][j]);	//printf("%d ",mat[i][j]);
+            }
+            printf("\n");
+        }
+    
+    }
+    int main()
+    {
+        int r,c;
+        int i,j,value;
+        int mat1[3][3];
+    //i=rows , j=columns
+        printf("Enter the no of rows and columns : ");
+        scanf("%d%d",&r,&c);	
+        printf("Enter the elements of matrix : ");
+        for(i=0;i<r;i++)
+        {
+            for(j=0;j<c;j++)
+            {
+                scanf("%d",&mat1[i][j]);
+            }
+        }
+        printf("Enter a scalar value : ");
+        scanf("%d",&value);
+    
+        copy_mat(r,c,i,j,mat1,value);		
+    }
+</textarea>
+</div>
+<div class="output-frame">
+<h2>Output</h2>
+<textarea readonly>
+    Enter the no of rows and columns : 3
+    3
+    Enter the elements of matrix : 1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    Enter a scalar value : 12
+    
+    Matrix Format
+    12 24 36 
+    48 60 72 
+    84 96 108 
+</textarea>
+</div>
+</div>
+<div class="code-output" id="code-output-6">
+            <div class="code-frame">
+                <h2>7. Code</h2>
+                <textarea readonly>
+//7. Create a tic tac toe game using 2D Arrays.
+#include <stdio.h>
+#define SIZE 3
+
+void initializeBoard(char board[SIZE][SIZE])
+{
+    int i,j;
+    for(i=0;i<SIZE;i++)
+    {
+        for(j=0;j<SIZE;j++)
+        {
+            board[i][j]=' ';
+        }
+    }
+}
+void printBoard(char board[SIZE][SIZE]) 
+{
+    int i,j;
+    printf("\n");
+    for(i=0;i<SIZE;i++)
+    {
+        for(j=0;j<SIZE;j++)
+        {
+            printf("%c",board[i][j]);
+            if(j<SIZE-1)
+            {
+                printf(" | ");
+            }
+        }
+        printf("\n");
+        if(i<SIZE-1) 
+        {
+            printf("---------\n");
+        }
+    }
+    printf("\n");
+}
+int checkWin(char board[SIZE][SIZE],char player) 
+{
+    int i;
+    for(i=0;i<SIZE;i++)
+    {
+        if((board[i][0]==player && board[i][1]==player && board[i][2]==player) ||
+            (board[0][i]==player && board[1][i]==player && board[2][i]==player)) 
+            {
+                return 1;
+            }
+    }
+    if((board[0][0]==player && board[1][1]==player && board[2][2]== player) ||
+        (board[0][2]==player && board[1][1]==player && board[2][0] ==player)) 
+        {
+            return 1;
+        }
+        return 0;
+}
+
+int main() 
+{
+    char board[SIZE][SIZE];
+    initializeBoard(board);
+    char player='X';
+    int moves=0;
+    int row,col;
+
+    while (1) 
+    {
+        printBoard(board);
+        printf("Player %c, enter your move (row and column): ", player);
+        scanf("%d %d",&row,&col);
+
+        if(row<0 || row>=SIZE || col<0 || col>=SIZE || board[row][col]!=' ')
+        {
+            printf("Invalid move! Try again.\n");
+            continue;
+        }
+        board[row][col]=player;
+        moves++;
+        if(checkWin(board, player)) 
+        {
+            printBoard(board);
+            printf("Player %c wins!\n",player);
+            break;
+        }
+        if(moves==SIZE*SIZE)
+        {
+            printBoard(board);
+            printf("It's a draw!\n");
+            break;
+        }
+        player=(player=='X')?'O':'X';
+    }
+    return 0;
+}
+</textarea>
+</div>
+<div class="output-frame">
+                <h2>Output</h2>
+                <textarea readonly>
+
+  |   |  
+---------
+  |   |  
+---------
+  |   |  
+
+Player X, enter your move (row and column): 1 1
+
+  |   |  
+---------
+  | X |  
+---------
+  |   |  
+
+Player O, enter your move (row and column): 0 2
+
+  |   | O
+---------
+  | X |  
+---------
+  |   |  
+
+Player X, enter your move (row and column): 2 1
+
+  |   | O
+---------
+  | X |  
+---------
+  | X |  
+
+Player O, enter your move (row and column): 1 2
+
+  |   | O
+---------
+  | X | O
+---------
+  | X |  
+
+Player X, enter your move (row and column): 0 1
+
+  | X | O
+---------
+  | X | O
+---------
+  | X |  
+
+Player X wins!
+</textarea>
+</div>
+</div>
+
+    </div>
+    <footer>
+        <p>&copy; 2024 My Stylish Website. All rights reserved.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+
+    </div>
+
+    <script>
+        function toggleCode(index) {
+            const codeSections = document.querySelectorAll('.code-output');
+            codeSections.forEach((section, idx) => {
+                section.style.display = idx === index ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
